@@ -1,0 +1,59 @@
+```plantuml
+@startuml UniFoundUseCase
+left to right direction
+skinparam shadowing false
+skinparam packageStyle rectangle
+
+actor "Sinh viên" as Student
+actor "Sinh viên bị mất đồ" as Loser
+actor "Sinh viên nhặt được đồ" as Finder
+
+Loser --|> Student
+Finder --|> Student
+
+rectangle "Hệ thống UniFound" {
+  usecase "Xem, tìm kiếm và\nlọc báo cáo" as UC_Browse
+  usecase "Xem chi tiết báo cáo" as UC_Detail
+
+  usecase "Tạo báo cáo mất đồ\n(Lost Report)" as UC_CreateLost
+  usecase "Tạo báo cáo nhặt được đồ\n(Found Report)" as UC_CreateFound
+
+  usecase "Xem các kết quả\ncó khả năng trùng khớp" as UC_Matches
+  usecase "Gửi yêu cầu nhận lại đồ\n(Claim)" as UC_Claim
+
+  usecase "Theo dõi trạng thái\nbáo cáo và yêu cầu nhận đồ" as UC_Track
+  usecase "Đánh dấu đồ đã được trả lại\n(Returned)" as UC_Returned
+
+  usecase "Tính điểm trùng khớp\n(match score) theo quy tắc" as UC_Score
+}
+
+Student --> UC_Browse
+Student --> UC_Detail
+Student --> UC_Track
+
+Loser --> UC_CreateLost
+Loser --> UC_Matches
+Loser --> UC_Claim
+
+Finder --> UC_CreateFound
+Finder --> UC_Returned
+
+UC_CreateLost ..> UC_Score : <<include>>
+UC_CreateFound ..> UC_Score : <<include>>
+UC_Matches ..> UC_Score : <<include>>
+UC_Claim ..> UC_Detail : <<extend>>
+
+note bottom of UC_Score
+  Điểm trùng khớp chỉ dùng để gợi ý
+  các báo cáo có khả năng liên quan,
+  không dùng để xác nhận quyền sở hữu.
+end note
+
+note bottom of UC_Returned
+  Người được phép đánh dấu "Đã trả lại"
+  và điều kiện chuyển trạng thái sẽ được 
+  mô tả chi tiết trong state diagram.
+end note
+
+@enduml
+```
