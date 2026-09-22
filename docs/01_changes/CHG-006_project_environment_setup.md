@@ -1,7 +1,7 @@
 # CHG-006: cài framework/package và cấu hình môi trường
 
 - ID: `CHG-006`
-- Trạng thái: `in_progress`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-22`
 - Sprint/Milestone: `Sprint 1 / MVP foundation`
 - Người phụ trách: `Huy`
@@ -10,8 +10,8 @@
 - Notion Task: `cài framework/package và cấu hình môi trường`
 - Dependency: `CHG-005`
 - Branch: `chore/project-environment-setup`
-- PR: `chưa có`
-- Commit sau merge: `chưa có`
+- PR: `https://github.com/JohnnyPhan1712/unifound/pull/1`
+- Commit sau merge: `dd3f456`
 - File/module dự kiến sửa: `package.json`, lockfile, config root, `.env.example`, app shell, setup documentation
 - Phạm vi ownership: `root manifests và tool configuration`
 - Thời gian Sprint: `2026-09-23` đến `2026-09-29`
@@ -53,7 +53,7 @@ Thành viên trong nhóm có thể cài dependencies, chạy UniFound ở local,
 
 ## Kiểm tra và bằng chứng
 
-- Kết quả: `đang thực hiện; app shell và tooling nền tảng đã kiểm chứng cục bộ`
+- Kết quả: `đã hoàn thành; acceptance criteria đạt và PR #1 đã được merge vào main`
 - Runtime: `Node v24.20.0`, `npm 11.19.0`, lockfile: `package-lock.json`
 - Đã đạt: `npm install`, `npm run typecheck`, `npm test` (1 test), `npm run build`, `npm audit --omit=dev` (0 runtime vulnerabilities)
 - Đã cấu hình: `npm run dev`, `npm run test:e2e`, `.env.example`, app shell tại `src/app/`
