@@ -1,6 +1,6 @@
 # Phát triển
 
-> Trạng thái: **Not Started**. File này chỉ phản ánh implementation có bằng chứng; thiết kế dự kiến nằm trong `02_requirements_design.md`.
+> Trạng thái: **CHG-006 app shell implemented; feature development not started**. File này chỉ phản ánh implementation có bằng chứng; thiết kế dự kiến nằm trong `02_requirements_design.md`.
 
 ## 1. Technology Stack
 
@@ -8,10 +8,10 @@ Stack mục tiêu đã chốt tại [DEC-004](02_requirements_design.md#dec-004-
 
 | Thành phần | Công nghệ/phiên bản | Trạng thái | Bằng chứng |
 |---|---|---|---|
-| Frontend | Next.js, TypeScript, Tailwind CSS | Not Started | Chưa có source/lockfile |
-| Backend | Next.js server, Zod, Drizzle ORM | Not Started | Chưa có source/lockfile |
-| Data storage/Auth | PostgreSQL + Supabase, Supabase Auth | Not Started | Chưa có schema/migration |
-| Testing | Vitest, Playwright | Not Started | Chưa có test/config |
+| Frontend | Next.js 16.3.5, TypeScript 7.0.2, Tailwind CSS 4.3.3 | Implemented (app shell) | `src/app/`, `package-lock.json`, `npm run build` |
+| Backend | Next.js server, Zod 4.6.5, Drizzle ORM 0.45.3 | Tooling installed; feature not started | `package.json`, chưa có schema/client |
+| Data storage/Auth | PostgreSQL + Supabase, Supabase Auth | Planned | `.env.example`; thuộc CHG-007/008 |
+| Testing | Vitest 5.0.1, Playwright 1.63.0 | Baseline configured | `vitest.config.ts`, `playwright.config.ts` |
 | Deployment | Vercel | Not Started | Chưa có URL/build |
 
 Phiên bản thực tế phải lấy từ manifest/lockfile, không suy ra từ tài liệu brainstorm.
@@ -20,26 +20,26 @@ Phiên bản thực tế phải lấy từ manifest/lockfile, không suy ra từ
 
 | Thành phần | Phiên bản | Trạng thái |
 |---|---|---|
-| Node.js | `TBD` | Chưa có manifest/toolchain config |
-| Package manager | `TBD` | Chưa có lockfile |
-| TypeScript | `TBD` | Planned; chưa có `package.json` |
+| Node.js | `v24.20.0` | Verified locally |
+| Package manager | `npm 11.19.0` | Verified locally; generated `package-lock.json` |
+| TypeScript | `7.0.2` | Installed and typecheck passed |
 
 Không tự chọn version trước khi project được khởi tạo và kiểm tra.
 
 ## 3. Main packages
 
-Hiện chưa có `package.json`; không package nào được ghi là Installed.
+Các package nền tảng đã được cài trong `package.json` và lockfile npm.
 
-| Mục đích | Package dự kiến | Trạng thái |
+| Mục đích | Package/version thực tế | Trạng thái |
 |---|---|---|
-| Application | `next`, `typescript` | Planned |
-| UI | `tailwindcss` | Planned |
-| Validation | `zod` | Planned |
-| ORM | `drizzle-orm` | Planned |
-| Supabase/Auth client | `@supabase/supabase-js` | Planned |
-| Unit Test | `vitest` | Planned |
-| End-to-End Test | `@playwright/test` | Planned |
-| PostgreSQL driver và công cụ Migration | `TBD` | Chưa chốt theo implementation |
+| Application | `next@16.3.5`, `react@19.3.0`, `react-dom@19.3.0`, `typescript@7.0.2` | Installed |
+| UI | `tailwindcss@4.3.3`, `@tailwindcss/postcss@4.3.3` | Installed |
+| Validation | `zod@4.6.5` | Installed |
+| ORM | `drizzle-orm@0.45.3` | Installed; schema/client thuộc CHG-007 |
+| Supabase/Auth client | `@supabase/supabase-js@2.117.0` | Installed; auth thuộc CHG-008 |
+| Unit Test | `vitest@5.0.1` | Installed; baseline passed |
+| End-to-End Test | `@playwright/test@1.63.0` | Installed; browser launch blocked in current environment |
+| PostgreSQL driver và công cụ Migration | `drizzle-kit@0.31.11` | Installed; migration thuộc CHG-007 |
 
 Package và version cuối cùng phải được cập nhật từ `package.json`/lockfile sau khi cài đặt.
 
@@ -57,15 +57,16 @@ Tên biến phải được xác nhận lại theo code và cấu hình Supabase
 
 ## 5. Local development
 
-Chưa có implementation hoặc scripts đã kiểm tra. Các lệnh sau giữ `TBD` đến khi tồn tại trong `package.json`:
+Scripts đã được khai báo trong `package.json`:
 
 | Thao tác | Lệnh | Trạng thái |
 |---|---|---|
-| Install | `TBD` | Chờ chọn package manager |
-| Run development | `TBD` | Chờ khởi tạo project |
-| Unit Test | `TBD` | Chờ setup Vitest |
-| End-to-End Test | `TBD` | Chờ setup Playwright |
-| Build | `TBD` | Chờ khởi tạo project |
+| Install | `npm ci` | Cấu hình sẵn; `npm install` đã chạy thành công |
+| Run development | `npm run dev` | Configured; app shell dùng static rendering |
+| Unit Test | `npm test` | Passed: 1 test |
+| End-to-End Test | `npm run test:e2e` | Configured; browser launch trả `spawn UNKNOWN` trên môi trường hiện tại |
+| Typecheck | `npm run typecheck` | Passed |
+| Build | `npm run build` | Passed |
 
 ## 6. Database workflow
 
@@ -102,13 +103,15 @@ Chỉ ghi lệnh chạy sau khi config và script tương ứng tồn tại, ch�
 ```text
 unifound/
 ├── src/
-│   ├── app/      # vị trí Next.js app; chưa có source
+│   ├── app/      # Next.js app shell; feature routes chưa triển khai
 │   └── db/       # vị trí Drizzle schema/client; chưa có source
 ├── drizzle/      # vị trí Migration; hiện rỗng
 ├── tests/e2e/    # vị trí Playwright test; hiện rỗng
 ├── public/       # static asset; hiện rỗng
 └── docs/         # tài liệu dự án
 ```
+
+CHG-006 đã thêm root config, `.env.example`, app shell và baseline test. `src/db/` và `drizzle/` chưa có schema/migration/client vì thuộc CHG-007.
 
 Layout một application ở root thay cho ba project `frontend/`, `backend/`, `database/`. Cấu trúc chi tiết theo [`folder-structure.md`](../00_guides/01_conventions/folder-structure.md); package/config chỉ được tạo khi khởi tạo implementation.
 
@@ -131,4 +134,4 @@ Mỗi quyết định đáng kể phải có CHG và cập nhật file này sau 
 
 ## 12. Hạn chế hiện tại
 
-Chưa có ứng dụng chạy được, test, demo data hoặc deployment. Không có feature nào được xem là implemented.
+App shell đã build được và unit test đã pass; chưa có database schema, auth, demo data hoặc feature nghiệp vụ. Playwright config và smoke test đã có nhưng browser không khởi chạy được trong môi trường hiện tại với lỗi `spawn UNKNOWN`.

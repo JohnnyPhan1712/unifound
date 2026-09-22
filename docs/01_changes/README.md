@@ -9,7 +9,7 @@ Mỗi CHG tương ứng với một Task trên Notion và một kết quả có 
 | [`CHG-003`](CHG-003_finalize_mvp_decisions.md) | Chốt quyết định MVP | `done` | Chốt quyết định MVP UniFound |
 | [`CHG-004`](CHG-004_document_technology_stack.md) | Hoàn thiện tài liệu Technology Stack | `done` | Hoàn thiện tài liệu Technology Stack UniFound |
 | [`CHG-005`](CHG-005_align_repository_structure.md) | Đồng bộ cấu trúc repository với Technology Stack | `done` | Đồng bộ cấu trúc repository UniFound |
-| [`CHG-006`](CHG-006_project_environment_setup.md) | cài framework/package và cấu hình môi trường | `proposed` | cài framework/package và cấu hình môi trường |
+| [`CHG-006`](CHG-006_project_environment_setup.md) | cài framework/package và cấu hình môi trường | `in_progress` | cài framework/package và cấu hình môi trường |
 | [`CHG-007`](CHG-007_database_schema_and_migrations.md) | tạo schema database và migration | `proposed` | tạo schema database và migration |
 | [`CHG-008`](CHG-008_auth_and_ownership.md) | tích hợp đăng nhập và phân quyền sở hữu | `proposed` | tích hợp đăng nhập và phân quyền sở hữu |
 | [`CHG-009`](CHG-009_report_discovery_and_submission.md) | xây chức năng đăng, tìm và xem chi tiết report | `proposed` | xây chức năng đăng, tìm và xem chi tiết report |
