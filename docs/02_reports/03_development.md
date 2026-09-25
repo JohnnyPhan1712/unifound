@@ -1,6 +1,10 @@
 # Phát triển
 
+<<<<<<< HEAD
 > Trạng thái: **CHG-007 database schema and migrations implemented & verified on Supabase; auth and feature development pending**. File này chỉ phản ánh implementation có bằng chứng; thiết kế dự kiến nằm trong `02_requirements_design.md`.
+=======
+> Trạng thái: **CHG-008 auth & ownership implemented & verified; report discovery and matching pending**. File này chỉ phản ánh implementation có bằng chứng; thiết kế dự kiến nằm trong `02_requirements_design.md`.
+>>>>>>> fa95b3b (Add code by Quan)
 
 ## 1. Technology Stack
 
@@ -8,10 +12,17 @@ Stack mục tiêu đã chốt tại [DEC-004](02_requirements_design.md#dec-004-
 
 | Thành phần | Công nghệ/phiên bản | Trạng thái | Bằng chứng |
 |---|---|---|---|
+<<<<<<< HEAD
 | Frontend | Next.js 16.3.5, TypeScript 7.0.2, Tailwind CSS 4.3.3 | Implemented (app shell) | `src/app/`, `package-lock.json`, `npm run build` |
 | Backend | Next.js server, Zod 4.6.5, Drizzle ORM 0.45.3, postgres 3.4.5, @supabase/ssr 0.9.0 | Implemented (schema/client/migration) | `src/db/schema.ts`, `src/db/index.ts`, `drizzle/` |
 | Data storage/Auth | PostgreSQL + Supabase, Supabase Auth | Verified on Supabase; auth belongs to CHG-008 | `drizzle/0000_massive_sphinx.sql`, Supabase project `bbbufhoruqmrgivrlqot` |
 | Testing | Vitest 5.0.1, Playwright 1.63.0 | Baseline configured & schema tests | `vitest.config.ts`, `src/db/schema.test.ts` (10 tests passed) |
+=======
+| Frontend | Next.js 16.3.5, TypeScript 7.0.2, Tailwind CSS 4.3.3 | Implemented (app shell, auth UI) | `src/app/`, `src/components/`, `package-lock.json`, `npm run build` |
+| Backend | Next.js server, Zod 4.6.5, Drizzle ORM 0.45.3, postgres 3.4.5, @supabase/ssr 0.9.0 | Implemented (schema/client/migration/auth actions) | `src/db/`, `src/lib/auth/`, `drizzle/` |
+| Data storage/Auth | PostgreSQL + Supabase, Supabase Auth | Verified on Supabase; Auth Actions & Ownership ready | `drizzle/0000_massive_sphinx.sql`, `src/lib/auth/` |
+| Testing | Vitest 5.0.1, Playwright 1.63.0 | Configured & 25 Unit tests passed | `vitest.config.ts`, `src/db/schema.test.ts`, `src/lib/auth/ownership.test.ts` |
+>>>>>>> fa95b3b (Add code by Quan)
 | Deployment | Vercel | Not Started | Chưa có URL/build |
 
 Phiên bản thực tế phải lấy từ manifest/lockfile, không suy ra từ tài liệu brainstorm.
@@ -36,8 +47,13 @@ Các package nền tảng đã được cài trong `package.json` và lockfile n
 | UI | `tailwindcss@4.3.3`, `@tailwindcss/postcss@4.3.3` | Installed |
 | Validation | `zod@4.6.5` | Installed |
 | ORM | `drizzle-orm@0.45.3` | Implemented | `src/db/schema.ts`, `src/db/index.ts` |
+<<<<<<< HEAD
 | Supabase/Auth client | `@supabase/supabase-js@2.117.0`, `@supabase/ssr@0.9.0` | Installed | `src/utils/supabase/`, `src/middleware.ts` |
 | Unit Test | `vitest@5.0.1` | Installed; baseline & schema tests passed |
+=======
+| Supabase/Auth client | `@supabase/supabase-js@2.117.0`, `@supabase/ssr@0.9.0` | Implemented & verified | `src/utils/supabase/`, `src/lib/auth/`, `src/middleware.ts` |
+| Unit Test | `vitest@5.0.1` | Installed; 25 tests passed |
+>>>>>>> fa95b3b (Add code by Quan)
 | End-to-End Test | `@playwright/test@1.63.0` | Installed; browser launch blocked in current environment |
 | PostgreSQL driver và công cụ Migration | `drizzle-kit@0.31.11`, `postgres@3.4.5` | Implemented & verified | `drizzle/`, `src/db/migrate.ts`, `src/db/seed.ts` |
 
@@ -63,11 +79,19 @@ Scripts đã được khai báo trong `package.json`:
 | Thao tác | Lệnh | Trạng thái |
 |---|---|---|
 | Install | `npm ci` | Cấu hình sẵn; `npm install` đã chạy thành công |
+<<<<<<< HEAD
 | Run development | `npm run dev` | Configured; app shell dùng static rendering |
 | Unit Test | `npm test` | Passed: 10 tests (1 app test, 9 schema tests) |
 | End-to-End Test | `npm run test:e2e` | Configured; browser launch trả `spawn UNKNOWN` trên môi trường hiện tại |
 | Typecheck | `npm run typecheck` | Passed |
 | Build | `npm run build` | Passed |
+=======
+| Run development | `npm run dev` | Configured; app shell & auth routes |
+| Unit Test | `npm test` | Passed: 25 tests (1 app test, 9 schema tests, 15 auth/ownership tests) |
+| End-to-End Test | `npm run test:e2e` | Configured; browser launch trả `spawn UNKNOWN` trên môi trường hiện tại |
+| Typecheck | `npm run typecheck` | Passed |
+| Build | `npm run build` | Passed: Next.js 16 build thành công |
+>>>>>>> fa95b3b (Add code by Quan)
 | Sinh migration | `npm run db:generate` | Passed: sinh `drizzle/0000_massive_sphinx.sql` |
 | Chạy migration | `npm run db:migrate` | Passed: áp dụng 100% lên Supabase PostgreSQL |
 | Đồng bộ schema | `npm run db:push` | Configured |
@@ -92,7 +116,11 @@ PostgreSQL trên Supabase (Verified)
 
 | Công cụ | Phạm vi chính | Lệnh | Trạng thái |
 |---|---|---|---|
+<<<<<<< HEAD
 | Vitest | Matching score, validation helper, state transition, schema contract | `npm test` | Passed: 10 tests |
+=======
+| Vitest | Matching score, validation helper, state transition, schema contract, auth & ownership rules | `npm test` | Passed: 25 tests |
+>>>>>>> fa95b3b (Add code by Quan)
 | Playwright | Luồng login → report → claim → accept → returned trên ứng dụng hoàn chỉnh | `npm run test:e2e` | Configured; browser launch blocked in current environment |
 
 Chỉ ghi lệnh chạy sau khi config và script tương ứng tồn tại, chạy thành công.
@@ -109,6 +137,7 @@ Chỉ ghi lệnh chạy sau khi config và script tương ứng tồn tại, ch�
 ```text
 unifound/
 ├── src/
+<<<<<<< HEAD
 │   ├── app/      # Next.js app shell; feature routes chưa triển khai
 │   ├── db/       # Drizzle schema, database client, migrate/seed scripts, schema unit tests
 │   ├── utils/    # Supabase SSR server/client/middleware helpers
@@ -122,26 +151,61 @@ unifound/
 CHG-006 đã thêm root config, `.env.example`, app shell và baseline test. CHG-007 đã hoàn thành schema, migration SQL, database client, seed script và schema unit tests trong `src/db/` và `drizzle/`, đồng thời áp dụng thành công lên Supabase.
 
 Layout một application ở root thay cho ba project `frontend/`, `backend/`, `database/`. Cấu trúc chi tiết theo [`folder-structure.md`](../00_guides/01_conventions/folder-structure.md); package/config chỉ được tạo khi khởi tạo implementation.
+=======
+│   ├── app/          # Next.js app shell, /login, /register, root layout với AuthHeader
+│   ├── components/   # AuthHeader component
+│   ├── db/           # Drizzle schema, database client, migrate/seed scripts, schema unit tests
+│   ├── lib/
+│   │   └── auth/     # Auth Server Actions, Zod schemas, Ownership & Authorization helpers & tests
+│   ├── utils/        # Supabase SSR server/client/middleware helpers
+│   └── middleware.ts # Next.js session refresh middleware
+├── drizzle/          # Migration SQL có phiên bản được sinh bởi Drizzle Kit
+├── tests/e2e/        # vị trí Playwright test
+├── public/           # static asset
+└── docs/             # tài liệu dự án
+```
+
+CHG-006 đã thêm root config, `.env.example`, app shell và baseline test. CHG-007 đã hoàn thành schema, migration SQL, database client, seed script và schema unit tests trong `src/db/` và `drizzle/`, đồng thời áp dụng thành công lên Supabase. CHG-008 đã hoàn thành Auth Server Actions, hệ thống kiểm soát quyền sở hữu và giao diện đăng nhập/đăng ký.
+>>>>>>> fa95b3b (Add code by Quan)
 
 ## 10. Trạng thái feature
 
 | Feature | Yêu cầu | Trạng thái | Ghi chú |
 |---|---|---|---|
+<<<<<<< HEAD
 | Feed/tìm lọc report | FR-01 | Planned | Chưa triển khai |
 | Tạo report | FR-02 | Planned | Chưa triển khai |
 | Chi tiết report | FR-03 | Planned | Chưa triển khai |
 | Potential matches | FR-04 | Planned | Rule đã chốt tại DEC-003; chưa triển khai |
 | Claim | FR-05 | Planned | Quy trình đã chốt tại DEC-005; chưa triển khai |
 | My Reports/Returned | FR-06 | Planned | Quyền/state rule đã chốt tại DEC-001/DEC-002; chưa triển khai |
+=======
+| Auth & Phân quyền | DEC-001 | Implemented | Server actions, ownership helpers, login/register UI hoàn tất |
+| Feed/tìm lọc report | FR-01 | Planned | Thuộc CHG-009 |
+| Tạo report | FR-02 | Planned | Thuộc CHG-009 |
+| Chi tiết report | FR-03 | Planned | Thuộc CHG-009 |
+| Potential matches | FR-04 | Planned | Rule đã chốt tại DEC-003; thuộc CHG-010 |
+| Claim | FR-05 | Planned | Quy trình đã chốt tại DEC-005; thuộc CHG-011 |
+| My Reports/Returned | FR-06 | Planned | Quyền/state rule đã chốt tại DEC-001/DEC-002; thuộc CHG-011 |
+>>>>>>> fa95b3b (Add code by Quan)
 
 ## 11. Quyết định và business rule
 
 DEC-001 đến DEC-005 đã được chốt trong [`02_requirements_design.md`](02_requirements_design.md#9-quyết-định-mvp-đã-chốt).
 - CHG-007 đã thể chế hóa các quyết định DEC-001, DEC-002 và DEC-005 vào schema Drizzle và migration PostgreSQL, đã kiểm chứng trên Supabase.
+<<<<<<< HEAD
+=======
+- CHG-008 đã triển khai các hàm kiểm tra ràng buộc sở hữu và quyền truy cập (`src/lib/auth/ownership.ts`).
+>>>>>>> fa95b3b (Add code by Quan)
 - Trước khi code matching (CHG-010) cần đặc tả phần chuẩn hóa keyword/test dataset.
 
 Mỗi quyết định đáng kể phải có CHG và cập nhật file này sau khi được triển khai/kiểm tra.
 
 ## 12. Hạn chế hiện tại
 
+<<<<<<< HEAD
 App shell và database schema/client/migration đã hoàn thành và kiểm chứng trực tiếp trên Supabase; test unit đạt 10/10; Next.js build thành công. Chưa có Supabase Auth runtime (thuộc CHG-008) và UI feature nghiệp vụ (thuộc CHG-009 đến CHG-011). Playwright browser launch vẫn bị hạn chế trong môi trường terminal hiện tại với lỗi `spawn UNKNOWN`.
+=======
+App shell, database schema/client/migration và authentication/authorization đã hoàn thành và kiểm chứng trực tiếp; test unit đạt 25/25; Next.js build thành công. Các màn hình nghiệp vụ tiếp theo (Feed, Create Report, Matching, Claim Flow) thuộc CHG-009 đến CHG-011. Playwright browser launch vẫn bị hạn chế trong môi trường terminal hiện tại với lỗi `spawn UNKNOWN`.
+
+>>>>>>> fa95b3b (Add code by Quan)

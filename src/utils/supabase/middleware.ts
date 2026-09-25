@@ -13,7 +13,16 @@ export const updateSession = async (request: NextRequest) => {
     },
   });
 
+<<<<<<< HEAD
   const supabase = createServerClient(supabaseUrl!, supabaseKey!, {
+=======
+  // Nếu chưa cấu hình Supabase, bỏ qua auth và tiếp tục bình thường
+  if (!supabaseUrl || !supabaseKey) {
+    return supabaseResponse;
+  }
+
+  const supabase = createServerClient(supabaseUrl, supabaseKey, {
+>>>>>>> fa95b3b (Add code by Quan)
     cookies: {
       getAll() {
         return request.cookies.getAll();
