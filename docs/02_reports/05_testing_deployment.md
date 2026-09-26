@@ -18,8 +18,8 @@
 | TC-002 | Tạo Found Report hợp lệ | Lưu và hiển thị đúng dữ liệu/trạng thái | Not Tested |
 | TC-003 | Thiếu tên vật phẩm | Không lưu; hiển thị lỗi rõ | Not Tested |
 | TC-004 | Thiếu category/field bắt buộc | Không lưu; hiển thị lỗi rõ | Not Tested |
-| TC-005 | Matching cùng category/location và ngày gần | Tính score đúng rule đã chốt | Not Tested |
-| TC-006 | Matching khác ngày hoặc thiếu dữ liệu | Không lỗi; điểm/loại trừ đúng rule | Not Tested |
+| TC-005 | Matching cùng category/location và ngày gần | Tính score đúng rule đã chốt | Passed |
+| TC-006 | Matching khác ngày hoặc thiếu dữ liệu | Không lỗi; điểm/loại trừ đúng rule | Passed |
 | TC-007 | Không có potential match | Hiển thị empty state phù hợp | Not Tested |
 | TC-008 | Gửi claim hợp lệ | Lưu claim và cập nhật My Reports | Not Tested |
 | TC-009 | Claim trùng/không hợp lệ | Bị từ chối, không tạo dữ liệu sai | Not Tested |

@@ -1,7 +1,7 @@
 # CHG-010: xây cơ chế gợi ý report trùng khớp
 
 - ID: `CHG-010`
-- Trạng thái: `proposed`
+- Trạng thái: `waiting_for_integration`
 - Ngày tạo: `2026-09-22`
 - Sprint/Milestone: `Sprint 1 / MVP foundation`
 - Người phụ trách: `Thế Anh`
@@ -47,17 +47,21 @@ Sinh viên có thể xem những report Lost và Found có khả năng liên qua
 
 ## Acceptance criteria
 
-- [ ] Cùng input luôn cho cùng output.
-- [ ] Chỉ cặp Lost-to-Found được tính.
-- [ ] Điểm và lý do đúng rule `30/30/20/20`.
-- [ ] Match chỉ đạt khi score từ 50.
-- [ ] Field thiếu không gây lỗi hoặc tạo điểm giả.
-- [ ] Có unit tests cho boundary và edge cases.
+- [x] Cùng input luôn cho cùng output.
+- [x] Chỉ cặp Lost-to-Found được tính.
+- [x] Điểm và lý do đúng rule `30/30/20/20`.
+- [x] Match chỉ đạt khi score từ 50.
+- [x] Field thiếu không gây lỗi hoặc tạo điểm giả.
+- [x] Có unit tests cho boundary và edge cases.
 
 ## Kiểm tra và bằng chứng
 
-- Kết quả: `chưa kiểm tra`
-- Unit test evidence: `chưa có`
+- Kết quả: `đã kiểm tra thành công, 19/19 unit tests đạt 100%, 0 lỗi typecheck, Next.js build thành công`
+- Unit test evidence:
+  - `npx vitest run src/lib/matching`: 19 tests passed (bao gồm boundary, ngưỡng 50 điểm, cặp không hợp lệ, dữ liệu thiếu/null/undefined, tiếng Việt có dấu/không dấu).
+  - `npm test`: 29 tests passed (1 app test + 9 database schema tests + 19 matching tests).
+  - `npm run typecheck`: passed với 0 lỗi.
+  - `npm run build`: Next.js 16 build thành công.
 
 ## Quyết định và ghi chú
 

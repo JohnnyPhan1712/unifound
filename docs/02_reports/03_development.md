@@ -92,7 +92,7 @@ PostgreSQL trên Supabase (Verified)
 
 | Công cụ | Phạm vi chính | Lệnh | Trạng thái |
 |---|---|---|---|
-| Vitest | Matching score, validation helper, state transition, schema contract | `npm test` | Passed: 10 tests |
+| Vitest | Matching score, validation helper, state transition, schema contract | `npm test` | Passed: 29 tests (1 app test, 9 schema tests, 19 matching tests) |
 | Playwright | Luồng login → report → claim → accept → returned trên ứng dụng hoàn chỉnh | `npm run test:e2e` | Configured; browser launch blocked in current environment |
 
 Chỉ ghi lệnh chạy sau khi config và script tương ứng tồn tại, chạy thành công.
@@ -111,6 +111,8 @@ unifound/
 ├── src/
 │   ├── app/      # Next.js app shell; feature routes chưa triển khai
 │   ├── db/       # Drizzle schema, database client, migrate/seed scripts, schema unit tests
+│   ├── lib/
+│   │   └── matching/ # Rule-based matching engine, types, normalization và 19 unit tests
 │   ├── utils/    # Supabase SSR server/client/middleware helpers
 │   └── middleware.ts # Next.js session refresh middleware
 ├── drizzle/      # Migration SQL có phiên bản được sinh bởi Drizzle Kit
@@ -119,7 +121,7 @@ unifound/
 └── docs/         # tài liệu dự án
 ```
 
-CHG-006 đã thêm root config, `.env.example`, app shell và baseline test. CHG-007 đã hoàn thành schema, migration SQL, database client, seed script và schema unit tests trong `src/db/` và `drizzle/`, đồng thời áp dụng thành công lên Supabase.
+CHG-006 đã thêm root config, `.env.example`, app shell và baseline test. CHG-007 đã hoàn thành schema, migration SQL, database client, seed script và schema unit tests trong `src/db/` và `drizzle/`, đồng thời áp dụng thành công lên Supabase. CHG-010 đã triển khai độc lập module matching rule-based tại `src/lib/matching/` đạt 19/19 tests passed.
 
 Layout một application ở root thay cho ba project `frontend/`, `backend/`, `database/`. Cấu trúc chi tiết theo [`folder-structure.md`](../00_guides/01_conventions/folder-structure.md); package/config chỉ được tạo khi khởi tạo implementation.
 
@@ -130,7 +132,7 @@ Layout một application ở root thay cho ba project `frontend/`, `backend/`, `
 | Feed/tìm lọc report | FR-01 | Planned | Chưa triển khai |
 | Tạo report | FR-02 | Planned | Chưa triển khai |
 | Chi tiết report | FR-03 | Planned | Chưa triển khai |
-| Potential matches | FR-04 | Planned | Rule đã chốt tại DEC-003; chưa triển khai |
+| Potential matches | FR-04 | Implemented (unit tested) | Rule 30/30/20/20 theo DEC-003 tại src/lib/matching; 19 tests passed; chờ CHG-009 tích hợp UI |
 | Claim | FR-05 | Planned | Quy trình đã chốt tại DEC-005; chưa triển khai |
 | My Reports/Returned | FR-06 | Planned | Quyền/state rule đã chốt tại DEC-001/DEC-002; chưa triển khai |
 
@@ -138,7 +140,7 @@ Layout một application ở root thay cho ba project `frontend/`, `backend/`, `
 
 DEC-001 đến DEC-005 đã được chốt trong [`02_requirements_design.md`](02_requirements_design.md#9-quyết-định-mvp-đã-chốt).
 - CHG-007 đã thể chế hóa các quyết định DEC-001, DEC-002 và DEC-005 vào schema Drizzle và migration PostgreSQL, đã kiểm chứng trên Supabase.
-- Trước khi code matching (CHG-010) cần đặc tả phần chuẩn hóa keyword/test dataset.
+- CHG-010 đã triển khai quyết định DEC-003: matching quy tắc 30/30/20/20, chuẩn hóa từ khóa tiếng Việt không dấu (độ dài >= 4 ký tự), chênh lệch ngày <= 3 ngày, ngưỡng hiển thị tiềm năng >= 50 điểm, xử lý an toàn dữ liệu thiếu và kiểm chứng qua 19 unit tests độc lập.
 
 Mỗi quyết định đáng kể phải có CHG và cập nhật file này sau khi được triển khai/kiểm tra.
 
