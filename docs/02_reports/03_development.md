@@ -1,6 +1,6 @@
 # Phát triển
 
-> Trạng thái: **CHG-007 database schema and migrations implemented & verified on Supabase; auth and feature development pending**. File này chỉ phản ánh implementation có bằng chứng; thiết kế dự kiến nằm trong `02_requirements_design.md`.
+> Trạng thái: **CHG-007 database schema and migrations implemented & verified on Supabase; CHG-009 report feed/detail verified on Supabase dev, create report waiting for CHG-008**. File này chỉ phản ánh implementation có bằng chứng; thiết kế dự kiến nằm trong `02_requirements_design.md`.
 
 ## 1. Technology Stack
 
@@ -8,10 +8,10 @@ Stack mục tiêu đã chốt tại [DEC-004](02_requirements_design.md#dec-004-
 
 | Thành phần | Công nghệ/phiên bản | Trạng thái | Bằng chứng |
 |---|---|---|---|
-| Frontend | Next.js 16.3.5, TypeScript 7.0.2, Tailwind CSS 4.3.3 | Implemented (app shell) | `src/app/`, `package-lock.json`, `npm run build` |
+| Frontend | Next.js 16.3.5, TypeScript 7.0.2, Tailwind CSS 4.3.3, font Be Vietnam Pro | Implemented (report feed/detail/create — CHG-009, theo mockup `assets/ui/index.html`) | `src/app/`, `package-lock.json`, `npm run build` |
 | Backend | Next.js server, Zod 4.6.5, Drizzle ORM 0.45.3, postgres 3.4.5, @supabase/ssr 0.9.0 | Implemented (schema/client/migration) | `src/db/schema.ts`, `src/db/index.ts`, `drizzle/` |
 | Data storage/Auth | PostgreSQL + Supabase, Supabase Auth | Verified on Supabase; auth belongs to CHG-008 | `drizzle/0000_massive_sphinx.sql`, Supabase project `bbbufhoruqmrgivrlqot` |
-| Testing | Vitest 5.0.1, Playwright 1.63.0 | Baseline configured & schema tests | `vitest.config.ts`, `src/db/schema.test.ts` (10 tests passed) |
+| Testing | Vitest 5.0.1, Playwright 1.63.0 | Baseline configured & schema tests | `vitest.config.ts`, `src/db/schema.test.ts`, `src/app/reports/*.test.ts` (26 tests passed) |
 | Deployment | Vercel | Not Started | Chưa có URL/build |
 
 Phiên bản thực tế phải lấy từ manifest/lockfile, không suy ra từ tài liệu brainstorm.
@@ -63,9 +63,9 @@ Scripts đã được khai báo trong `package.json`:
 | Thao tác | Lệnh | Trạng thái |
 |---|---|---|
 | Install | `npm ci` | Cấu hình sẵn; `npm install` đã chạy thành công |
-| Run development | `npm run dev` | Configured; app shell dùng static rendering |
-| Unit Test | `npm test` | Passed: 10 tests (1 app test, 9 schema tests) |
-| End-to-End Test | `npm run test:e2e` | Configured; browser launch trả `spawn UNKNOWN` trên môi trường hiện tại |
+| Run development | `npm run dev` | Configured; feed/report routes dùng dynamic rendering |
+| Unit Test | `npm test` | Passed: 26 tests (1 app test, 9 schema tests, 16 report validation/display tests) |
+| End-to-End Test | `npm run test:e2e` | Passed: 10 tests trên production build (`next start`); với `next dev`, HMR WebSocket lỗi trong sandbox hiện tại |
 | Typecheck | `npm run typecheck` | Passed |
 | Build | `npm run build` | Passed |
 | Sinh migration | `npm run db:generate` | Passed: sinh `drizzle/0000_massive_sphinx.sql` |
@@ -92,8 +92,8 @@ PostgreSQL trên Supabase (Verified)
 
 | Công cụ | Phạm vi chính | Lệnh | Trạng thái |
 |---|---|---|---|
-| Vitest | Matching score, validation helper, state transition, schema contract | `npm test` | Passed: 10 tests |
-| Playwright | Luồng login → report → claim → accept → returned trên ứng dụng hoàn chỉnh | `npm run test:e2e` | Configured; browser launch blocked in current environment |
+| Vitest | Matching score, validation helper, state transition, schema contract | `npm test` | Passed: 26 tests |
+| Playwright | Luồng login → report → claim → accept → returned trên ứng dụng hoàn chỉnh | `npm run test:e2e` | Passed: 10 tests cho luồng khách xem/tìm/lọc/chi tiết (CHG-009); Chromium cài thủ công vì trình tải Playwright bị timeout |
 
 Chỉ ghi lệnh chạy sau khi config và script tương ứng tồn tại, chạy thành công.
 
@@ -109,12 +109,12 @@ Chỉ ghi lệnh chạy sau khi config và script tương ứng tồn tại, ch�
 ```text
 unifound/
 ├── src/
-│   ├── app/      # Next.js app shell; feature routes chưa triển khai
+│   ├── app/      # Next.js routes: feed `/`, `/reports/new`, `/reports/[id]` (CHG-009)
 │   ├── db/       # Drizzle schema, database client, migrate/seed scripts, schema unit tests
 │   ├── utils/    # Supabase SSR server/client/middleware helpers
 │   └── middleware.ts # Next.js session refresh middleware
 ├── drizzle/      # Migration SQL có phiên bản được sinh bởi Drizzle Kit
-├── tests/e2e/    # vị trí Playwright test; hiện rỗng
+├── tests/e2e/    # Playwright test: app shell, report discovery
 ├── public/       # static asset; hiện rỗng
 └── docs/         # tài liệu dự án
 ```
@@ -127,9 +127,9 @@ Layout một application ở root thay cho ba project `frontend/`, `backend/`, `
 
 | Feature | Yêu cầu | Trạng thái | Ghi chú |
 |---|---|---|---|
-| Feed/tìm lọc report | FR-01 | Planned | Chưa triển khai |
-| Tạo report | FR-02 | Planned | Chưa triển khai |
-| Chi tiết report | FR-03 | Planned | Chưa triển khai |
+| Feed/tìm lọc report | FR-01 | Verified (Supabase dev, E2E) | CHG-009; từ khóa, chip loại tin, danh mục, khu vực; tối đa 50 tin mới nhất |
+| Tạo report | FR-02 | Implemented — chờ CHG-008 | CHG-009; Zod server-side validation đã unit test; cần phiên đăng nhập thật và user trong bảng `users` |
+| Chi tiết report | FR-03 | Verified (Supabase dev, E2E) | CHG-009; chỉ hiển thị cột công khai |
 | Potential matches | FR-04 | Planned | Rule đã chốt tại DEC-003; chưa triển khai |
 | Claim | FR-05 | Planned | Quy trình đã chốt tại DEC-005; chưa triển khai |
 | My Reports/Returned | FR-06 | Planned | Quyền/state rule đã chốt tại DEC-001/DEC-002; chưa triển khai |
@@ -144,4 +144,4 @@ Mỗi quyết định đáng kể phải có CHG và cập nhật file này sau 
 
 ## 12. Hạn chế hiện tại
 
-App shell và database schema/client/migration đã hoàn thành và kiểm chứng trực tiếp trên Supabase; test unit đạt 10/10; Next.js build thành công. Chưa có Supabase Auth runtime (thuộc CHG-008) và UI feature nghiệp vụ (thuộc CHG-009 đến CHG-011). Playwright browser launch vẫn bị hạn chế trong môi trường terminal hiện tại với lỗi `spawn UNKNOWN`.
+App shell và database schema/client/migration đã hoàn thành và kiểm chứng trực tiếp trên Supabase; test unit đạt 26/26; Next.js build thành công. Chưa có Supabase Auth runtime (thuộc CHG-008) và UI matching/claim (thuộc CHG-010, CHG-011). UI report của CHG-009 đã kiểm chứng trên database Supabase dev; tạo report khi đăng nhập phụ thuộc CHG-008. Trong sandbox hiện tại, `next dev` bị lỗi HMR WebSocket nên E2E chạy trên production build.

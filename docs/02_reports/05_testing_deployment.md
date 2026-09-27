@@ -14,17 +14,17 @@
 
 | ID | Test | Kết quả mong đợi | Trạng thái |
 |---|---|---|---|
-| TC-001 | Tạo Lost Report hợp lệ | Lưu và hiển thị đúng dữ liệu/trạng thái | Not Tested |
-| TC-002 | Tạo Found Report hợp lệ | Lưu và hiển thị đúng dữ liệu/trạng thái | Not Tested |
-| TC-003 | Thiếu tên vật phẩm | Không lưu; hiển thị lỗi rõ | Not Tested |
-| TC-004 | Thiếu category/field bắt buộc | Không lưu; hiển thị lỗi rõ | Not Tested |
+| TC-001 | Tạo Lost Report hợp lệ | Lưu và hiển thị đúng dữ liệu/trạng thái | Not Tested — chờ CHG-008 (đăng nhập) |
+| TC-002 | Tạo Found Report hợp lệ | Lưu và hiển thị đúng dữ liệu/trạng thái | Not Tested — chờ CHG-008 (đăng nhập) |
+| TC-003 | Thiếu tên vật phẩm | Không lưu; hiển thị lỗi rõ | Partial — validation server passed (Vitest); UI chưa kiểm tra |
+| TC-004 | Thiếu category/field bắt buộc | Không lưu; hiển thị lỗi rõ | Partial — validation server passed (Vitest); UI chưa kiểm tra |
 | TC-005 | Matching cùng category/location và ngày gần | Tính score đúng rule đã chốt | Not Tested |
 | TC-006 | Matching khác ngày hoặc thiếu dữ liệu | Không lỗi; điểm/loại trừ đúng rule | Not Tested |
 | TC-007 | Không có potential match | Hiển thị empty state phù hợp | Not Tested |
 | TC-008 | Gửi claim hợp lệ | Lưu claim và cập nhật My Reports | Not Tested |
 | TC-009 | Claim trùng/không hợp lệ | Bị từ chối, không tạo dữ liệu sai | Not Tested |
 | TC-010 | Chuyển Found thành Returned | Chỉ actor/state hợp lệ được cập nhật | Not Tested |
-| TC-011 | Responsive năm màn hình | Không tràn/cản trở thao tác chính | Not Tested |
+| TC-011 | Responsive năm màn hình | Không tràn/cản trở thao tác chính | Partial — Passed cho Feed và Create (khách) ở 375px (`tests/e2e/report-discovery.spec.ts`, 2026-09-27); các màn hình còn lại chưa có |
 
 Chi tiết input, precondition, actual result và evidence được bổ sung khi chạy test. Evidence lưu trong `assets/testing/` hoặc liên kết issue/commit.
 
