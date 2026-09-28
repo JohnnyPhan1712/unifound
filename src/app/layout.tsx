@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro } from "next/font/google";
+import { AuthHeader } from "@/components/auth-header";
 import "./globals.css";
-import { SiteHeader } from "./site-header";
 
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
@@ -15,11 +15,13 @@ export const metadata: Metadata = {
   description: "UniFound giúp sinh viên đăng tin và tìm lại đồ thất lạc trong khuôn viên trường.",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="vi" className={beVietnamPro.variable}>
       <body className="flex flex-col font-sans antialiased">
-        <SiteHeader />
+        <AuthHeader />
         <main className="mx-auto w-full max-w-[1180px] flex-1 px-2 pt-3 pb-12 sm:px-4 sm:pt-6">
           {children}
         </main>

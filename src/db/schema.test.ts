@@ -9,11 +9,13 @@ import {
   REPORT_LOCATIONS,
   REPORT_STATUSES,
   CLAIM_STATUSES,
+  USER_ROLES,
   reportTypeEnum,
   reportCategoryEnum,
   reportLocationEnum,
   reportStatusEnum,
   claimStatusEnum,
+  userRoleEnum,
 } from "./schema";
 import { db } from "./index";
 
@@ -70,6 +72,10 @@ describe("Database Schema Contracts (CHG-007)", () => {
       ]);
       expect(claimStatusEnum.enumValues).toEqual(CLAIM_STATUSES);
     });
+    it("should define user roles: USER and ADMIN (CHG-008)", () => {
+      expect(USER_ROLES).toEqual(["USER", "ADMIN"]);
+      expect(userRoleEnum.enumValues).toEqual(["USER", "ADMIN"]);
+    });
   });
 
   describe("Table Column Structure & Constraints", () => {
@@ -79,10 +85,12 @@ describe("Database Schema Contracts (CHG-007)", () => {
       expect(columns).toHaveProperty("email");
       expect(columns).toHaveProperty("fullName");
       expect(columns).toHaveProperty("avatarUrl");
+      expect(columns).toHaveProperty("role");
       expect(columns).toHaveProperty("createdAt");
       expect(columns).toHaveProperty("updatedAt");
 
       expect(columns.email.notNull).toBe(true);
+      expect(columns.role.notNull).toBe(true);
       expect(columns.id.primary).toBe(true);
     });
 

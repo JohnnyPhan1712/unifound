@@ -21,18 +21,28 @@ const DEMO_USERS = [
     email: "student.a@unifound.demo",
     fullName: "Sinh viên A",
     avatarUrl: null,
+    role: "USER" as const,
   },
   {
     id: "00000000-0000-4000-a000-000000000002",
     email: "student.b@unifound.demo",
     fullName: "Sinh viên B",
     avatarUrl: null,
+    role: "USER" as const,
   },
   {
     id: "00000000-0000-4000-a000-000000000003",
     email: "student.c@unifound.demo",
     fullName: "Sinh viên C",
     avatarUrl: null,
+    role: "USER" as const,
+  },
+  {
+    id: "00000000-0000-4000-a000-000000000099",
+    email: "admin@unifound.demo",
+    fullName: "Quản trị viên UniFound",
+    avatarUrl: null,
+    role: "ADMIN" as const,
   },
 ];
 
