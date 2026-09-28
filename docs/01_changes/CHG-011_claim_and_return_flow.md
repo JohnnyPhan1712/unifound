@@ -1,7 +1,7 @@
 # CHG-011: xây luồng claim và hoàn tất nhận lại đồ
 
 - ID: `CHG-011`
-- Trạng thái: `proposed`
+- Trạng thái: `implemented`
 - Ngày tạo: `2026-09-22`
 - Sprint/Milestone: `Sprint 1 / MVP foundation`
 - Người phụ trách: `Phát`
@@ -47,18 +47,18 @@ Sinh viên có thể gửi yêu cầu nhận lại một món Found, cung cấp 
 
 ## Acceptance criteria
 
-- [ ] Người dùng đăng nhập gửi được claim hợp lệ cho Found Report.
-- [ ] Người dùng không thể claim report của chính mình.
-- [ ] Verification data không xuất hiện trên public feed.
-- [ ] Chỉ đúng claimant và chủ Found Report xem được dữ liệu riêng tư.
-- [ ] Chỉ chủ Found Report được accept/reject/mark Returned.
-- [ ] State transition không hợp lệ bị từ chối mà không làm hỏng dữ liệu.
+- [x] Người dùng đăng nhập gửi được claim hợp lệ cho Found Report.
+- [x] Người dùng không thể claim report của chính mình.
+- [x] Verification data không xuất hiện trên public feed.
+- [x] Chỉ đúng claimant và chủ Found Report xem được dữ liệu riêng tư.
+- [x] Chỉ chủ Found Report được accept/reject/mark Returned.
+- [x] State transition không hợp lệ bị từ chối mà không làm hỏng dữ liệu.
 - [ ] Có smoke test cho flow Lost → Match → Claim → Returned hoặc phần flow khả dụng trong Sprint.
 
 ## Kiểm tra và bằng chứng
 
-- Kết quả: `chưa kiểm tra`
-- Test evidence: `chưa có`
+- Kết quả: `đã triển khai`
+- Test evidence: `Chưa chạy smoke test do UI đang tích hợp, nhưng backend actions và components (ClaimList, ClaimModal) đã hoàn tất.`
 
 ## Quyết định và ghi chú
 
