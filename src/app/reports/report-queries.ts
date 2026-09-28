@@ -49,3 +49,22 @@ export const getPublicReport = cache(async (id: string): Promise<PublicReport | 
     .limit(1);
   return report ?? null;
 });
+
+// Extended columns for detail page: includes imageUrl and userId for claim logic (CHG-011).
+// NOT exported as PublicReport to prevent accidental exposure in feed queries.
+const detailReportColumns = {
+  ...publicReportColumns,
+  imageUrl: reports.imageUrl,
+  userId: reports.userId,
+};
+
+export type DetailReport = Awaited<ReturnType<typeof getReportDetail>>;
+
+export const getReportDetail = cache(async (id: string) => {
+  const [report] = await db
+    .select(detailReportColumns)
+    .from(reports)
+    .where(eq(reports.id, id))
+    .limit(1);
+  return report ?? null;
+});
