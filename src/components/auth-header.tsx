@@ -1,80 +1,73 @@
 import Link from "next/link";
 import { getCurrentUserWithProfile, signOut } from "@/lib/auth/actions";
 
+const navLink =
+  "rounded-xl px-3 py-2.5 font-semibold whitespace-nowrap text-muted no-underline hover:bg-surface-soft hover:text-ink max-sm:text-[0.8rem]";
+
 export async function AuthHeader() {
   const user = await getCurrentUserWithProfile();
 
   return (
-    <header className="site-header">
-      <div className="header-container">
-        <div className="brand-group">
-          <Link href="/" className="brand-logo">
-            <span className="logo-badge">Uni</span>
-            <span className="logo-title">Found</span>
-          </Link>
-          <span className="brand-tag">Campus Lost & Found</span>
-        </div>
+    <header className="sticky top-0 z-30 border-b border-line bg-white/95 backdrop-blur-md">
+      <div className="mx-auto flex min-h-[68px] w-full max-w-[1180px] flex-wrap items-center justify-between gap-x-4 gap-y-2 px-2 py-2 sm:px-4">
+        <Link
+          href="/"
+          aria-label="UniFound, về trang tin mới"
+          className="inline-flex items-center gap-2.5 text-[1.15rem] font-bold whitespace-nowrap text-ink no-underline"
+        >
+          <span
+            aria-hidden="true"
+            className="grid size-9 place-items-center rounded-xl bg-primary text-[1.15rem] text-white"
+          >
+            U
+          </span>
+          <span>UniFound</span>
+        </Link>
 
-        <nav className="nav-links">
-          <Link href="/" className="nav-link">
-            Bảng tin (Feed)
+        <nav aria-label="Điều hướng chính" className="flex items-center gap-1">
+          <Link href="/" className={navLink}>
+            Tin mới
           </Link>
-          <Link href="/reports/create" className="nav-link">
-            + Đăng tin
+          <Link href="/reports/new" className={navLink}>
+            Đăng tin
           </Link>
-          <Link href="/matches" className="nav-link">
-            Gợi ý trùng khớp
-          </Link>
-          {user && (
-            <Link href="/my-reports" className="nav-link">
-              Tin của tôi
-            </Link>
-          )}
-          {user?.role === "ADMIN" && (
-            <Link href="/admin" className="nav-link font-semibold text-amber-600 dark:text-amber-400">
-              Quản trị (Admin)
-            </Link>
-          )}
         </nav>
 
-        <div className="auth-group">
-          {user ? (
-            <div className="user-menu">
-              <div className="user-info">
-                <span className="user-avatar" aria-hidden="true">
-                  {(user.fullName || user.email || "U")
-                    .charAt(0)
-                    .toUpperCase()}
-                </span>
-                <span className="user-name" title={user.email}>
-                  {user.fullName || user.email?.split("@")[0]}
-                </span>
-                {user.role === "ADMIN" && (
-                  <span
-                    className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300"
-                    title="Tài khoản Quản trị viên"
-                  >
-                    ADMIN
-                  </span>
-                )}
-              </div>
-              <form action={signOut}>
-                <button type="submit" className="btn btn-outline btn-sm">
-                  Đăng xuất
-                </button>
-              </form>
-            </div>
-          ) : (
-            <div className="guest-actions">
-              <Link href="/login" className="btn btn-ghost btn-sm">
-                Đăng nhập
-              </Link>
-              <Link href="/register" className="btn btn-primary btn-sm">
-                Đăng ký
-              </Link>
-            </div>
-          )}
-        </div>
+        {user ? (
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              className="grid size-8 place-items-center rounded-full bg-primary-soft text-sm font-bold text-primary"
+            >
+              {(user.fullName || user.email || "U").charAt(0).toUpperCase()}
+            </span>
+            <span className="max-w-[140px] truncate font-semibold" title={user.email}>
+              {user.fullName || user.email?.split("@")[0]}
+            </span>
+            {user.role === "ADMIN" && (
+              <span
+                className="rounded-full bg-lost-soft px-2 py-0.5 text-[0.7rem] font-bold text-lost-hover"
+                title="Tài khoản Quản trị viên"
+              >
+                ADMIN
+              </span>
+            )}
+            <form action={signOut}>
+              <button type="submit" className="btn btn-secondary btn-small">
+                Đăng xuất
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <Link href="/login" className="btn btn-ghost btn-small">
+              Đăng nhập
+            </Link>
+            <Link href="/register" className="btn btn-primary btn-small">
+              Đăng ký
+            </Link>
+          </div>
+        )}
       </div>
     </header>
   );

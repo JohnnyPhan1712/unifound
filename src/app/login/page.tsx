@@ -44,7 +44,7 @@ export default function LoginPage() {
         </div>
 
         {error && (
-          <div className="alert alert-error" role="alert">
+          <div className="notice error" role="alert">
             <svg
               className="alert-icon"
               viewBox="0 0 20 20"
@@ -63,7 +63,7 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="email" className="field-label">
               Địa chỉ Email sinh viên
             </label>
             <input
@@ -74,14 +74,14 @@ export default function LoginPage() {
               placeholder="student@unifound.demo"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="form-input"
+              className="control"
               disabled={isPending}
             />
           </div>
 
           <div className="form-group">
             <div className="form-label-row">
-              <label htmlFor="password" className="form-label">
+              <label htmlFor="password" className="field-label">
                 Mật khẩu
               </label>
             </div>
@@ -93,7 +93,7 @@ export default function LoginPage() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="form-input"
+              className="control"
               disabled={isPending}
             />
           </div>

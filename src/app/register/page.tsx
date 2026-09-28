@@ -57,7 +57,7 @@ export default function RegisterPage() {
         </div>
 
         {error && (
-          <div className="alert alert-error" role="alert">
+          <div className="notice error" role="alert">
             <svg
               className="alert-icon"
               viewBox="0 0 20 20"
@@ -76,7 +76,7 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="fullName" className="form-label">
+            <label htmlFor="fullName" className="field-label">
               Họ và tên sinh viên
             </label>
             <input
@@ -87,13 +87,13 @@ export default function RegisterPage() {
               placeholder="Nguyễn Văn A"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              className="form-input"
+              className="control"
               disabled={isPending}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email" className="form-label">
+            <label htmlFor="email" className="field-label">
               Địa chỉ Email trường / cá nhân
             </label>
             <input
@@ -104,13 +104,13 @@ export default function RegisterPage() {
               placeholder="student@unifound.demo"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="form-input"
+              className="control"
               disabled={isPending}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password" className="form-label">
+            <label htmlFor="password" className="field-label">
               Mật khẩu (tối thiểu 6 ký tự)
             </label>
             <input
@@ -121,13 +121,13 @@ export default function RegisterPage() {
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="form-input"
+              className="control"
               disabled={isPending}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword" className="form-label">
+            <label htmlFor="confirmPassword" className="field-label">
               Xác nhận lại mật khẩu
             </label>
             <input
@@ -138,7 +138,7 @@ export default function RegisterPage() {
               placeholder="••••••••"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="form-input"
+              className="control"
               disabled={isPending}
             />
           </div>
