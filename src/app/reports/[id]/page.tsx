@@ -11,15 +11,19 @@ import {
   formatCreatedAt,
   formatEventDate,
 } from "../report-display";
-import { getPublicReport } from "../report-queries";
+import { getReportDetail } from "../report-queries";
 import { isReportId } from "../report-validation";
+import { getSignedInUserId } from "../new/current-user";
+import { getClaimsByReport } from "@/lib/claims/queries";
+import { ClaimList } from "@/components/claims/ClaimList";
+import { ReportActions } from "./ReportActions";
 
 type ReportDetailProps = {
   params: Promise<{ id: string }>;
 };
 
 async function findReport(id: string) {
-  return isReportId(id) ? getPublicReport(id) : null;
+  return isReportId(id) ? getReportDetail(id) : null;
 }
 
 export async function generateMetadata({ params }: ReportDetailProps): Promise<Metadata> {
@@ -39,6 +43,10 @@ export default async function ReportDetailPage({ params }: ReportDetailProps) {
   const report = await findReport((await params).id);
   if (!report) notFound();
 
+  const userId = await getSignedInUserId();
+  const isOwner = !!userId && userId === report.userId;
+  const claims = isOwner ? await getClaimsByReport(report.id) : [];
+
   return (
     <div className="grid grid-cols-1 gap-5">
       <div>
@@ -49,12 +57,22 @@ export default async function ReportDetailPage({ params }: ReportDetailProps) {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(300px,0.75fr)]">
         <article className="panel grid content-start gap-4">
-          <div
-            aria-hidden="true"
-            className={`report-visual min-h-[200px] rounded-2xl text-[5rem] sm:min-h-[260px] ${report.type === "lost" ? "lost" : ""}`}
-          >
-            {REPORT_CATEGORY_ICONS[report.category]}
-          </div>
+          {report.imageUrl ? (
+            <div className="relative min-h-[200px] sm:min-h-[260px] rounded-2xl overflow-hidden bg-surface-container-low">
+              <img
+                src={report.imageUrl}
+                alt={report.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : (
+            <div
+              aria-hidden="true"
+              className={`report-visual min-h-[200px] rounded-2xl text-[5rem] sm:min-h-[260px] ${report.type === "lost" ? "lost" : ""}`}
+            >
+              {REPORT_CATEGORY_ICONS[report.category]}
+            </div>
+          )}
           <div className="grid gap-2.5">
             <div className="flex flex-wrap gap-2">
               <ReportTypeBadge type={report.type} />
@@ -77,6 +95,16 @@ export default async function ReportDetailPage({ params }: ReportDetailProps) {
             <h3>{REPORT_STATUS_LABELS[report.status]}</h3>
             <p className="text-[0.84rem] text-muted">{statusNotes[report.status]}</p>
           </section>
+
+          {/* CHG-011: Claim UI — owner sees claim list, others see claim action */}
+          {isOwner ? (
+            <ClaimList claims={claims} />
+          ) : (
+            report.type === "found" &&
+            (report.status === "open" || report.status === "pending") && (
+              <ReportActions reportId={report.id} />
+            )
+          )}
 
           <p className="notice info">
             <span aria-hidden="true">ⓘ</span>
