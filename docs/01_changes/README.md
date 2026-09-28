@@ -12,7 +12,7 @@ Mỗi CHG tương ứng với một Task trên Notion và một kết quả có 
 | [`CHG-006`](CHG-006_project_environment_setup.md) | cài framework/package và cấu hình môi trường | `done` | cài framework/package và cấu hình môi trường |
 | [`CHG-007`](CHG-007_database_schema_and_migrations.md) | tạo schema database và migration | `in_review` | tạo schema database và migration |
 | [`CHG-008`](CHG-008_auth_and_ownership.md) | tích hợp đăng nhập và phân quyền sở hữu | `in_review` | tích hợp đăng nhập và phân quyền sở hữu |
-| [`CHG-009`](CHG-009_report_discovery_and_submission.md) | xây chức năng đăng, tìm và xem chi tiết report | `proposed` | xây chức năng đăng, tìm và xem chi tiết report |
+| [`CHG-009`](CHG-009_report_discovery_and_submission.md) | xây chức năng đăng, tìm và xem chi tiết report | `waiting_for_integration` | xây chức năng đăng, tìm và xem chi tiết report |
 | [`CHG-010`](CHG-010_match_suggestions.md) | xây cơ chế gợi ý report trùng khớp | `proposed` | xây cơ chế gợi ý report trùng khớp |
 | [`CHG-011`](CHG-011_claim_and_return_flow.md) | xây luồng claim và hoàn tất nhận lại đồ | `proposed` | xây luồng claim và hoàn tất nhận lại đồ |
 

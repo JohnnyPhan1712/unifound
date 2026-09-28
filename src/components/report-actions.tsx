@@ -59,7 +59,7 @@ export function ReportActions({ report, currentUser }: ReportActionsProps) {
       <button
         type="button"
         onClick={handleEdit}
-        className="btn btn-outline btn-sm text-xs"
+        className="btn btn-secondary btn-small"
         disabled={isPending}
       >
         Sửa bài
@@ -67,7 +67,7 @@ export function ReportActions({ report, currentUser }: ReportActionsProps) {
       <button
         type="button"
         onClick={handleDelete}
-        className="btn btn-danger btn-sm text-xs text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
+        className="btn btn-secondary btn-small text-danger"
         disabled={isPending}
       >
         {isPending ? "Đang xóa..." : "Xóa bài"}
