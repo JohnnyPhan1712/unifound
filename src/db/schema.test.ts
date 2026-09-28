@@ -9,19 +9,13 @@ import {
   REPORT_LOCATIONS,
   REPORT_STATUSES,
   CLAIM_STATUSES,
-<<<<<<< HEAD
-=======
   USER_ROLES,
->>>>>>> fa95b3b (Add code by Quan)
   reportTypeEnum,
   reportCategoryEnum,
   reportLocationEnum,
   reportStatusEnum,
   claimStatusEnum,
-<<<<<<< HEAD
-=======
   userRoleEnum,
->>>>>>> fa95b3b (Add code by Quan)
 } from "./schema";
 import { db } from "./index";
 
@@ -78,14 +72,10 @@ describe("Database Schema Contracts (CHG-007)", () => {
       ]);
       expect(claimStatusEnum.enumValues).toEqual(CLAIM_STATUSES);
     });
-<<<<<<< HEAD
-=======
-
     it("should define user roles: USER and ADMIN (CHG-008)", () => {
       expect(USER_ROLES).toEqual(["USER", "ADMIN"]);
       expect(userRoleEnum.enumValues).toEqual(["USER", "ADMIN"]);
     });
->>>>>>> fa95b3b (Add code by Quan)
   });
 
   describe("Table Column Structure & Constraints", () => {
@@ -95,18 +85,12 @@ describe("Database Schema Contracts (CHG-007)", () => {
       expect(columns).toHaveProperty("email");
       expect(columns).toHaveProperty("fullName");
       expect(columns).toHaveProperty("avatarUrl");
-<<<<<<< HEAD
-=======
       expect(columns).toHaveProperty("role");
->>>>>>> fa95b3b (Add code by Quan)
       expect(columns).toHaveProperty("createdAt");
       expect(columns).toHaveProperty("updatedAt");
 
       expect(columns.email.notNull).toBe(true);
-<<<<<<< HEAD
-=======
       expect(columns.role.notNull).toBe(true);
->>>>>>> fa95b3b (Add code by Quan)
       expect(columns.id.primary).toBe(true);
     });
 
