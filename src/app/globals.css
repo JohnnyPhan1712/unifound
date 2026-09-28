@@ -299,6 +299,99 @@
     border: 1px dashed #b9c5ca;
     border-radius: 1rem;
   }
+
+  .auth-page {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 460px;
+    padding: 2rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 1.4rem;
+    box-shadow: 0 4px 18px rgb(30 50 60 / 0.045);
+  }
+
+  .auth-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .auth-title {
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .auth-subtitle {
+    color: var(--color-muted);
+  }
+
+  .auth-form,
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .auth-form {
+    gap: 1.1rem;
+  }
+
+  .form-group {
+    gap: 0.4rem;
+  }
+
+  .form-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .alert-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .auth-footer {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-line);
+    color: var(--color-muted);
+    text-align: center;
+  }
+
+  .auth-link {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  .btn-block {
+    width: 100%;
+  }
+
+  .btn-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgb(255 255 255 / 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
