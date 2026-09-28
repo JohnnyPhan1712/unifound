@@ -21,28 +21,20 @@ const DEMO_USERS = [
     email: "student.a@unifound.demo",
     fullName: "Sinh viên A",
     avatarUrl: null,
-<<<<<<< HEAD
-=======
     role: "USER" as const,
->>>>>>> fa95b3b (Add code by Quan)
   },
   {
     id: "00000000-0000-4000-a000-000000000002",
     email: "student.b@unifound.demo",
     fullName: "Sinh viên B",
     avatarUrl: null,
-<<<<<<< HEAD
-=======
     role: "USER" as const,
->>>>>>> fa95b3b (Add code by Quan)
   },
   {
     id: "00000000-0000-4000-a000-000000000003",
     email: "student.c@unifound.demo",
     fullName: "Sinh viên C",
     avatarUrl: null,
-<<<<<<< HEAD
-=======
     role: "USER" as const,
   },
   {
@@ -51,7 +43,6 @@ const DEMO_USERS = [
     fullName: "Quản trị viên UniFound",
     avatarUrl: null,
     role: "ADMIN" as const,
->>>>>>> fa95b3b (Add code by Quan)
   },
 ];
 

@@ -4,10 +4,6 @@
   --ink: #17211b;
   --muted: #607066;
   --paper: #f3f5ee;
-<<<<<<< HEAD
-  --accent: #d96c3f;
-  --line: #cfd8ce;
-=======
   --card-bg: #ffffff;
   --accent: #d96c3f;
   --accent-hover: #be592e;
@@ -20,7 +16,6 @@
   --radius-lg: 16px;
   --shadow-subtle: 0 4px 20px -2px rgba(23, 33, 27, 0.05);
   --shadow-card: 0 10px 30px -4px rgba(23, 33, 27, 0.08);
->>>>>>> fa95b3b (Add code by Quan)
 }
 
 * {
@@ -33,14 +28,6 @@ body {
   color: var(--ink);
   background: radial-gradient(circle at 15% 10%, #fffdf4 0, transparent 34%), var(--paper);
   font-family: Georgia, "Times New Roman", serif;
-<<<<<<< HEAD
-}
-
-.shell {
-  display: grid;
-  align-content: center;
-  min-height: 100vh;
-=======
   display: flex;
   flex-direction: column;
 }
@@ -421,18 +408,13 @@ body {
   display: grid;
   align-content: center;
   min-height: calc(100vh - 68px);
->>>>>>> fa95b3b (Add code by Quan)
   max-width: 760px;
   padding: 4rem 1.5rem;
   margin: 0 auto;
 }
 
 .eyebrow {
-<<<<<<< HEAD
-  margin: 0 0 1.25rem;
-=======
   margin: 0 0 0.75rem;
->>>>>>> fa95b3b (Add code by Quan)
   color: var(--accent);
   font-family: "Trebuchet MS", sans-serif;
   font-size: 0.75rem;
@@ -444,16 +426,6 @@ body {
 h1 {
   max-width: 12ch;
   margin: 0;
-<<<<<<< HEAD
-  font-size: clamp(3rem, 9vw, 6.5rem);
-  font-weight: 400;
-  line-height: 0.94;
-}
-
-.intro {
-  max-width: 30rem;
-  margin: 2rem 0 0;
-=======
   font-size: clamp(2.5rem, 8vw, 5.5rem);
   font-weight: 400;
   line-height: 0.96;
@@ -462,7 +434,6 @@ h1 {
 .intro {
   max-width: 32rem;
   margin: 1.75rem 0 0;
->>>>>>> fa95b3b (Add code by Quan)
   color: var(--muted);
   font-family: "Trebuchet MS", sans-serif;
   font-size: 1.05rem;
@@ -474,11 +445,7 @@ h1 {
   align-items: center;
   gap: 0.6rem;
   width: fit-content;
-<<<<<<< HEAD
-  margin-top: 3rem;
-=======
   margin-top: 2.5rem;
->>>>>>> fa95b3b (Add code by Quan)
   padding-top: 1rem;
   border-top: 1px solid var(--line);
   color: var(--muted);
@@ -497,10 +464,6 @@ h1 {
 
 @media (max-width: 600px) {
   .shell {
-<<<<<<< HEAD
-    padding: 3rem 1.25rem;
-=======
     padding: 2.5rem 1.25rem;
->>>>>>> fa95b3b (Add code by Quan)
   }
 }

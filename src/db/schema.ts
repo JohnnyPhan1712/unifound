@@ -14,14 +14,10 @@ import {
 // Enums theo các quyết định MVP (DEC-002, DEC-005)
 // ---------------------------------------------------------------------------
 
-<<<<<<< HEAD
-=======
 export const userRoleEnum = pgEnum("user_role", [
   "USER",
   "ADMIN",
 ]);
-
->>>>>>> fa95b3b (Add code by Quan)
 export const reportTypeEnum = pgEnum("report_type", [
   "lost",
   "found",
@@ -75,10 +71,7 @@ export const users = pgTable("users", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   fullName: varchar("full_name", { length: 255 }),
   avatarUrl: text("avatar_url"),
-<<<<<<< HEAD
-=======
   role: userRoleEnum("role").default("USER").notNull(),
->>>>>>> fa95b3b (Add code by Quan)
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
@@ -177,17 +170,11 @@ export type ReportCategory = (typeof reportCategoryEnum.enumValues)[number];
 export type ReportLocation = (typeof reportLocationEnum.enumValues)[number];
 export type ReportStatus = (typeof reportStatusEnum.enumValues)[number];
 export type ClaimStatus = (typeof claimStatusEnum.enumValues)[number];
-<<<<<<< HEAD
-=======
 export type UserRole = (typeof userRoleEnum.enumValues)[number];
->>>>>>> fa95b3b (Add code by Quan)
 
 export const REPORT_TYPES = reportTypeEnum.enumValues;
 export const REPORT_CATEGORIES = reportCategoryEnum.enumValues;
 export const REPORT_LOCATIONS = reportLocationEnum.enumValues;
 export const REPORT_STATUSES = reportStatusEnum.enumValues;
 export const CLAIM_STATUSES = claimStatusEnum.enumValues;
-<<<<<<< HEAD
-=======
 export const USER_ROLES = userRoleEnum.enumValues;
->>>>>>> fa95b3b (Add code by Quan)

@@ -1,17 +1,4 @@
 import type { Metadata } from "next";
-<<<<<<< HEAD
-import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "UniFound",
-  description: "Lost and found reports for students.",
-};
-
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="vi">
-      <body>{children}</body>
-=======
 import { AuthHeader } from "@/components/auth-header";
 import "./globals.css";
 
@@ -29,7 +16,6 @@ export default function RootLayout({
         <AuthHeader />
         <div className="main-content-wrapper">{children}</div>
       </body>
->>>>>>> fa95b3b (Add code by Quan)
     </html>
   );
 }
