@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bảng tin · UniFound mockup</title>
+<meta name="description" content="SCR-01: xem, tìm và lọc Lost/Found Report.">
+<link rel="icon" href="assets/logo_mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/uf.css">
+<script src="assets/uf.js" defer></script>
+</head>
+<body>
+<div class="mk-bar" role="region" aria-label="Điều khiển mockup (không thuộc giao diện sản phẩm)"><a href="index.html"><svg class="icon sm" aria-hidden="true"><use href="#i-arrow-left"/></svg>Mục lục mockup</a><span class="mk-title">SCR-01 · Home / Lost & Found Feed</span><span class="mk-sep"></span><div class="mk-group" data-dim="state"><span>Trạng thái</span><button data-val="default">Có dữ liệu</button><button data-val="loading">Đang tải</button><button data-val="empty">Không có kết quả</button><button data-val="error">Lỗi tải</button></div><span class="mk-sep"></span><div class="mk-group" data-dim="auth"><span>Người xem</span><button data-val="guest">Khách</button><button data-val="user">Đã đăng nhập</button></div></div><header class="top-nav">
+  <div class="container">
+    <div><a class="brand" href="01_home_feed.html" aria-label="UniFound — về bảng tin"><svg class="brand-mark" aria-hidden="true"><use href="#uf-mark"/></svg><span class="brand-word">UniFound</span></a></div>
+    <div class="center"><nav class="type-tabs" aria-label="Loại tin" data-type-tabs>
+      <button class="type-tab" data-filter-type="all" aria-current="true"><span class="tab-ico all"><svg class="icon md" aria-hidden="true"><use href="#i-grid"/></svg></span>Tất cả</button>
+      <button class="type-tab" data-filter-type="lost" aria-current="false"><span class="tab-ico lost"><svg class="icon md" aria-hidden="true"><use href="#i-lost"/></svg></span>Mất đồ</button>
+      <button class="type-tab" data-filter-type="found" aria-current="false"><span class="tab-ico found"><svg class="icon md" aria-hidden="true"><use href="#i-found"/></svg></span>Nhặt được</button>
+    </nav></div>
+    <div class="nav-right">
+      <a class="nav-link-btn hide-sm" href="02_create_report.html"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg>Đăng tin</a>
+      <a class="icon-btn show-sm" href="02_create_report.html" aria-label="Đăng tin"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg></a>
+      <a class="nav-link-btn hide-sm" href="06_auth.html" data-when="auth=guest">Đăng nhập</a>
+      <div class="account-menu">
+        <button class="account-pill" data-menu aria-haspopup="menu" aria-expanded="false" aria-controls="acct-menu" aria-label="Mở menu tài khoản">
+          <svg class="icon md" aria-hidden="true"><use href="#i-menu"/></svg>
+          <span class="avatar guest" data-when="auth=guest"><svg class="icon sm" aria-hidden="true"><use href="#i-user"/></svg></span>
+          <span class="avatar" data-when="auth!=guest">M</span>
+        </button>
+        <div class="menu-pop" id="acct-menu" role="menu" hidden>
+          <div data-when="auth=guest">
+            <a role="menuitem" class="strong" href="06_auth.html#view=login">Đăng nhập</a>
+            <a role="menuitem" href="06_auth.html#view=register">Tạo tài khoản</a>
+          </div>
+          <div data-when="auth!=guest">
+            <a role="menuitem" class="strong" href="05_my_reports.html"><svg class="icon md" aria-hidden="true"><use href="#i-list"/></svg>Tin và yêu cầu của tôi</a>
+            <a role="menuitem" href="04_potential_matches.html"><svg class="icon md" aria-hidden="true"><use href="#i-link"/></svg>Gợi ý trùng khớp</a>
+            <hr>
+            <a role="menuitem" href="02_create_report.html"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg>Đăng tin mới</a>
+            <button role="menuitem" type="button"><svg class="icon md" aria-hidden="true"><use href="#i-logout"/></svg>Đăng xuất</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container">
+    <form class="search-wrap" role="search" action="#" onsubmit="return false">
+      <div class="search-pill">
+        <div class="seg"><label for="q">Tìm gì</label><input id="q" type="search" placeholder="Tai nghe, ví, chìa khóa…" maxlength="100"></div>
+        <div class="seg"><label for="fc">Danh mục</label><select id="fc"><option>Tất cả danh mục</option><option>Điện tử</option><option>Ví / giấy tờ</option><option>Chìa khóa</option><option>Quần áo / phụ kiện</option><option>Sách / dụng cụ học tập</option><option>Khác</option></select></div>
+        <div class="seg"><label for="fl">Khu vực</label><select id="fl"><option>Mọi khu vực</option><option>Tòa H1</option><option>Tòa H2</option><option>Tòa H3</option><option>Tòa H6</option><option>Bãi giữ xe</option><option>Căn tin</option><option>Nhà thi đấu</option><option>Khác</option></select></div>
+        <button class="search-orb" type="submit" aria-label="Tìm kiếm"><svg class="icon md" aria-hidden="true"><use href="#i-search"/></svg></button>
+      </div>
+      <label class="search-mobile"><span class="sr-only">Tìm kiếm</span>
+        <svg class="icon md" aria-hidden="true"><use href="#i-search"/></svg><input type="search" placeholder="Tìm đồ thất lạc quanh trường">
+        <span class="search-orb" aria-hidden="true"><svg class="icon md" aria-hidden="true"><use href="#i-sliders"/></svg></span>
+      </label>
+    </form>
+    <div class="mobile-type" data-type-tabs>
+      <button class="pick" data-filter-type="all" aria-pressed="true">Tất cả</button>
+      <button class="pick lost" data-filter-type="lost" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-lost"/></svg>Mất đồ</button>
+      <button class="pick found" data-filter-type="found" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</button>
+    </div>
+  </div>
+  <div class="cat-strip-wrap">
+    <div class="container">
+      <div class="cat-strip" aria-label="Lọc theo danh mục"><button class="cat" data-filter-cat="electronics" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span>Điện tử</span></button><button class="cat" data-filter-cat="wallet" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-wallet"/></svg><span>Ví / giấy tờ</span></button><button class="cat" data-filter-cat="keys" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-key"/></svg><span>Chìa khóa</span></button><button class="cat" data-filter-cat="clothing" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-shirt"/></svg><span>Quần áo / phụ kiện</span></button><button class="cat" data-filter-cat="study" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg><span>Sách / dụng cụ học tập</span></button><button class="cat" data-filter-cat="other" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-other"/></svg><span>Khác</span></button></div>
+      <button class="filter-btn" type="button"><svg class="icon md" aria-hidden="true"><use href="#i-sliders"/></svg><span class="lbl">Bộ lọc</span></button>
+    </div>
+  </div>
+  <div class="container">
+    <div class="feed-head">
+      <div>
+        <h1>Đồ thất lạc quanh trường</h1>
+        <p data-when="state=default"><span class="num" id="count">12</span> tin · mới nhất trước</p>
+      </div>
+      <div class="notice info" data-when="auth=guest state=default" style="padding:10px 14px">
+        <svg class="icon md" aria-hidden="true"><use href="#i-info"/></svg><span>Ai cũng xem được bảng tin. <a href="06_auth.html">Đăng nhập</a> để đăng tin hoặc gửi yêu cầu nhận lại.</span>
+      </div>
+    </div>
+
+    <div data-when="state=default">
+      <div class="grid" id="feed-grid">
+<a class="card" href="03_report_detail.html" data-type="lost" data-cat="electronics">
+      <div class="plate lost "><span class="plate-badge"><span class="type-badge lost"><svg class="icon sm" aria-hidden="true"><use href="#i-lost"/></svg>Mất đồ</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-phone"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Tai nghe Bluetooth màu trắng</span>
+        <span class="card-sub">Tòa H1 · Điện tử</span>
+        <span class="card-date num">Ngày xảy ra 28/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="found" data-cat="electronics">
+      <div class="plate found "><span class="plate-badge"><span class="type-badge found"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span></span><span class="plate-status"><span class="status pending"><span class="dot"></span>Có yêu cầu chờ duyệt</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-phone"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Hộp tai nghe không dây màu trắng</span>
+        <span class="card-sub">Tòa H1 · Điện tử</span>
+        <span class="card-date num">Ngày xảy ra 27/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="found" data-cat="keys">
+      <div class="plate found "><span class="plate-badge"><span class="type-badge found"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-key"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Chìa khóa xe máy có móc gấu bông</span>
+        <span class="card-sub">Bãi giữ xe · Chìa khóa</span>
+        <span class="card-date num">Ngày xảy ra 29/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="lost" data-cat="wallet">
+      <div class="plate lost "><span class="plate-badge"><span class="type-badge lost"><svg class="icon sm" aria-hidden="true"><use href="#i-lost"/></svg>Mất đồ</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-wallet"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Ví da màu nâu, có thẻ sinh viên</span>
+        <span class="card-sub">Căn tin · Ví / giấy tờ</span>
+        <span class="card-date num">Ngày xảy ra 26/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="found" data-cat="other">
+      <div class="plate found "><span class="plate-badge"><span class="type-badge found"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-other"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Bình giữ nhiệt màu xanh rêu</span>
+        <span class="card-sub">Tòa H3 · Khác</span>
+        <span class="card-date num">Ngày xảy ra 29/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="lost" data-cat="study">
+      <div class="plate lost "><span class="plate-badge"><span class="type-badge lost"><svg class="icon sm" aria-hidden="true"><use href="#i-lost"/></svg>Mất đồ</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-book"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Giáo trình Cấu trúc dữ liệu</span>
+        <span class="card-sub">Tòa H6 · Sách / dụng cụ học tập</span>
+        <span class="card-date num">Ngày xảy ra 24/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="lost" data-cat="electronics">
+      <div class="plate lost "><span class="plate-badge"><span class="type-badge lost"><svg class="icon sm" aria-hidden="true"><use href="#i-lost"/></svg>Mất đồ</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-phone"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Sạc laptop USB-C 65W</span>
+        <span class="card-sub">Tòa H3 · Điện tử</span>
+        <span class="card-date num">Ngày xảy ra 27/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="found" data-cat="clothing">
+      <div class="plate found "><span class="plate-badge"><span class="type-badge found"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span></span><span class="plate-status"><span class="status accepted"><span class="dot"></span>Đã chấp nhận yêu cầu</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-shirt"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Kính cận gọng đen trong hộp xanh</span>
+        <span class="card-sub">Căn tin · Quần áo / phụ kiện</span>
+        <span class="card-date num">Ngày xảy ra 26/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="found" data-cat="clothing">
+      <div class="plate found  returned-dim"><span class="plate-badge"><span class="type-badge found"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span></span><span class="plate-status"><span class="status returned"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Đã trả lại</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-shirt"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Áo khoác đồng phục màu xanh</span>
+        <span class="card-sub">Nhà thi đấu · Quần áo / phụ kiện</span>
+        <span class="card-date num">Ngày xảy ra 25/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="lost" data-cat="study">
+      <div class="plate lost "><span class="plate-badge"><span class="type-badge lost"><svg class="icon sm" aria-hidden="true"><use href="#i-lost"/></svg>Mất đồ</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-book"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Máy tính cầm tay Casio</span>
+        <span class="card-sub">Tòa H2 · Sách / dụng cụ học tập</span>
+        <span class="card-date num">Ngày xảy ra 23/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="found" data-cat="other">
+      <div class="plate found "><span class="plate-badge"><span class="type-badge found"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-other"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Ô gấp màu đen</span>
+        <span class="card-sub">Tòa H2 · Khác</span>
+        <span class="card-date num">Ngày xảy ra 28/09/2026</span>
+      </div>
+    </a>
+<a class="card" href="03_report_detail.html" data-type="lost" data-cat="keys">
+      <div class="plate lost  returned-dim"><span class="plate-badge"><span class="type-badge lost"><svg class="icon sm" aria-hidden="true"><use href="#i-lost"/></svg>Mất đồ</span></span><span class="plate-status"><span class="status closed"><span class="dot"></span>Đã đóng</span></span><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-key"/></svg></div>
+      <div class="card-meta">
+        <span class="card-title">Chìa khóa tủ đồ số 12</span>
+        <span class="card-sub">Nhà thi đấu · Chìa khóa</span>
+        <span class="card-date num">Ngày xảy ra 22/09/2026</span>
+      </div>
+    </a>
+      </div>
+      <div class="state-block" id="filter-empty" hidden>
+        <div class="state-ico"><svg class="icon lg" aria-hidden="true"><use href="#i-search"/></svg></div>
+        <h2>Không có tin nào khớp bộ lọc</h2>
+        <p>Thử bỏ bớt danh mục hoặc chọn “Tất cả”.</p>
+      </div>
+    </div>
+
+    <div class="grid" data-when="state=loading" aria-busy="true" aria-label="Đang tải bảng tin"><div aria-hidden="true" style="display:grid;gap:12px"><div class="sk plate" style="aspect-ratio:4/3"></div><div class="sk line w70"></div><div class="sk line w50"></div><div class="sk line w40"></div></div><div aria-hidden="true" style="display:grid;gap:12px"><div class="sk plate" style="aspect-ratio:4/3"></div><div class="sk line w70"></div><div class="sk line w50"></div><div class="sk line w40"></div></div><div aria-hidden="true" style="display:grid;gap:12px"><div class="sk plate" style="aspect-ratio:4/3"></div><div class="sk line w70"></div><div class="sk line w50"></div><div class="sk line w40"></div></div><div aria-hidden="true" style="display:grid;gap:12px"><div class="sk plate" style="aspect-ratio:4/3"></div><div class="sk line w70"></div><div class="sk line w50"></div><div class="sk line w40"></div></div><div aria-hidden="true" style="display:grid;gap:12px"><div class="sk plate" style="aspect-ratio:4/3"></div><div class="sk line w70"></div><div class="sk line w50"></div><div class="sk line w40"></div></div><div aria-hidden="true" style="display:grid;gap:12px"><div class="sk plate" style="aspect-ratio:4/3"></div><div class="sk line w70"></div><div class="sk line w50"></div><div class="sk line w40"></div></div><div aria-hidden="true" style="display:grid;gap:12px"><div class="sk plate" style="aspect-ratio:4/3"></div><div class="sk line w70"></div><div class="sk line w50"></div><div class="sk line w40"></div></div><div aria-hidden="true" style="display:grid;gap:12px"><div class="sk plate" style="aspect-ratio:4/3"></div><div class="sk line w70"></div><div class="sk line w50"></div><div class="sk line w40"></div></div></div>
+
+    <div class="state-block" data-when="state=empty">
+      <div class="state-ico"><svg class="icon lg" aria-hidden="true"><use href="#i-search"/></svg></div>
+      <h2>Không có tin nào khớp “tai nghe đỏ”</h2>
+      <p>Thử từ khóa ngắn hơn, bỏ lọc khu vực, hoặc đăng tin để người nhặt được có thể tìm thấy bạn.</p>
+      <div class="state-actions">
+        <button class="btn btn-secondary" type="button">Xóa bộ lọc</button>
+        <a class="btn btn-primary" href="02_create_report.html"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg>Đăng tin mất đồ</a>
+      </div>
+    </div>
+
+    <div class="state-block" data-when="state=error" role="alert">
+      <div class="state-ico err"><svg class="icon lg" aria-hidden="true"><use href="#i-alert"/></svg></div>
+      <h2>Chưa tải được bảng tin</h2>
+      <p>Kết nối tới máy chủ bị gián đoạn. Dữ liệu của bạn không bị ảnh hưởng.</p>
+      <div class="state-actions"><button class="btn btn-primary" type="button"><svg class="icon md" aria-hidden="true"><use href="#i-refresh"/></svg>Thử lại</button></div>
+    </div>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <span>© 2026 UniFound · Mini Project — dữ liệu trên trang là dữ liệu giả.</span>
+    <nav aria-label="Liên kết cuối trang">
+      <a href="01_home_feed.html">Bảng tin</a>
+      <a href="02_create_report.html">Đăng tin</a>
+      <a href="05_my_reports.html">Của tôi</a>
+    </nav>
+  </div>
+</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var type = "all", cat = null;
+  var cards = document.querySelectorAll("#feed-grid .card");
+  function run() {
+    var n = 0;
+    cards.forEach(function (c) {
+      var ok = (type === "all" || c.dataset.type === type) && (!cat || c.dataset.cat === cat);
+      c.hidden = !ok; if (ok) n++;
+    });
+    document.getElementById("count").textContent = n;
+    document.getElementById("filter-empty").hidden = n > 0;
+  }
+  document.querySelectorAll("[data-filter-type]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      type = b.dataset.filterType;
+      document.querySelectorAll("[data-filter-type]").forEach(function (x) {
+        var on = x.dataset.filterType === type;
+        x.setAttribute(x.classList.contains("type-tab") ? "aria-current" : "aria-pressed", String(on));
+      });
+      run();
+    });
+  });
+  document.querySelectorAll("[data-filter-cat]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      cat = cat === b.dataset.filterCat ? null : b.dataset.filterCat;
+      document.querySelectorAll("[data-filter-cat]").forEach(function (x) {
+        x.setAttribute("aria-pressed", String(x.dataset.filterCat === cat));
+      });
+      run();
+    });
+  });
+});
+</script>
+</body>
+</html>

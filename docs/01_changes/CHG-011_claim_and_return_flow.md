@@ -1,19 +1,14 @@
 # CHG-011: xây luồng claim và hoàn tất nhận lại đồ
 
 - ID: `CHG-011`
-- Trạng thái: `implemented`
+- Trạng thái: `rejected`
 - Ngày tạo: `2026-09-22`
-- Sprint/Milestone: `Sprint 1 / MVP foundation`
 - Người phụ trách: `Phát`
-- Reviewer: `Huy`
-- Notion Task: `xây luồng claim và hoàn tất nhận lại đồ`
 - Dependency: `CHG-007`, `CHG-008`, `CHG-009`
 - Branch: `feat/claim-and-return-flow`
-- PR: `chưa có`
 - Commit sau merge: `chưa có`
 - File/module dự kiến sửa: `src/lib/claims/**`, claim actions/routes, claim UI insertion points, claim/state tests, E2E smoke flow
 - Phạm vi ownership: `claim actions, transition rules và claim tests`
-- Thời gian Sprint: `2026-09-23` đến `2026-09-29`
 
 ## Kết quả người dùng
 

@@ -4,8 +4,6 @@
 - Trạng thái: `done`
 - Ngày tạo: `2026-09-15`
 - Người phụ trách: `Phan Ngọc Đức Huy`
-- Notion Task: `Thiết lập tài liệu nền tảng UniFound`
-- Sprint/Milestone: `chưa liên kết`
 - Branch/PR/Commit: `chưa có`
 
 ## Lý do và mục tiêu

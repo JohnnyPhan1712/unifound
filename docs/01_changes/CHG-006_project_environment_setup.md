@@ -3,18 +3,13 @@
 - ID: `CHG-006`
 - Trạng thái: `done`
 - Ngày tạo: `2026-09-22`
-- Sprint/Milestone: `Sprint 1 / MVP foundation`
 - Người phụ trách: `Huy`
 - Vai trò: `Team Lead / Integration Lead`
-- Reviewer: `Khang`
-- Notion Task: `cài framework/package và cấu hình môi trường`
 - Dependency: `CHG-005`
 - Branch: `chore/project-environment-setup`
-- PR: `https://github.com/JohnnyPhan1712/unifound/pull/1`
 - Commit sau merge: `dd3f456`
 - File/module dự kiến sửa: `package.json`, lockfile, config root, `.env.example`, app shell, setup documentation
 - Phạm vi ownership: `root manifests và tool configuration`
-- Thời gian Sprint: `2026-09-23` đến `2026-09-29`
 
 ## Kết quả người dùng
 

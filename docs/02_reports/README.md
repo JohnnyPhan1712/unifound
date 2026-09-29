@@ -1,15 +1,21 @@
 # Báo cáo và hiện trạng UniFound
 
-`02_reports` là Product Brief đang được hoàn thiện và là nguồn chính để xem tình hình hiện tại của dự án. Chỉ ghi nội dung đã kiểm chứng là hoàn thành; nội dung dự kiến phải có nhãn `Draft`, `Planned` hoặc `TBD`.
-
 ## Thông tin dự án
 
 - Tên: **UniFound — Smart Lost & Found**.
 - Loại: Mini Project AI-assisted Web Development.
-- Thời lượng: khoảng 3–4 tuần.
-- Nhóm / thành viên / MSSV / tỷ lệ đóng góp: `TBD`.
 - Repository / Project Hub / Live Demo: `TBD`.
-- Trạng thái hiện tại: **đang xác định yêu cầu và thiết kế MVP; chưa triển khai sản phẩm**.
+
+## Thông tin nhóm
+
+| STT | Họ và tên | MSSV | Vai trò |
+|---|---|---|---|
+| 1 | Phan Ngọc Đức Huy | 24520695 | Trưởng nhóm |
+| 2 | Dương Đăng Khang | 24520731 | Thành viên |
+| 3 | Đỗ Hữu Phát | 24521290 | Thành viên |
+| 4 | Nguyễn Thế Anh | 24520117 | Thành viên |
+| 5 | Trần Minh Chiến | 24520219 | Thành viên |
+| 6 | Lê Anh Quân | 24521430 | Thành viên |
 
 ## Nội dung
 
@@ -19,18 +25,19 @@
 4. [`04_ai_development.md`](04_ai_development.md): 5–10 AI logs chọn lọc, human decision, verification và so sánh hai AI.
 5. [`05_testing_deployment.md`](05_testing_deployment.md): test case, bug evidence, deployment và demo.
 6. [`06_results.md`](06_results.md): kết quả, contribution, hạn chế và bài học.
+7. [`07_brand_identity.md`](07_brand_identity.md): nhận diện thương hiệu (màu, palette, logo, typography) và lý do; mockup ở `assets/ui_mockups/`.
 
-Asset đặt trong `assets/{ai,diagrams,testing,ui}/`. Không ghi secret hoặc dữ liệu cá nhân thật.
+Asset đặt trong `assets/`. Không ghi secret hoặc dữ liệu cá nhân thật.
 
-## Trạng thái deliverable
+## Project Requirements
 
-| Deliverable | Trạng thái |
-|---|---|
-| Product Brief | In Progress |
-| Source code + README chạy project | Not Started |
-| Website responsive và live URL | Not Started |
-| AI Development Log | In Progress |
-| AI tool comparison | Not Started |
-| Test/bug evidence | Not Started |
-| 6–8 slides và demo/video dự phòng | Not Started |
-| Project Hub / contribution evidence | Project Hub đã có cấu trúc; nội dung `TBD` |
+| Deliverable |
+|---|
+| Product Brief |
+| Source code + README chạy project |
+| Website responsive và live URL |
+| AI Development Log |
+| AI tool comparison |
+| Test/bug evidence |
+| 6–8 slides và demo/video dự phòng |
+| Project Hub / contribution evidence |

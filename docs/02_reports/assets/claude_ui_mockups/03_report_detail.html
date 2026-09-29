@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chi tiết tin · UniFound mockup</title>
+<meta name="description" content="SCR-03: chi tiết report, gửi claim, xử lý claim, sửa/xóa.">
+<link rel="icon" href="assets/logo_mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/uf.css">
+<script src="assets/uf.js" defer></script>
+</head>
+<body>
+<div class="mk-bar" role="region" aria-label="Điều khiển mockup (không thuộc giao diện sản phẩm)"><a href="index.html"><svg class="icon sm" aria-hidden="true"><use href="#i-arrow-left"/></svg>Mục lục mockup</a><span class="mk-title">SCR-03 · Report Detail</span><span class="mk-sep"></span><div class="mk-group" data-dim="role"><span>Người xem</span><button data-val="guest">Khách</button><button data-val="user">Sinh viên khác</button><button data-val="claimant">Đã gửi yêu cầu</button><button data-val="owner">Chủ tin · chờ duyệt</button><button data-val="owner_accepted">Chủ tin · đã chấp nhận</button><button data-val="owner_returned">Chủ tin · đã trả</button><button data-val="admin">Quản trị viên</button></div><span class="mk-sep"></span><div class="mk-group" data-dim="state"><span>Trạng thái</span><button data-val="default">Có dữ liệu</button><button data-val="loading">Đang tải</button><button data-val="notfound">Không tìm thấy</button></div></div><header class="top-nav">
+  <div class="container">
+    <div><a class="brand" href="01_home_feed.html" aria-label="UniFound — về bảng tin"><svg class="brand-mark" aria-hidden="true"><use href="#uf-mark"/></svg><span class="brand-word">UniFound</span></a></div>
+    <div class="center"></div>
+    <div class="nav-right">
+      <a class="nav-link-btn hide-sm" href="02_create_report.html"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg>Đăng tin</a>
+      <a class="icon-btn show-sm" href="02_create_report.html" aria-label="Đăng tin"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg></a>
+      <a class="nav-link-btn hide-sm" href="06_auth.html" data-when="role=guest">Đăng nhập</a>
+      <div class="account-menu">
+        <button class="account-pill" data-menu aria-haspopup="menu" aria-expanded="false" aria-controls="acct-menu" aria-label="Mở menu tài khoản">
+          <svg class="icon md" aria-hidden="true"><use href="#i-menu"/></svg>
+          <span class="avatar guest" data-when="role=guest"><svg class="icon sm" aria-hidden="true"><use href="#i-user"/></svg></span>
+          <span class="avatar" data-when="role!=guest">L</span>
+        </button>
+        <div class="menu-pop" id="acct-menu" role="menu" hidden>
+          <div data-when="role=guest">
+            <a role="menuitem" class="strong" href="06_auth.html#view=login">Đăng nhập</a>
+            <a role="menuitem" href="06_auth.html#view=register">Tạo tài khoản</a>
+          </div>
+          <div data-when="role!=guest">
+            <a role="menuitem" class="strong" href="05_my_reports.html"><svg class="icon md" aria-hidden="true"><use href="#i-list"/></svg>Tin và yêu cầu của tôi</a>
+            <a role="menuitem" href="04_potential_matches.html"><svg class="icon md" aria-hidden="true"><use href="#i-link"/></svg>Gợi ý trùng khớp</a>
+            <hr>
+            <a role="menuitem" href="02_create_report.html"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg>Đăng tin mới</a>
+            <button role="menuitem" type="button"><svg class="icon md" aria-hidden="true"><use href="#i-logout"/></svg>Đăng xuất</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container narrow">
+
+    <div data-when="state=default">
+      <div class="notice admin" data-when="role=admin" style="margin-top:24px">
+        <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><span><strong>Bạn đang xem với quyền quản trị.</strong> Bạn có thể sửa hoặc xóa tin này nếu nội dung vi phạm. Thông tin xác minh của các yêu cầu vẫn chỉ chủ tin xem được.</span>
+      </div>
+
+      <div class="detail-top">
+        <a class="icon-btn" href="01_home_feed.html" aria-label="Quay lại bảng tin"><svg class="icon md" aria-hidden="true"><use href="#i-chevron-left"/></svg></a>
+        <div class="detail-actions" data-when="role=owner|owner_accepted|owner_returned|admin">
+          <button class="btn btn-text" type="button"><svg class="icon sm" aria-hidden="true"><use href="#i-edit"/></svg>Sửa</button>
+          <button class="btn btn-text danger" type="button" data-open-dialog="dlg-delete"><svg class="icon sm" aria-hidden="true"><use href="#i-trash"/></svg>Xóa</button>
+        </div>
+      </div>
+
+      <div class="plate found banner-plate"><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-phone"/></svg></div>
+
+      <div class="detail-grid">
+        <div class="detail-main">
+          <section>
+            <div class="badge-row">
+              <span class="type-badge found flat"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span>
+              <span data-when="role=guest|user|admin|owner"><span class="status pending"><span class="dot"></span>Có yêu cầu chờ duyệt</span></span>
+              <span data-when="role=claimant"><span class="status pending"><span class="dot"></span>Có yêu cầu chờ duyệt</span></span>
+              <span data-when="role=owner_accepted"><span class="status accepted"><span class="dot"></span>Đã chấp nhận yêu cầu</span></span>
+              <span data-when="role=owner_returned"><span class="status returned"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Đã trả lại</span></span>
+            </div>
+            <h1 class="detail-title" style="margin-top:16px">Hộp tai nghe không dây màu trắng</h1>
+            <p class="lead-line">Tòa H1 · Đăng 3 ngày trước bởi Lan P.</p>
+          </section>
+
+          <section>
+            <h2>Thông tin</h2>
+            <dl class="facts">
+              <div class="fact"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><div><dt>Danh mục</dt><dd>Điện tử</dd></div></div>
+              <div class="fact"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg><div><dt>Khu vực</dt><dd>Tòa H1</dd></div></div>
+              <div class="fact"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg><div><dt>Ngày nhặt được</dt><dd class="num">27/09/2026</dd></div></div>
+              <div class="fact"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg><div><dt>Đăng lúc</dt><dd class="num">27/09/2026, 17:40</dd></div></div>
+            </dl>
+          </section>
+
+          <section>
+            <h2>Mô tả</h2>
+            <p class="prose">Nhặt được ở dãy ghế cuối một phòng học tầng 3 sau ca chiều. Hộp sạc màu trắng, còn đủ hai bên tai nghe.
+
+Mình đang giữ đồ. Nếu là của bạn, hãy gửi yêu cầu kèm đặc điểm riêng để mình đối chiếu.</p>
+          </section>
+
+          <section id="claims" data-when="role=owner|owner_accepted|owner_returned">
+            <h2>Yêu cầu nhận lại</h2>
+            <div class="notice private" style="margin-bottom:24px"><svg class="icon md" aria-hidden="true"><use href="#i-lock"/></svg><span>Chỉ bạn thấy thông tin xác minh. Đối chiếu với đồ đang giữ trước khi chấp nhận; <strong>điểm trùng khớp không phải bằng chứng sở hữu.</strong></span></div>
+
+            <div class="claim-item">
+              <div class="claim-head">
+                <span class="avatar tone-b">M</span><span class="who">Minh T.</span><span class="when">gửi 2 giờ trước</span>
+                <span data-when="role=owner"><span class="status pending"><span class="dot"></span>Chờ xử lý</span></span>
+                <span data-when="role=owner_accepted|owner_returned"><span class="status accepted"><span class="dot"></span>Được chấp nhận</span></span>
+              </div>
+              <div class="verify-box"><span class="lbl"><svg class="icon sm" aria-hidden="true"><use href="#i-lock"/></svg>Thông tin xác minh</span>Mặt trong nắp hộp có dán sticker hình con mèo. Tai trái có vết xước nhỏ ở cạnh. Tên thiết bị khi kết nối bắt đầu bằng “MT-”.</div>
+              <div class="claim-actions" data-when="role=owner">
+                <button class="btn btn-primary btn-sm" type="button" data-open-dialog="dlg-accept"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg>Chấp nhận</button>
+                <button class="btn btn-secondary btn-sm" type="button">Từ chối</button>
+              </div>
+            </div>
+
+            <div class="claim-item">
+              <div class="claim-head">
+                <span class="avatar tone-c">K</span><span class="who">Khoa N.</span><span class="when">gửi 1 ngày trước</span>
+                <span data-when="role=owner"><span class="status pending"><span class="dot"></span>Chờ xử lý</span></span>
+                <span data-when="role=owner_accepted|owner_returned"><span class="status closed"><span class="dot"></span>Đã đóng</span></span>
+              </div>
+              <div class="verify-box"><span class="lbl"><svg class="icon sm" aria-hidden="true"><use href="#i-lock"/></svg>Thông tin xác minh</span>Hộp tai nghe màu trắng, mình mua khoảng tháng 8.</div>
+              <div class="claim-actions" data-when="role=owner">
+                <button class="btn btn-primary btn-sm" type="button" data-open-dialog="dlg-accept"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg>Chấp nhận</button>
+                <button class="btn btn-secondary btn-sm" type="button">Từ chối</button>
+              </div>
+              <p class="hint" data-when="role=owner_accepted|owner_returned"><span>Tự động đóng vì bạn đã chấp nhận yêu cầu khác.</span></p>
+            </div>
+          </section>
+
+          <section>
+            <h2>Người đăng</h2>
+            <div class="poster">
+              <span class="avatar lg">L</span>
+              <div><p class="name">Lan P.</p><p class="sub">Tham gia 09/2026 · 2 tin đã đăng</p></div>
+            </div>
+            <p class="hint" style="margin-top:16px"><span>UniFound không hiển thị số điện thoại hay email trên tin.</span></p>
+          </section>
+        </div>
+
+        <aside id="rail" aria-label="Hành động với tin">
+          <div class="rail" data-when="role=guest">
+            <h3>Đây có phải đồ của bạn?</h3>
+            <p class="muted">Đăng nhập để gửi yêu cầu nhận lại kèm thông tin xác minh riêng tư.</p>
+            <a class="btn btn-primary btn-block" href="06_auth.html#view=login">Đăng nhập để gửi yêu cầu</a>
+            <p class="muted">Chưa có tài khoản? <a href="06_auth.html#view=register">Tạo tài khoản</a></p>
+          </div>
+
+          <form class="rail" data-when="role=user|admin" action="#" onsubmit="return false">
+            <h3>Gửi yêu cầu nhận lại</h3>
+            <div class="field">
+              <label for="verify">Thông tin xác minh</label>
+              <textarea class="textarea" id="verify" maxlength="500" data-count="verify-count" placeholder="Đặc điểm chỉ chủ đồ mới biết: hình dán, vết xước, đồ bên trong…"></textarea>
+              <div class="hint"><span><svg class="icon sm" aria-hidden="true"><use href="#i-lock"/></svg></span><span style="flex:1">Chỉ chủ tin thấy. Không hiện trên bảng tin hay gợi ý.</span><span class="counter num" id="verify-count">0/500</span></div>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit"><svg class="icon md" aria-hidden="true"><use href="#i-send"/></svg>Gửi yêu cầu</button>
+            <p class="muted">Gửi yêu cầu không phải xác nhận quyền sở hữu. Chủ tin sẽ đối chiếu rồi chấp nhận hoặc từ chối.</p>
+          </form>
+
+          <div class="rail" data-when="role=claimant">
+            <h3>Yêu cầu của bạn</h3>
+            <ol class="steps">
+              <li class="done"><span class="mark"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg></span><span class="t">Đã gửi yêu cầu<span class="d num">30/09/2026, 09:12</span></span></li>
+              <li class="now"><span class="mark"></span><span class="t">Chủ tin đối chiếu<span class="d">Bạn sẽ thấy kết quả tại “Của tôi”.</span></span></li>
+              <li class="todo"><span class="mark"></span><span class="t">Được chấp nhận</span></li>
+              <li class="todo"><span class="mark"></span><span class="t">Nhận lại đồ</span></li>
+            </ol>
+            <hr>
+            <div class="verify-box"><span class="lbl"><svg class="icon sm" aria-hidden="true"><use href="#i-lock"/></svg>Bạn đã gửi (riêng tư)</span>Mặt trong nắp hộp có dán sticker hình con mèo. Tai trái có vết xước nhỏ ở cạnh.</div>
+            <a class="btn btn-secondary btn-block" href="05_my_reports.html#tab=claims">Xem yêu cầu đã gửi</a>
+          </div>
+
+          <div class="rail" data-when="role=owner">
+            <h3>Tin của bạn</h3>
+            <p class="muted"><strong style="color:var(--ink)">2 yêu cầu</strong> đang chờ bạn đối chiếu.</p>
+            <a class="btn btn-primary btn-block" href="#claims">Xem yêu cầu</a>
+            <hr>
+            <button class="btn btn-secondary btn-block" type="button" disabled style="opacity:.5;cursor:not-allowed">Đánh dấu đã trả lại</button>
+            <p class="muted">Chỉ bật khi bạn đã chấp nhận một yêu cầu.</p>
+            <a class="btn btn-text" href="04_potential_matches.html"><svg class="icon sm" aria-hidden="true"><use href="#i-link"/></svg>1 tin mất đồ có thể liên quan</a>
+          </div>
+
+          <div class="rail" data-when="role=owner_accepted">
+            <h3>Chờ trao trả</h3>
+            <p class="muted">Bạn đã chấp nhận yêu cầu của <strong style="color:var(--ink)">Minh T.</strong> Sau khi trao đồ, đánh dấu đã trả lại để kết thúc tin.</p>
+            <button class="btn btn-primary btn-block" type="button" data-open-dialog="dlg-return"><svg class="icon md" aria-hidden="true"><use href="#i-check"/></svg>Đánh dấu đã trả lại</button>
+          </div>
+
+          <div class="rail" data-when="role=owner_returned">
+            <h3>Đã hoàn tất</h3>
+            <p class="muted">Đồ đã được trả cho Minh T. ngày <span class="num">30/09/2026</span>. Tin không nhận yêu cầu mới.</p>
+            <a class="btn btn-secondary btn-block" href="05_my_reports.html">Về tin của tôi</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <div data-when="state=loading" aria-busy="true" aria-label="Đang tải tin">
+      <div class="detail-top"><div class="sk" style="width:40px;height:40px;border-radius:50%"></div></div>
+      <div class="sk banner-plate"></div>
+      <div class="detail-grid">
+        <div style="display:grid;gap:14px"><div class="sk line w40"></div><div class="sk" style="height:28px;width:80%"></div><div class="sk line w50"></div><div class="sk line w90" style="margin-top:32px"></div><div class="sk line w90"></div><div class="sk line w70"></div></div>
+        <div class="sk" style="height:280px;border-radius:var(--r-md)"></div>
+      </div>
+    </div>
+
+    <div class="state-block" data-when="state=notfound">
+      <div class="state-ico"><svg class="icon lg" aria-hidden="true"><use href="#i-inbox"/></svg></div>
+      <h2>Tin này không còn tồn tại</h2>
+      <p>Tin có thể đã được chủ tin hoặc quản trị viên xóa.</p>
+      <div class="state-actions"><a class="btn btn-primary" href="01_home_feed.html">Về bảng tin</a></div>
+    </div>
+  </div>
+
+  <div class="mobile-cta" data-when="state=default">
+    <div data-when="role=guest"><div class="t">Đây có phải đồ của bạn?</div><div class="d">Cần đăng nhập để gửi yêu cầu</div></div>
+    <a class="btn btn-primary" href="06_auth.html" data-when="role=guest">Đăng nhập</a>
+    <div data-when="role=user|admin"><div class="t">Nhặt được · Tòa H1</div><div class="d">Thông tin xác minh là riêng tư</div></div>
+    <a class="btn btn-primary" href="#rail" data-when="role=user|admin">Gửi yêu cầu</a>
+    <div data-when="role=claimant"><div class="t">Đã gửi yêu cầu</div><div class="d">Chủ tin đang đối chiếu</div></div>
+    <span data-when="role=claimant"><span class="status pending"><span class="dot"></span>Chờ xử lý</span></span>
+    <div data-when="role=owner"><div class="t">2 yêu cầu chờ duyệt</div><div class="d">Đối chiếu trước khi chấp nhận</div></div>
+    <a class="btn btn-primary" href="#claims" data-when="role=owner">Xem</a>
+    <div data-when="role=owner_accepted"><div class="t">Chờ trao trả</div><div class="d">Đã chấp nhận Minh T.</div></div>
+    <button class="btn btn-primary" type="button" data-open-dialog="dlg-return" data-when="role=owner_accepted">Đã trả lại</button>
+    <div data-when="role=owner_returned"><div class="t">Đã hoàn tất</div><div class="d num">Trả lại ngày 30/09/2026</div></div>
+    <span data-when="role=owner_returned"><span class="status returned"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Đã trả lại</span></span>
+  </div>
+
+  <dialog class="modal" id="dlg-delete" aria-labelledby="dlg-delete-t">
+    <div class="modal-body"><h2 id="dlg-delete-t">Xóa tin này?</h2>
+      <p>Tin và các yêu cầu nhận lại liên quan sẽ bị xóa. Không thể hoàn tác.</p></div>
+    <div class="modal-foot"><button class="btn btn-text" type="button" data-close-dialog>Giữ lại</button><button class="btn btn-danger" type="button" data-close-dialog><svg class="icon md" aria-hidden="true"><use href="#i-trash"/></svg>Xóa tin</button></div>
+  </dialog>
+  <dialog class="modal" id="dlg-accept" aria-labelledby="dlg-accept-t">
+    <div class="modal-body"><h2 id="dlg-accept-t">Chấp nhận yêu cầu của Minh T.?</h2>
+      <p>Các yêu cầu khác của tin này sẽ tự đóng. Chỉ chấp nhận khi thông tin xác minh khớp với đồ bạn đang giữ.</p></div>
+    <div class="modal-foot"><button class="btn btn-text" type="button" data-close-dialog>Xem lại</button><button class="btn btn-primary" type="button" data-close-dialog>Chấp nhận</button></div>
+  </dialog>
+  <dialog class="modal" id="dlg-return" aria-labelledby="dlg-return-t">
+    <div class="modal-body"><h2 id="dlg-return-t">Xác nhận đã trả đồ?</h2>
+      <p>Chỉ đánh dấu khi Minh T. đã thực sự nhận lại đồ. Tin sẽ chuyển sang “Đã trả lại” và không nhận yêu cầu mới.</p></div>
+    <div class="modal-foot"><button class="btn btn-text" type="button" data-close-dialog>Chưa</button><button class="btn btn-primary" type="button" data-close-dialog>Đã trả lại</button></div>
+  </dialog>
+</main>
+<footer class="footer">
+  <div class="container">
+    <span>© 2026 UniFound · Mini Project — dữ liệu trên trang là dữ liệu giả.</span>
+    <nav aria-label="Liên kết cuối trang">
+      <a href="01_home_feed.html">Bảng tin</a>
+      <a href="02_create_report.html">Đăng tin</a>
+      <a href="05_my_reports.html">Của tôi</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
