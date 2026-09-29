@@ -49,4 +49,4 @@ CHG-010 có thể phát triển module matching độc lập sau khi thống nh�
 
 Mỗi CHG mới cần liên kết với một Notion Task, một branch và một pull request. Các trường Branch, PR, Commit sau merge, Reviewer và Dependency được cập nhật trong quá trình thực hiện; các CHG lịch sử chưa có evidence Git vẫn giữ nguyên trạng thái lịch sử.
 
-Xem quy tắc và template tại [`changes-workflow.md`](../00_guides/02_workflows/changes-workflow.md) và [`git-workflow.md`](../00_guides/02_workflows/git-workflow.md).
+Xem quy tắc và template tại [`changes-workflow.md`](../00_guides/changes-workflow.md) và [`git-workflow.md`](../00_guides/git-workflow.md).
