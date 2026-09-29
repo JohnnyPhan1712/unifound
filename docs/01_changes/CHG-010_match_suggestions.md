@@ -1,19 +1,13 @@
 # CHG-010: xây cơ chế gợi ý report trùng khớp
 
 - ID: `CHG-010`
-- Trạng thái: `proposed`
+- Trạng thái: `rejected`
 - Ngày tạo: `2026-09-22`
-- Sprint/Milestone: `Sprint 1 / MVP foundation`
 - Người phụ trách: `Thế Anh`
-- Reviewer: `Phát`
-- Notion Task: `xây cơ chế gợi ý report trùng khớp`
-- Dependency: `CHG-006`, `CHG-007`, `CHG-009 contract`
 - Branch: `feat/matching-suggestions`
-- PR: `chưa có`
 - Commit sau merge: `chưa có`
 - File/module dự kiến sửa: `src/lib/matching/**`, matching adapter/components, `tests/**` matching unit tests
 - Phạm vi ownership: `matching module, score/reason output và unit tests`
-- Thời gian Sprint: `2026-09-23` đến `2026-09-29`
 
 ## Kết quả người dùng
 

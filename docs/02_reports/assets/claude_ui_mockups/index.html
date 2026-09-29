@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mục lục · UniFound mockup</title>
+<meta name="description" content="Mục lục mockup giao diện UniFound.">
+<link rel="icon" href="assets/logo_mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/uf.css">
+<script src="assets/uf.js" defer></script>
+</head>
+<body>
+<div class="mk-bar" role="region" aria-label="Điều khiển mockup (không thuộc giao diện sản phẩm)"><a href="../../07_brand_identity.md">Tài liệu nhận diện thương hiệu (07)</a><span class="mk-title">Mục lục mockup</span></div>
+<style>
+  .ix-hero { padding: 56px 0 32px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px; align-items: end; border-bottom: 1px solid var(--hairline); }
+  .ix-hero h1 { margin: 20px 0 12px; font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; text-wrap: balance; }
+  .ix-hero p { margin: 0; color: var(--muted); max-width: 62ch; }
+  .ix-sw { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 150px); gap: 16px 20px; }
+  .ix-sw li { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; line-height: 1.35; }
+  .ix-sw .sw { width: 28px; height: 28px; border-radius: 8px; flex: none; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+  .ix-sw b { display: block; font-size: 13px; }
+  .ix-sw em { display: block; font-style: normal; color: var(--muted); }
+  .ix-sw .num { display: block; color: var(--muted); }
+  .ix-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; padding: 40px 0 64px; }
+  .ix-card { display: grid; gap: 16px; align-content: start; }
+  .ix-frame { display: block; position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-radius: var(--r-md); border: 1px solid var(--hairline); background: var(--surface-soft); transition: box-shadow .25s var(--ease); }
+  .ix-frame:hover { box-shadow: var(--shadow); }
+  .ix-frame iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 900px; border: 0; transform: scale(var(--s, .3)); transform-origin: 0 0; pointer-events: none; }
+  .ix-body { display: grid; gap: 8px; }
+  .ix-body h2 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+  .ix-body h2 a { text-decoration: none; }
+  .ix-body h2 a:hover { text-decoration: underline; }
+  .ix-body p { margin: 0; color: var(--muted); font-size: 14px; }
+  .ix-map { font-size: 12px; color: var(--muted); }
+  @media (max-width: 1128px) { .ix-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ix-hero { grid-template-columns: 1fr; } }
+  @media (max-width: 744px) { .ix-grid { grid-template-columns: 1fr; } .ix-hero h1 { font-size: 30px; } .ix-sw { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+<main class="container">
+  <section class="ix-hero">
+    <div>
+      <a class="brand" href="01_home_feed.html" aria-label="UniFound — về bảng tin"><svg class="brand-mark" aria-hidden="true"><use href="#uf-mark"/></svg><span class="brand-word">UniFound</span></a>
+      <h1>Mockup giao diện MVP</h1>
+      <p>Năm màn hình chính theo chương 02 (SCR-01 → SCR-05) và màn hình đăng nhập. Nền bố cục giữ theo DESIGN.md (Airbnb); màu, logo, font và nhãn nghiệp vụ theo tài liệu nhận diện thương hiệu. Mỗi màn hình có thanh điều khiển phía trên để chuyển trạng thái loading, empty, lỗi và vai trò người xem. Thu hẹp trình duyệt để xem layout mobile.</p>
+    </div>
+    <ul class="ix-sw" aria-label="Palette chính"><li><span class="sw" style="background:#2D5BD7"></span><span><b>UniFound Blue</b><span class="num">#2D5BD7</span><em>CTA, search orb, link thương hiệu</em></span></li><li><span class="sw" style="background:#1F47B8"></span><span><b>Blue Active</b><span class="num">#1F47B8</span><em>Hover/pressed</em></span></li><li><span class="sw" style="background:#9A3D0B"></span><span><b>Mất đồ</b><span class="num">#9A3D0B</span><em>Nhãn Lost + icon kính lúp</em></span></li><li><span class="sw" style="background:#0B6B4A"></span><span><b>Nhặt được</b><span class="num">#0B6B4A</span><em>Nhãn Found + icon hộp</em></span></li><li><span class="sw" style="background:#8A5700"></span><span><b>Chờ xử lý</b><span class="num">#8A5700</span><em>Trạng thái đang chờ</em></span></li><li><span class="sw" style="background:#C13515"></span><span><b>Lỗi</b><span class="num">#C13515</span><em>Validation, xóa</em></span></li><li><span class="sw" style="background:#222222"></span><span><b>Ink</b><span class="num">#222222</span><em>Chữ chính</em></span></li><li><span class="sw" style="background:#FFFFFF"></span><span><b>Canvas</b><span class="num">#FFFFFF</span><em>Nền trang</em></span></li></ul>
+  </section>
+  <section class="ix-grid" aria-label="Danh sách màn hình"><article class="ix-card">
+        <a class="ix-frame" href="01_home_feed.html" aria-label="Mở Home / Lost & Found Feed">
+          <iframe src="01_home_feed.html" title="Xem trước Home / Lost & Found Feed" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="ix-body">
+          <div class="badge-row"><span class="status"><span class="dot" style="background:var(--primary)"></span>SCR-01</span><span class="ix-map">FR-01 · US-01, US-02</span></div>
+          <h2><a href="01_home_feed.html">Home / Lost & Found Feed</a></h2>
+          <p>Xem, tìm và lọc tin công khai.</p>
+          <div class="active-filters"><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="01_home_feed.html#state=loading">Đang tải</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="01_home_feed.html#state=empty">Không kết quả</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="01_home_feed.html#state=error">Lỗi</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="01_home_feed.html#auth=user">Đã đăng nhập</a></div>
+        </div>
+      </article><article class="ix-card">
+        <a class="ix-frame" href="02_create_report.html" aria-label="Mở Create Report">
+          <iframe src="02_create_report.html" title="Xem trước Create Report" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="ix-body">
+          <div class="badge-row"><span class="status"><span class="dot" style="background:var(--primary)"></span>SCR-02</span><span class="ix-map">FR-02 · US-01, US-02</span></div>
+          <h2><a href="02_create_report.html">Create Report</a></h2>
+          <p>Đăng tin mất đồ hoặc nhặt được với validation.</p>
+          <div class="active-filters"><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="02_create_report.html#state=validation">Lỗi nhập</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="02_create_report.html#state=submitting">Đang gửi</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="02_create_report.html#state=success">Thành công</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="02_create_report.html#state=guest">Chưa đăng nhập</a></div>
+        </div>
+      </article><article class="ix-card">
+        <a class="ix-frame" href="03_report_detail.html" aria-label="Mở Report Detail">
+          <iframe src="03_report_detail.html" title="Xem trước Report Detail" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="ix-body">
+          <div class="badge-row"><span class="status"><span class="dot" style="background:var(--primary)"></span>SCR-03</span><span class="ix-map">FR-03, FR-05, FR-06, FR-07 · US-04, US-05, US-06</span></div>
+          <h2><a href="03_report_detail.html">Report Detail</a></h2>
+          <p>Chi tiết tin, gửi yêu cầu, chủ tin xử lý, sửa/xóa.</p>
+          <div class="active-filters"><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="03_report_detail.html#role=user">Gửi yêu cầu</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="03_report_detail.html#role=owner">Chủ tin duyệt</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="03_report_detail.html#role=owner_accepted">Chờ trao trả</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="03_report_detail.html#role=admin">Quản trị</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="03_report_detail.html#state=notfound">Không tìm thấy</a></div>
+        </div>
+      </article><article class="ix-card">
+        <a class="ix-frame" href="04_potential_matches.html" aria-label="Mở Potential Matches">
+          <iframe src="04_potential_matches.html" title="Xem trước Potential Matches" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="ix-body">
+          <div class="badge-row"><span class="status"><span class="dot" style="background:var(--primary)"></span>SCR-04</span><span class="ix-map">FR-04 · US-03</span></div>
+          <h2><a href="04_potential_matches.html">Potential Matches</a></h2>
+          <p>Gợi ý trùng khớp kèm điểm và lý do.</p>
+          <div class="active-filters"><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="04_potential_matches.html#src=r3">Không có gợi ý</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="04_potential_matches.html#state=loading">Đang tải</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="04_potential_matches.html#state=error">Lỗi</a></div>
+        </div>
+      </article><article class="ix-card">
+        <a class="ix-frame" href="05_my_reports.html" aria-label="Mở My Reports / Claim Status">
+          <iframe src="05_my_reports.html" title="Xem trước My Reports / Claim Status" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="ix-body">
+          <div class="badge-row"><span class="status"><span class="dot" style="background:var(--primary)"></span>SCR-05</span><span class="ix-map">FR-06 · US-05</span></div>
+          <h2><a href="05_my_reports.html">My Reports / Claim Status</a></h2>
+          <p>Theo dõi tin, yêu cầu và bước tiếp theo.</p>
+          <div class="active-filters"><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="05_my_reports.html#tab=claims">Yêu cầu đã gửi</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="05_my_reports.html#state=empty">Chưa có gì</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="05_my_reports.html#state=loading">Đang tải</a></div>
+        </div>
+      </article><article class="ix-card">
+        <a class="ix-frame" href="06_auth.html" aria-label="Mở Đăng nhập / Đăng ký">
+          <iframe src="06_auth.html" title="Xem trước Đăng nhập / Đăng ký" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+        </a>
+        <div class="ix-body">
+          <div class="badge-row"><span class="status"><span class="dot" style="background:var(--primary)"></span>AUTH</span><span class="ix-map">Luồng chính · chương 01 mục 6</span></div>
+          <h2><a href="06_auth.html">Đăng nhập / Đăng ký</a></h2>
+          <p>Email + mật khẩu hoặc magic link (Supabase Auth).</p>
+          <div class="active-filters"><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="06_auth.html#view=register">Đăng ký</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="06_auth.html#view=error">Sai mật khẩu</a><a class="chip-filter" style="padding:0 12px;text-decoration:none" href="06_auth.html#view=magic_sent">Đã gửi link</a></div>
+        </div>
+      </article></section>
+</main>
+<footer class="footer">
+  <div class="container">
+    <span>© 2026 UniFound · Mini Project — dữ liệu trên trang là dữ liệu giả.</span>
+    <nav aria-label="Liên kết cuối trang">
+      <a href="01_home_feed.html">Bảng tin</a>
+      <a href="02_create_report.html">Đăng tin</a>
+      <a href="05_my_reports.html">Của tôi</a>
+    </nav>
+  </div>
+</footer>
+<script>
+function fit() { document.querySelectorAll(".ix-frame").forEach(function (f) { f.style.setProperty("--s", f.clientWidth / 1440); }); }
+window.addEventListener("resize", fit); document.addEventListener("DOMContentLoaded", fit);
+</script>
+</body>
+</html>

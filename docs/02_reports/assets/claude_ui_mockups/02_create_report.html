@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đăng tin · UniFound mockup</title>
+<meta name="description" content="SCR-02: tạo Lost/Found Report với validation.">
+<link rel="icon" href="assets/logo_mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/uf.css">
+<script src="assets/uf.js" defer></script>
+</head>
+<body>
+<div class="mk-bar" role="region" aria-label="Điều khiển mockup (không thuộc giao diện sản phẩm)"><a href="index.html"><svg class="icon sm" aria-hidden="true"><use href="#i-arrow-left"/></svg>Mục lục mockup</a><span class="mk-title">SCR-02 · Create Report</span><span class="mk-sep"></span><div class="mk-group" data-dim="state"><span>Trạng thái</span><button data-val="default">Trống</button><button data-val="validation">Lỗi nhập liệu</button><button data-val="submitting">Đang gửi</button><button data-val="success">Thành công</button><button data-val="guest">Chưa đăng nhập</button></div></div><header class="top-nav">
+  <div class="container">
+    <div><a class="brand" href="01_home_feed.html" aria-label="UniFound — về bảng tin"><svg class="brand-mark" aria-hidden="true"><use href="#uf-mark"/></svg><span class="brand-word">UniFound</span></a></div>
+    <div class="center"></div>
+    <div class="nav-right">
+      <a class="nav-link-btn hide-sm" href="02_create_report.html"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg>Đăng tin</a>
+      <a class="icon-btn show-sm" href="02_create_report.html" aria-label="Đăng tin"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg></a>
+      <a class="nav-link-btn hide-sm" href="06_auth.html" data-when="state=guest">Đăng nhập</a>
+      <div class="account-menu">
+        <button class="account-pill" data-menu aria-haspopup="menu" aria-expanded="false" aria-controls="acct-menu" aria-label="Mở menu tài khoản">
+          <svg class="icon md" aria-hidden="true"><use href="#i-menu"/></svg>
+          <span class="avatar guest" data-when="state=guest"><svg class="icon sm" aria-hidden="true"><use href="#i-user"/></svg></span>
+          <span class="avatar" data-when="state!=guest">M</span>
+        </button>
+        <div class="menu-pop" id="acct-menu" role="menu" hidden>
+          <div data-when="state=guest">
+            <a role="menuitem" class="strong" href="06_auth.html#view=login">Đăng nhập</a>
+            <a role="menuitem" href="06_auth.html#view=register">Tạo tài khoản</a>
+          </div>
+          <div data-when="state!=guest">
+            <a role="menuitem" class="strong" href="05_my_reports.html"><svg class="icon md" aria-hidden="true"><use href="#i-list"/></svg>Tin và yêu cầu của tôi</a>
+            <a role="menuitem" href="04_potential_matches.html"><svg class="icon md" aria-hidden="true"><use href="#i-link"/></svg>Gợi ý trùng khớp</a>
+            <hr>
+            <a role="menuitem" href="02_create_report.html"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg>Đăng tin mới</a>
+            <button role="menuitem" type="button"><svg class="icon md" aria-hidden="true"><use href="#i-logout"/></svg>Đăng xuất</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="form-page">
+  <div class="container form">
+    <div data-when="state=guest" class="state-block" style="padding-top:96px">
+      <div class="state-ico"><svg class="icon lg" aria-hidden="true"><use href="#i-lock"/></svg></div>
+      <h2>Đăng nhập để đăng tin</h2>
+      <p>Bảng tin ai cũng xem được, nhưng đăng tin cần tài khoản để bạn sửa, xóa tin và nhận yêu cầu nhận lại.</p>
+      <div class="state-actions">
+        <a class="btn btn-primary" href="06_auth.html#view=login">Đăng nhập</a>
+        <a class="btn btn-secondary" href="06_auth.html#view=register">Tạo tài khoản</a>
+      </div>
+    </div>
+
+    <form id="report-form" data-when="state!=guest" novalidate action="#" onsubmit="return false">
+      <h1>Đăng tin mới</h1>
+      <p class="lede">Mất 1 phút. Tin càng rõ, gợi ý trùng khớp càng chính xác.</p>
+
+      <div class="notice err err-summary" role="alert" data-when="state=validation" style="margin-bottom:32px">
+        <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+        <div><strong>Còn 4 mục cần sửa trước khi đăng</strong>
+          <ul><li><a href="#title">Tiêu đề quá ngắn</a></li><li><a href="#cat-group">Chưa chọn danh mục</a></li>
+          <li><a href="#date">Ngày xảy ra ở tương lai</a></li><li><a href="#desc">Mô tả quá ngắn</a></li></ul>
+        </div>
+      </div>
+
+      <fieldset class="form-stack">
+        <fieldset>
+          <legend>Bạn muốn đăng gì?</legend>
+          <div class="choice-grid">
+            <label class="choice lost"><input type="radio" name="type" value="lost" checked>
+              <span class="tile"><svg class="icon lg" aria-hidden="true"><use href="#i-lost"/></svg><span class="t">Tôi bị mất đồ</span><span class="d">Tạo tin mất đồ để người nhặt được tìm thấy bạn.</span></span></label>
+            <label class="choice found"><input type="radio" name="type" value="found">
+              <span class="tile"><svg class="icon lg" aria-hidden="true"><use href="#i-found"/></svg><span class="t">Tôi nhặt được đồ</span><span class="d">Tạo tin nhặt được để chủ đồ gửi yêu cầu nhận lại.</span></span></label>
+          </div>
+        </fieldset>
+
+        <div class="notice info" id="type-hint"><svg class="icon md" aria-hidden="true"><use href="#i-info"/></svg><span id="type-hint-text">Ghi màu sắc, hãng, vật đi kèm để hệ thống gợi ý tin nhặt được phù hợp.</span></div>
+
+        <div class="field">
+          <label for="title">Tiêu đề</label>
+          <input class="input" id="title" name="title" maxlength="100" data-count="title-count" placeholder="Ví dụ: Tai nghe Bluetooth màu trắng" aria-describedby="title-hint title-err">
+          <div class="hint" id="title-hint"><span>Từ 4 đến 100 ký tự.</span><span class="counter num" id="title-count">0/100</span></div>
+          <p class="err-text" id="title-err" data-when="state=validation"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Tiêu đề cần ít nhất 4 ký tự.</p>
+        </div>
+
+        <fieldset id="cat-group">
+          <legend>Danh mục</legend>
+          <div class="choice-grid cats" id="cat-grid"><label class="choice"><input type="radio" name="category" value="electronics"><span class="tile"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span class="t">Điện tử</span></span></label><label class="choice"><input type="radio" name="category" value="wallet"><span class="tile"><svg class="icon" aria-hidden="true"><use href="#i-wallet"/></svg><span class="t">Ví / giấy tờ</span></span></label><label class="choice"><input type="radio" name="category" value="keys"><span class="tile"><svg class="icon" aria-hidden="true"><use href="#i-key"/></svg><span class="t">Chìa khóa</span></span></label><label class="choice"><input type="radio" name="category" value="clothing"><span class="tile"><svg class="icon" aria-hidden="true"><use href="#i-shirt"/></svg><span class="t">Quần áo / phụ kiện</span></span></label><label class="choice"><input type="radio" name="category" value="study"><span class="tile"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg><span class="t">Sách / dụng cụ học tập</span></span></label><label class="choice"><input type="radio" name="category" value="other"><span class="tile"><svg class="icon" aria-hidden="true"><use href="#i-other"/></svg><span class="t">Khác</span></span></label></div>
+          <p class="err-text" id="cat-err" data-when="state=validation"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Chọn một danh mục phù hợp nhất.</p>
+        </fieldset>
+
+        <div class="form-row">
+          <div class="field">
+            <label for="loc">Khu vực</label>
+            <select class="select" id="loc" name="location"><option value="">Chọn khu vực</option><option value="Tòa H1">Tòa H1</option><option value="Tòa H2">Tòa H2</option><option value="Tòa H3">Tòa H3</option><option value="Tòa H6">Tòa H6</option><option value="Bãi giữ xe">Bãi giữ xe</option><option value="Căn tin">Căn tin</option><option value="Nhà thi đấu">Nhà thi đấu</option><option value="Khác">Khác</option></select>
+            <div class="hint"><span>Chọn khu vực gần nhất, không cần vị trí chính xác.</span></div>
+          </div>
+          <div class="field">
+            <label for="date" id="date-label">Ngày xảy ra</label>
+            <input class="input num" type="date" id="date" name="eventDate" max="2026-09-30" aria-describedby="date-err">
+            <p class="err-text" id="date-err" data-when="state=validation"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Ngày xảy ra không được sau hôm nay (30/09/2026).</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="desc">Mô tả</label>
+          <textarea class="textarea" id="desc" name="description" maxlength="600" data-count="desc-count" placeholder="Nơi, thời điểm, đặc điểm dễ nhận ra…" aria-describedby="desc-hint desc-err"></textarea>
+          <div class="hint" id="desc-hint"><span>Từ 10 đến 600 ký tự. Không ghi số điện thoại, số thẻ hay mật khẩu.</span><span class="counter num" id="desc-count">0/600</span></div>
+          <p class="err-text" id="desc-err" data-when="state=validation"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Mô tả cần ít nhất 10 ký tự.</p>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <div class="form-bar" data-when="state!=guest">
+    <div class="container form">
+      <a class="btn btn-text" href="01_home_feed.html">Hủy</a>
+      <button class="btn btn-primary" type="submit" form="report-form" data-when="state!=submitting">Đăng tin</button>
+      <button class="btn btn-primary" type="button" disabled data-when="state=submitting" aria-live="polite"><span class="spinner"></span>Đang đăng…</button>
+    </div>
+  </div>
+
+  <div class="toast" role="status" data-when="state=success">
+    <svg class="icon md" aria-hidden="true"><use href="#i-check"/></svg><span>Đã đăng tin. Có 3 tin nhặt được có thể liên quan.</span><a href="04_potential_matches.html">Xem gợi ý</a>
+  </div>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var f = document.getElementById("report-form");
+  var hint = document.getElementById("type-hint-text");
+  var dateLabel = document.getElementById("date-label");
+  var HINT = {
+    lost: "Ghi màu sắc, hãng, vật đi kèm để hệ thống gợi ý tin nhặt được phù hợp.",
+    found: "Đừng mô tả hết đặc điểm riêng. Giữ lại vài chi tiết để đối chiếu khi có người gửi yêu cầu nhận lại."
+  };
+  function syncType() {
+    var t = f.querySelector('input[name="type"]:checked').value;
+    hint.textContent = HINT[t];
+    dateLabel.textContent = t === "lost" ? "Ngày mất đồ" : "Ngày nhặt được";
+  }
+  f.querySelectorAll('input[name="type"]').forEach(function (r) { r.addEventListener("change", syncType); });
+
+  var VALID = { title: "Tai nghe Bluetooth màu trắng", cat: "electronics", loc: "Tòa H1", date: "2026-09-28",
+    desc: "Để quên ở dãy ghế cuối phòng H1.305 sau ca chiều. Hộp sạc màu trắng, có dây đeo màu xám." };
+  var BAD = { title: "Tai", cat: "", loc: "Tòa H1", date: "2026-10-05", desc: "Mất rồi" };
+  function fill(v) {
+    f.title.value = v.title; f.location.value = v.loc; f.eventDate.value = v.date; f.description.value = v.desc;
+    f.querySelectorAll('input[name="category"]').forEach(function (r) { r.checked = r.value === v.cat; });
+    ["title", "desc"].forEach(function (id) { document.getElementById(id).dispatchEvent(new Event("input")); });
+  }
+  function clear() { fill({ title: "", cat: "", loc: "", date: "", desc: "" }); }
+  document.addEventListener("mk:change", function (e) {
+    var s = e.detail.state;
+    if (s === "validation") fill(BAD); else if (s === "submitting" || s === "success") fill(VALID); else if (s === "default") clear();
+    var bad = s === "validation";
+    [["title", "title-err"], ["date", "date-err"], ["desc", "desc-err"]].forEach(function (p) {
+      document.getElementById(p[0]).setAttribute("aria-invalid", String(bad));
+    });
+    document.getElementById("cat-grid").setAttribute("aria-invalid", String(bad));
+    f.querySelectorAll("input, select, textarea").forEach(function (el) { el.disabled = s === "submitting"; });
+    syncType();
+  });
+});
+</script>
+</body>
+</html>

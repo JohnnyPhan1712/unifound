@@ -12,8 +12,7 @@ Tạo CHG cho tài liệu nền tảng, quyết định kỹ thuật, kiến tr�
 
 1. Lấy số CHG tiếp theo từ `docs/01_changes/README.md` (hiện là `CHG-NNN`).
 2. Copy template ở cuối tài liệu này, điền ID, ngày tạo, tên công việc.
-3. Tạo Notion Task tương ứng (chưa gắn người/deadline).
-4. Thêm dòng vào bảng CHG trong `docs/01_changes/README.md`.
+3. Thêm dòng vào bảng CHG trong `docs/01_changes/README.md`.
 
 Người tạo CHG ghi rõ **Người phụ trách** (người làm) sau khi thống nhất.
 
@@ -100,9 +99,9 @@ Checklist cho reviewer/người tạo CHG trước khi chuyển `done`:
 7. **Reviewer duyệt**: reviewer kiểm tra log/test/bug/acceptance criteria, cấp xác nhận, merge PR.
 8. **Hoàn tất**: checklist "Definition of Done" ở trên, chuyển CHG sang `done`.
 
-## Cuối Sprint — Chọn log để báo cáo
+## Hỗ trợ người quản lý docs chọn log để báo cáo
 
-Sau Sprint kết thúc, Team Lead (Huy) đọc phần log trong các CHG `done`, chọn ~5–10 AI log tốt nhất để chép vào `docs/02_reports/04_ai_development.md`, tương tự bug/test sang `docs/02_reports/05_testing_deployment.md`. Nhắc nhở kiểm tra:
+Team Lead (Huy) đọc phần log trong các CHG `done`, chọn ~5–10 AI log tốt nhất để chép vào `docs/02_reports/04_ai_development.md`, tương tự bug/test sang `docs/02_reports/05_testing_deployment.md`. Nhắc nhở kiểm tra:
 
 - [ ] >= 1 AI output được đánh giá có chủ đích: sai/thiếu → `Modified`/`Rejected`, hoặc `Accepted` kèm giải thích + evidence xác minh.
 - [ ] >= 2 output/quyết định quan trọng có AI hỗ trợ (yêu cầu, UI/UX, kiến trúc, chức năng, code, test case, phương án sửa lỗi) có phần `Giải thích` rõ.
@@ -117,12 +116,10 @@ Sau Sprint kết thúc, Team Lead (Huy) đọc phần log trong các CHG `done`,
 - Trạng thái: `proposed`
 - Ngày tạo: `YYYY-MM-DD`
 - Người phụ trách: `chưa phân công`
-- Reviewer: 
 - Dependency: `không có`
 - File/module dự kiến sửa/tạo: `chưa xác định`
 - Branch: 
 - Commit sau merge: 
-- Sprint/Milestone: 
 
 ## Kết quả người dùng
 
@@ -132,7 +129,7 @@ Sau Sprint kết thúc, Team Lead (Huy) đọc phần log trong các CHG `done`,
 
 ### Bao gồm
 
-### Không bao gồm
+### Các lưu ý (Tránh người dùng/agent hiểu nhầm task) (Có thể cần ghi hoặc không)
 
 ## File/tài liệu cần đọc trước khi thực hiện
 

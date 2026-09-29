@@ -1,19 +1,14 @@
 # CHG-007: tạo schema database và migration
 
 - ID: `CHG-007`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-22`
-- Sprint/Milestone: `Sprint 1 / MVP foundation`
 - Người phụ trách: `Khang`
-- Reviewer: `Quân`
-- Notion Task: `tạo schema database và migration`
 - Dependency: `CHG-006`
 - Branch: `feat/database-schema`
-- PR: `chưa có`
-- Commit sau merge: `chưa có`
+- Commit sau merge: `TBD`
 - File/module dự kiến sửa: `src/db/**`, `drizzle/**`, database scripts, development report evidence
 - Phạm vi ownership: `database schema, client, migrations và seed`
-- Thời gian Sprint: `2026-09-23` đến `2026-09-29`
 
 ## Kết quả người dùng
 

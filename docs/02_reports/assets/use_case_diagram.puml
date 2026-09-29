@@ -7,9 +7,11 @@ skinparam packageStyle rectangle
 actor "Sinh viên" as Student
 actor "Sinh viên bị mất đồ" as Loser
 actor "Sinh viên nhặt được đồ" as Finder
+actor "Quản trị viên (ADMIN)" as Admin
 
 Loser --|> Student
 Finder --|> Student
+Admin --|> Student
 
 rectangle "Hệ thống UniFound" {
   usecase "Xem, tìm kiếm và\nlọc báo cáo" as UC_Browse
@@ -24,12 +26,17 @@ rectangle "Hệ thống UniFound" {
   usecase "Theo dõi trạng thái\nbáo cáo và yêu cầu nhận đồ" as UC_Track
   usecase "Đánh dấu đồ đã được trả lại\n(Returned)" as UC_Returned
 
+  usecase "Sửa hoặc xóa\nbáo cáo của mình" as UC_ManageOwn
+  usecase "Sửa hoặc xóa báo cáo\nvi phạm của bất kỳ ai" as UC_ManageAny
+
   usecase "Tính điểm trùng khớp\n(match score) theo quy tắc" as UC_Score
 }
 
 Student --> UC_Browse
 Student --> UC_Detail
 Student --> UC_Track
+Student --> UC_ManageOwn
+Admin --> UC_ManageAny
 
 Loser --> UC_CreateLost
 Loser --> UC_Matches

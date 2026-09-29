@@ -2,37 +2,58 @@
 
 UniFound là Mini Project web hỗ trợ sinh viên đăng tin đồ thất lạc, xem các tin có khả năng liên quan và gửi yêu cầu nhận lại đồ.
 
+## Features
+
+- **Feed công khai** — xem các Lost/Found Report từ sinh viên khác
+- **Đăng ký và quản lý** — tạo Lost Report hoặc Found Report với thông tin cơ bản
+- **Gợi ý tự động** — xem các report tương đồng và điểm khớp để ưu tiên kiểm tra
+- **Gửi yêu cầu nhận đồ** — gửi claim kèm thông tin xác minh riêng tư
+- **Theo dõi quá trình** — kiểm tra trạng thái report/claim và hoàn thành flow khi đã trả đồ
+
+## Tech Stack
+
+- **Frontend & Server:** Next.js, React, TypeScript
+- **Database & ORM:** PostgreSQL (Supabase), Drizzle ORM
+- **Authentication:** Supabase Auth (email/password)
+- **Styling:** Tailwind CSS
+- **Validation:** Zod
+- **Testing:** Vitest (unit), Playwright (E2E)
+- **Deployment:** Vercel
+
 ## Trạng thái
 
 Phạm vi, kiến trúc và Technology Stack của MVP đã được chốt. Cấu trúc root đã chuẩn bị cho một ứng dụng Next.js full-stack; source, package, database schema, test và deployment chưa được triển khai.
 
-## Bắt đầu
+## Installation
 
-1. Đọc [hướng dẫn tài liệu](docs/README.md).
-2. Xem [tổng quan và phạm vi hiện tại](docs/02_reports/01_overview.md).
-3. Xem [cấu trúc repository](docs/00_guides/01_conventions/folder-structure.md).
-4. Trước một công việc đáng kể, đọc [quy trình thay đổi](docs/00_guides/02_workflows/changes-workflow.md).
+**Yêu cầu:** Node.js 24.x và npm 11.x
 
-## Chạy local
-
-Yêu cầu Node.js 24.x và npm 11.x. Từ thư mục repository:
-
-```text
+```bash
+git clone <repo-url>
+cd unifound
 npm ci
-copy .env.example .env.local
+cp .env.example .env.local
 npm run dev
 ```
 
-Các lệnh kiểm tra:
-
-```text
-npm run typecheck
-npm test
-npm run test:e2e
-npm run build
-```
+Ứng dụng sẽ chạy tại `http://localhost:3000`
 
 `npm run test:e2e` cần browser Chromium của Playwright; cài một lần bằng `npx playwright install chromium`.
 Các biến môi trường trong `.env.example` chỉ là tên biến, không chứa secret.
 
-Không commit secret, dữ liệu cá nhân thật hoặc bằng chứng có thông tin nhạy cảm.
+## Project Structure
+
+```
+unifound/
+├── src/
+│   ├── app/              # Next.js routes, UI và server actions
+│   └── db/               # Drizzle schema và database client
+├── tests/
+│   └── e2e/              # Playwright E2E tests
+├── public/               # Static assets
+├── docs/                 # Tài liệu dự án
+├── drizzle/              # Database migrations
+├── package.json
+├── tsconfig.json
+└── README.md
+```

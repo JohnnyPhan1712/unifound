@@ -1,21 +1,16 @@
 # CHG-008: tích hợp đăng nhập và phân quyền sở hữu
 
 - ID: `CHG-008`
-- Trạng thái: `in_review`
+- Trạng thái: `rejected`
 - Ngày tạo: `2026-09-22`
-- Sprint/Milestone: `Sprint 1 / MVP foundation`
 - Người phụ trách: `Quân`
-- Reviewer: `Chiến`
-- Notion Task: `tích hợp đăng nhập và phân quyền sở hữu`
 - Dependency: `CHG-006`, `CHG-007`
 - Branch: `feat/auth-and-ownership`
-- PR: `chưa có`
 - Commit sau merge: `chưa có`
 - File/module dự kiến sửa: `src/app/**` auth surfaces, `src/lib/auth/**`, protected server actions/routes, auth tests
 - Phạm vi ownership: `auth utilities, session boundary và ownership checks`
 - File/module đã sửa: `src/db/schema.ts`, `src/db/schema.test.ts`, `src/db/seed.ts`, `src/lib/auth/**`, `src/app/api/auth/**`, `src/app/api/reports/**`, `src/components/auth-header.tsx`, `src/components/report-actions.tsx`
 - Phạm vi ownership: `auth utilities, role authorization (USER/ADMIN), API route handlers, session boundary và ownership checks`
-- Thời gian Sprint: `2026-09-23` đến `2026-09-29`
 
 ## Kết quả người dùng
 Sinh viên có thể đăng ký tài khoản, đăng nhập, đăng xuất và duy trì phiên làm việc an toàn. Người chưa đăng nhập vẫn có thể xem nội dung feed công khai, nhưng các thao tác nhạy cảm (tạo tin, nhận đồ, xem bằng chứng xác minh riêng tư) được kiểm soát quyền chặt chẽ phía server. Phân quyền rõ ràng giữa USER (chỉ sửa/xóa bài đăng của chính mình) và ADMIN (quản trị, sửa/xóa bài vi phạm).

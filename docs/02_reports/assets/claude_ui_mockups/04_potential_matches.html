@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gợi ý trùng khớp · UniFound mockup</title>
+<meta name="description" content="SCR-04: Potential Matches với score và lý do.">
+<link rel="icon" href="assets/logo_mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/uf.css">
+<script src="assets/uf.js" defer></script>
+</head>
+<body>
+<div class="mk-bar" role="region" aria-label="Điều khiển mockup (không thuộc giao diện sản phẩm)"><a href="index.html"><svg class="icon sm" aria-hidden="true"><use href="#i-arrow-left"/></svg>Mục lục mockup</a><span class="mk-title">SCR-04 · Potential Matches</span><span class="mk-sep"></span><div class="mk-group" data-dim="state"><span>Trạng thái</span><button data-val="default">Có dữ liệu</button><button data-val="loading">Đang tải</button><button data-val="empty">Không có gợi ý</button><button data-val="error">Lỗi tải</button></div></div><header class="top-nav">
+  <div class="container">
+    <div><a class="brand" href="01_home_feed.html" aria-label="UniFound — về bảng tin"><svg class="brand-mark" aria-hidden="true"><use href="#uf-mark"/></svg><span class="brand-word">UniFound</span></a></div>
+    <div class="center"></div>
+    <div class="nav-right">
+      <a class="nav-link-btn hide-sm" href="02_create_report.html"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg>Đăng tin</a>
+      <a class="icon-btn show-sm" href="02_create_report.html" aria-label="Đăng tin"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg></a>
+      <a class="nav-link-btn hide-sm" href="06_auth.html" data-when="auth=guest">Đăng nhập</a>
+      <div class="account-menu">
+        <button class="account-pill" data-menu aria-haspopup="menu" aria-expanded="false" aria-controls="acct-menu" aria-label="Mở menu tài khoản">
+          <svg class="icon md" aria-hidden="true"><use href="#i-menu"/></svg>
+          <span class="avatar guest" data-when="auth=guest"><svg class="icon sm" aria-hidden="true"><use href="#i-user"/></svg></span>
+          <span class="avatar" data-when="auth!=guest">M</span>
+        </button>
+        <div class="menu-pop" id="acct-menu" role="menu" hidden>
+          <div data-when="auth=guest">
+            <a role="menuitem" class="strong" href="06_auth.html#view=login">Đăng nhập</a>
+            <a role="menuitem" href="06_auth.html#view=register">Tạo tài khoản</a>
+          </div>
+          <div data-when="auth!=guest">
+            <a role="menuitem" class="strong" href="05_my_reports.html"><svg class="icon md" aria-hidden="true"><use href="#i-list"/></svg>Tin và yêu cầu của tôi</a>
+            <a role="menuitem" href="04_potential_matches.html"><svg class="icon md" aria-hidden="true"><use href="#i-link"/></svg>Gợi ý trùng khớp</a>
+            <hr>
+            <a role="menuitem" href="02_create_report.html"><svg class="icon md" aria-hidden="true"><use href="#i-plus"/></svg>Đăng tin mới</a>
+            <button role="menuitem" type="button"><svg class="icon md" aria-hidden="true"><use href="#i-logout"/></svg>Đăng xuất</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="container narrow">
+    <div class="page-head">
+      <h1>Gợi ý trùng khớp</h1>
+      <p>Các tin có thể liên quan tới tin của bạn, xếp theo điểm từ cao xuống thấp. Đây là gợi ý để kiểm tra, không phải xác nhận quyền sở hữu.</p>
+    </div>
+    <div class="source-bar" data-dim-default="src=r1">
+      <span class="label">Tin của bạn</span>
+      <div class="source-pick">
+        <button class="pick lost" data-set="src=r1" aria-pressed="true"><svg class="icon" aria-hidden="true"><use href="#i-lost"/></svg>Tai nghe Bluetooth màu trắng</button>
+        <button class="pick found" data-set="src=r3" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-found"/></svg>Chìa khóa xe máy có móc gấu bông</button>
+      </div>
+    </div>
+
+    <div class="match-layout">
+      <div>
+        <div data-when="state=default src=r1">
+          <div class="match-list"><article class="match">
+        <div class="plate found "><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-phone"/></svg></div>
+        <div class="match-info">
+          <div class="badge-row"><span class="type-badge found flat"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span></div>
+          <h3>Hộp tai nghe không dây màu trắng</h3>
+          <span class="sub">Tòa H1 · Điện tử · <span class="num">27/09/2026</span></span>
+          <p class="excerpt">Nhặt được ở dãy ghế cuối một phòng học tầng 3 sau ca chiều. Hộp sạc màu trắng, còn đủ hai bên tai nghe.</p>
+          <div class="match-actions">
+            <a class="btn btn-secondary btn-sm" href="03_report_detail.html">Xem chi tiết</a><a class="btn btn-primary btn-sm" href="03_report_detail.html#role=user">Gửi yêu cầu nhận lại</a>
+          </div>
+        </div>
+        <div class="score" aria-label="Điểm gợi ý 100 trên 100">
+          <div class="score-num"><b class="num">100</b><span>/100</span></div>
+          <div class="score-cap">Điểm gợi ý</div>
+          <div class="bar"><i style="width:100%"></i></div>
+          <ul class="reasons"><li class="hit"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg><span>Cùng danh mục</span><span class="pts num">+30</span></li><li class="hit"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg><span>Cùng khu vực</span><span class="pts num">+30</span></li><li class="hit"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg><span>Cách 1 ngày</span><span class="pts num">+20</span></li><li class="hit"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg><span>Từ khóa “tai nghe”, “trắng”</span><span class="pts num">+20</span></li></ul>
+        </div>
+      </article><article class="match">
+        <div class="plate found "><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-phone"/></svg></div>
+        <div class="match-info">
+          <div class="badge-row"><span class="type-badge found flat"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span></div>
+          <h3>Tai nghe có dây màu đen</h3>
+          <span class="sub">Tòa H2 · Điện tử · <span class="num">26/09/2026</span></span>
+          <p class="excerpt">Nhặt được cạnh máy bán nước tầng trệt, đầu cắm 3.5mm.</p>
+          <div class="match-actions">
+            <a class="btn btn-secondary btn-sm" href="03_report_detail.html">Xem chi tiết</a><a class="btn btn-primary btn-sm" href="03_report_detail.html#role=user">Gửi yêu cầu nhận lại</a>
+          </div>
+        </div>
+        <div class="score" aria-label="Điểm gợi ý 70 trên 100">
+          <div class="score-num"><b class="num">70</b><span>/100</span></div>
+          <div class="score-cap">Điểm gợi ý</div>
+          <div class="bar"><i style="width:70%"></i></div>
+          <ul class="reasons"><li class="hit"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg><span>Cùng danh mục</span><span class="pts num">+30</span></li><li class="miss"><svg class="icon sm" aria-hidden="true"><use href="#i-x"/></svg><span>Khác khu vực</span><span class="pts num">0</span></li><li class="hit"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg><span>Cách 2 ngày</span><span class="pts num">+20</span></li><li class="hit"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg><span>Từ khóa “tai nghe”</span><span class="pts num">+20</span></li></ul>
+        </div>
+      </article><article class="match">
+        <div class="plate found "><svg class="icon xl plate-ico" aria-hidden="true"><use href="#i-phone"/></svg></div>
+        <div class="match-info">
+          <div class="badge-row"><span class="type-badge found flat"><svg class="icon sm" aria-hidden="true"><use href="#i-found"/></svg>Nhặt được</span></div>
+          <h3>Sạc dự phòng 10.000 mAh</h3>
+          <span class="sub">Tòa H1 · Điện tử · <span class="num">20/09/2026</span></span>
+          <p class="excerpt">Để trên bàn giáo viên phòng tầng 2, vỏ nhựa nhám.</p>
+          <div class="match-actions">
+            <a class="btn btn-secondary btn-sm" href="03_report_detail.html">Xem chi tiết</a><a class="btn btn-primary btn-sm" href="03_report_detail.html#role=user">Gửi yêu cầu nhận lại</a>
+          </div>
+        </div>
+        <div class="score" aria-label="Điểm gợi ý 60 trên 100">
+          <div class="score-num"><b class="num">60</b><span>/100</span></div>
+          <div class="score-cap">Điểm gợi ý</div>
+          <div class="bar"><i style="width:60%"></i></div>
+          <ul class="reasons"><li class="hit"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg><span>Cùng danh mục</span><span class="pts num">+30</span></li><li class="hit"><svg class="icon sm" aria-hidden="true"><use href="#i-check"/></svg><span>Cùng khu vực</span><span class="pts num">+30</span></li><li class="miss"><svg class="icon sm" aria-hidden="true"><use href="#i-x"/></svg><span>Cách 8 ngày (quá 3)</span><span class="pts num">0</span></li><li class="miss"><svg class="icon sm" aria-hidden="true"><use href="#i-x"/></svg><span>Không có từ khóa chung</span><span class="pts num">0</span></li></ul>
+        </div>
+      </article></div>
+          <p class="hidden-count"><svg class="icon sm" aria-hidden="true"><use href="#i-info"/></svg>2 cặp dưới 50 điểm đã được ẩn.</p>
+        </div>
+        <div data-when="state=default src=r3 || state=empty">
+          <div class="state-block" style="padding-top:48px">
+        <div class="state-ico"><svg class="icon lg" aria-hidden="true"><use href="#i-link"/></svg></div>
+        <h2>Chưa có tin nào đạt từ 50 điểm</h2>
+        <p>Gợi ý sẽ xuất hiện khi có tin mất đồ cùng danh mục, khu vực hoặc thời gian gần. Hãy kiểm tra lại danh mục và khu vực của tin.</p>
+        <div class="state-actions"><a class="btn btn-secondary" href="03_report_detail.html#role=owner"><svg class="icon md" aria-hidden="true"><use href="#i-edit"/></svg>Xem lại tin</a><a class="btn btn-primary" href="01_home_feed.html">Xem bảng tin</a></div>
+      </div>
+          <p class="hidden-count" style="justify-content:center"><svg class="icon sm" aria-hidden="true"><use href="#i-info"/></svg>1 cặp dưới 50 điểm đã được ẩn.</p>
+        </div>
+        <div class="match-list" data-when="state=loading" aria-busy="true" aria-label="Đang tính gợi ý"><div class="match" aria-hidden="true"><div class="sk" style="aspect-ratio:1;border-radius:var(--r-md)"></div><div style="display:grid;gap:10px;align-content:start"><div class="sk line w40"></div><div class="sk" style="height:20px;width:70%"></div><div class="sk line w50"></div><div class="sk line w90"></div></div><div class="score" style="gap:10px"><div class="sk" style="height:48px;width:100px"></div><div class="sk line w90"></div><div class="sk line w70"></div><div class="sk line w70"></div></div></div><div class="match" aria-hidden="true"><div class="sk" style="aspect-ratio:1;border-radius:var(--r-md)"></div><div style="display:grid;gap:10px;align-content:start"><div class="sk line w40"></div><div class="sk" style="height:20px;width:70%"></div><div class="sk line w50"></div><div class="sk line w90"></div></div><div class="score" style="gap:10px"><div class="sk" style="height:48px;width:100px"></div><div class="sk line w90"></div><div class="sk line w70"></div><div class="sk line w70"></div></div></div><div class="match" aria-hidden="true"><div class="sk" style="aspect-ratio:1;border-radius:var(--r-md)"></div><div style="display:grid;gap:10px;align-content:start"><div class="sk line w40"></div><div class="sk" style="height:20px;width:70%"></div><div class="sk line w50"></div><div class="sk line w90"></div></div><div class="score" style="gap:10px"><div class="sk" style="height:48px;width:100px"></div><div class="sk line w90"></div><div class="sk line w70"></div><div class="sk line w70"></div></div></div></div>
+        <div class="state-block" data-when="state=error" role="alert" style="padding-top:48px">
+          <div class="state-ico err"><svg class="icon lg" aria-hidden="true"><use href="#i-alert"/></svg></div>
+          <h2>Chưa tính được gợi ý</h2>
+          <p>Có lỗi khi đọc dữ liệu tin. Tin của bạn vẫn được lưu bình thường.</p>
+          <div class="state-actions"><button class="btn btn-primary" type="button"><svg class="icon md" aria-hidden="true"><use href="#i-refresh"/></svg>Thử lại</button></div>
+        </div>
+      </div>
+
+      <aside class="rule-card" aria-labelledby="rule-t">
+        <div class="notice info"><svg class="icon md" aria-hidden="true"><use href="#i-shield"/></svg><span><strong>Điểm không phải bằng chứng sở hữu.</strong> Chủ tin nhặt được vẫn đối chiếu thông tin xác minh trước khi trao đồ.</span></div>
+        <h2 id="rule-t">Cách tính điểm</h2>
+        <table class="rule-table">
+          <tbody>
+            <tr><td>Cùng danh mục</td><td class="num">30</td></tr>
+            <tr><td>Cùng khu vực</td><td class="num">30</td></tr>
+            <tr><td>Ngày cách nhau ≤ 3 ngày</td><td class="num">20</td></tr>
+            <tr><td>Từ khóa tiêu đề/mô tả giống nhau</td><td class="num">20</td></tr>
+            <tr><td>Tối đa</td><td class="num">100</td></tr>
+          </tbody>
+        </table>
+        <p class="muted">Chỉ hiện cặp tin mất đồ – nhặt được từ 50 điểm. Thông tin xác minh riêng tư không dùng để tính điểm.</p>
+      </aside>
+    </div>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <span>© 2026 UniFound · Mini Project — dữ liệu trên trang là dữ liệu giả.</span>
+    <nav aria-label="Liên kết cuối trang">
+      <a href="01_home_feed.html">Bảng tin</a>
+      <a href="02_create_report.html">Đăng tin</a>
+      <a href="05_my_reports.html">Của tôi</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

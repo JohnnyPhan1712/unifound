@@ -1,19 +1,15 @@
 # CHG-009: xây chức năng đăng, tìm và xem chi tiết report
 
 - ID: `CHG-009`
-- Trạng thái: `waiting_for_integration`
+- Trạng thái: `rejected`
 - Ngày tạo: `2026-09-22`
 - Sprint/Milestone: `Sprint 1 / MVP foundation`
 - Người phụ trách: `Chiến`
-- Reviewer: `Thế Anh`
-- Notion Task: `xây chức năng đăng, tìm và xem chi tiết report`
 - Dependency: `CHG-006`, `CHG-007`, `CHG-008`
 - Branch: `feat/report-discovery-and-submission`
-- PR: `chưa có`
 - Commit sau merge: `chưa có`
 - File/module dự kiến sửa: `src/app/**` report routes/components, report validation adapter, UI states; `tests/e2e/**` report specs
 - Phạm vi ownership: `report UI, report routes và report submission experience`
-- Thời gian Sprint: `2026-09-23` đến `2026-09-29`
 
 ## Kết quả người dùng
 

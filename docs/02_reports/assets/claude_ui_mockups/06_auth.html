@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đăng nhập · UniFound mockup</title>
+<meta name="description" content="Đăng nhập / đăng ký bằng email-password hoặc magic link.">
+<link rel="icon" href="assets/logo_mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/uf.css">
+<script src="assets/uf.js" defer></script>
+</head>
+<body>
+<div class="mk-bar" role="region" aria-label="Điều khiển mockup (không thuộc giao diện sản phẩm)"><a href="index.html"><svg class="icon sm" aria-hidden="true"><use href="#i-arrow-left"/></svg>Mục lục mockup</a><span class="mk-title">AUTH · Đăng nhập / Đăng ký</span><span class="mk-sep"></span><div class="mk-group" data-dim="view"><span>Màn hình</span><button data-val="login">Đăng nhập</button><button data-val="error">Sai mật khẩu</button><button data-val="loading">Đang xử lý</button><button data-val="register">Đăng ký</button><button data-val="register_error">Lỗi đăng ký</button><button data-val="magic">Magic link</button><button data-val="magic_sent">Đã gửi link</button></div></div>
+<div class="auth-page">
+  <header class="top-nav"><div class="container" style="grid-template-columns:1fr auto"><a class="brand" href="01_home_feed.html" aria-label="UniFound — về bảng tin"><svg class="brand-mark" aria-hidden="true"><use href="#uf-mark"/></svg><span class="brand-word">UniFound</span></a><a class="nav-link-btn" href="01_home_feed.html">Xem bảng tin</a></div></header>
+  <main class="auth-shell">
+    <section class="auth-card" aria-labelledby="auth-h">
+      <header>
+        <a class="icon-btn flat" href="01_home_feed.html" aria-label="Đóng"><svg class="icon sm" aria-hidden="true"><use href="#i-x"/></svg></a>
+        <h1 id="auth-h">Đăng nhập hoặc đăng ký</h1><span></span>
+      </header>
+
+      <form class="auth-body" data-when="view=login|error|loading" action="#" onsubmit="return false">
+        <h2>Chào mừng đến UniFound</h2>
+        <p class="lede">Đăng nhập để đăng tin, gửi yêu cầu nhận lại và theo dõi trạng thái.</p>
+        <div class="notice err" role="alert" data-when="view=error"><svg class="icon md" aria-hidden="true"><use href="#i-alert"/></svg><span>Email hoặc mật khẩu không đúng. Kiểm tra lại, hoặc đăng nhập bằng liên kết qua email.</span></div>
+        <div class="joined" id="login-fields">
+          <label class="sr-only" for="email">Email</label>
+          <input class="input" id="email" type="email" placeholder="Email" autocomplete="email" value="">
+          <div class="pw-wrap"><label class="sr-only" for="password">Mật khẩu</label><input class="input" id="password" type="password" placeholder="Mật khẩu" autocomplete="current-password"><button type="button" data-pw-toggle="password" aria-label="Hiện mật khẩu"><svg class="icon md" aria-hidden="true"><use href="#i-eye"/></svg></button></div>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit" data-when="view=login|error">Đăng nhập</button>
+        <button class="btn btn-primary btn-block" type="button" disabled data-when="view=loading"><span class="spinner"></span>Đang đăng nhập…</button>
+        <div class="divider">hoặc</div>
+        <button class="btn btn-secondary btn-block" type="button" data-set="view=magic"><svg class="icon md" aria-hidden="true"><use href="#i-mail"/></svg>Nhận liên kết đăng nhập qua email</button>
+        <p class="auth-foot">Chưa có tài khoản? <button type="button" data-set="view=register">Đăng ký</button></p>
+      </form>
+
+      <form class="auth-body" data-when="view=register|register_error" action="#" onsubmit="return false">
+        <h2>Tạo tài khoản</h2>
+        <p class="lede">Tài khoản mới có vai trò sinh viên. Quyền quản trị do nhóm cấp sẵn, không đăng ký được.</p>
+        <div class="field"><label for="r-name">Họ và tên</label><input class="input" id="r-name" autocomplete="name" placeholder="Tên hiển thị trên tin"></div>
+        <div class="field"><label for="r-email">Email</label><input class="input" id="r-email" type="email" autocomplete="email" placeholder="ban@example.com"></div>
+        <div class="field"><label for="r-pw">Mật khẩu</label><div class="pw-wrap"><label class="sr-only" for="r-pw">Ít nhất 6 ký tự</label><input class="input" id="r-pw" type="password" placeholder="Ít nhất 6 ký tự" autocomplete="new-password"><button type="button" data-pw-toggle="r-pw" aria-label="Hiện mật khẩu"><svg class="icon md" aria-hidden="true"><use href="#i-eye"/></svg></button></div></div>
+        <div class="field"><label for="r-pw2">Nhập lại mật khẩu</label><div class="pw-wrap"><label class="sr-only" for="r-pw2">Nhập lại mật khẩu</label><input class="input" id="r-pw2" type="password" placeholder="Nhập lại mật khẩu" autocomplete="new-password"><button type="button" data-pw-toggle="r-pw2" aria-label="Hiện mật khẩu"><svg class="icon md" aria-hidden="true"><use href="#i-eye"/></svg></button></div>
+          <p class="err-text" data-when="view=register_error"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>Mật khẩu nhập lại không khớp.</p></div>
+        <button class="btn btn-primary btn-block" type="submit">Tạo tài khoản</button>
+        <p class="auth-foot">Đã có tài khoản? <button type="button" data-set="view=login">Đăng nhập</button></p>
+      </form>
+
+      <form class="auth-body" data-when="view=magic" action="#" onsubmit="return false">
+        <h2>Đăng nhập không cần mật khẩu</h2>
+        <p class="lede">Nhập email, UniFound sẽ gửi một liên kết đăng nhập.</p>
+        <div class="field"><label for="m-email">Email</label><input class="input" id="m-email" type="email" autocomplete="email" placeholder="ban@example.com"></div>
+        <button class="btn btn-primary btn-block" type="button" data-set="view=magic_sent"><svg class="icon md" aria-hidden="true"><use href="#i-send"/></svg>Gửi liên kết</button>
+        <p class="auth-foot"><button type="button" data-set="view=login">Dùng mật khẩu</button></p>
+      </form>
+
+      <div class="auth-body" data-when="view=magic_sent">
+        <div class="sent-box">
+          <div class="state-ico"><svg class="icon lg" aria-hidden="true"><use href="#i-mail"/></svg></div>
+          <h2>Kiểm tra hộp thư</h2>
+          <p style="margin:0;color:var(--muted)">Đã gửi liên kết đăng nhập tới <strong style="color:var(--ink)">ban@example.com</strong>. Mở liên kết để vào UniFound.</p>
+        </div>
+        <button class="btn btn-secondary btn-block" type="button">Gửi lại liên kết</button>
+        <p class="auth-foot"><button type="button" data-set="view=login">Dùng mật khẩu</button></p>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+document.addEventListener("mk:change", function (e) {
+  var v = e.detail.view;
+  var bad = v === "error";
+  document.getElementById("login-fields").classList.toggle("invalid", bad);
+  document.getElementById("email").value = (bad || v === "loading") ? "ban@example.com" : "";
+  document.getElementById("password").value = (bad || v === "loading") ? "matkhau" : "";
+  document.getElementById("r-pw2").setAttribute("aria-invalid", String(v === "register_error"));
+});
+</script>
+</body>
+</html>
