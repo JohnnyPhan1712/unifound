@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signUpWithPassword } from "@/lib/auth/actions";
+import { PasswordInput } from "@/components/password-input";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -113,15 +114,13 @@ export default function RegisterPage() {
             <label htmlFor="password" className="field-label">
               Mật khẩu (tối thiểu 6 ký tự)
             </label>
-            <input
+            <PasswordInput
               id="password"
-              type="password"
               required
               autoComplete="new-password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="control"
               disabled={isPending}
             />
           </div>
@@ -130,15 +129,13 @@ export default function RegisterPage() {
             <label htmlFor="confirmPassword" className="field-label">
               Xác nhận lại mật khẩu
             </label>
-            <input
+            <PasswordInput
               id="confirmPassword"
-              type="password"
               required
               autoComplete="new-password"
               placeholder="••••••••"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="control"
               disabled={isPending}
             />
           </div>

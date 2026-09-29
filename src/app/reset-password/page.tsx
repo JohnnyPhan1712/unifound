@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
+import { PasswordInput } from "@/components/password-input";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -144,15 +145,13 @@ export default function ResetPasswordPage() {
               <label htmlFor="password" className="field-label">
                 Mật khẩu mới (tối thiểu 6 ký tự)
               </label>
-              <input
+              <PasswordInput
                 id="password"
-                type="password"
                 required
                 autoComplete="new-password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="control"
                 disabled={isPending}
               />
             </div>
@@ -161,15 +160,13 @@ export default function ResetPasswordPage() {
               <label htmlFor="confirmPassword" className="field-label">
                 Xác nhận lại mật khẩu mới
               </label>
-              <input
+              <PasswordInput
                 id="confirmPassword"
-                type="password"
                 required
                 autoComplete="new-password"
                 placeholder="••••••••"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="control"
                 disabled={isPending}
               />
             </div>
