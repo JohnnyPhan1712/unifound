@@ -3,30 +3,36 @@
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signInWithPassword } from "@/lib/auth/actions";
+import { updatePasswordAction } from "@/lib/auth/actions";
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [error, setError] = useState<string | null>(null);
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (!email || !password) {
-      setError("Vui lòng điền đầy đủ email và mật khẩu.");
+    if (password !== confirmPassword) {
+      setError("Mật khẩu xác nhận không khớp.");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Mật khẩu mới phải có ít nhất 6 ký tự.");
       return;
     }
 
     startTransition(async () => {
-      const res = await signInWithPassword({ email, password });
+      const res = await updatePasswordAction(password);
       if (!res.success) {
         setError(res.error);
       } else {
-        router.push("/");
+        alert("Cập nhật mật khẩu mới thành công! Vui lòng đăng nhập.");
+        router.push("/login");
         router.refresh();
       }
     });
@@ -36,15 +42,15 @@ export default function LoginPage() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-header">
-          <p className="eyebrow">UniFound / Xác thực</p>
-          <h1 className="auth-title">Đăng nhập tài khoản</h1>
+          <p className="eyebrow">UniFound / Đặt lại mật khẩu</p>
+          <h1 className="auth-title">Mật khẩu mới</h1>
           <p className="auth-subtitle">
-            Truy cập để quản lý bài đăng Lost/Found và các yêu cầu nhận lại đồ.
+            Tạo mật khẩu mới cho tài khoản của bạn để tiếp tục sử dụng UniFound.
           </p>
         </div>
 
         {error && (
-          <div className="notice error" role="alert">
+          <div className="alert alert-error" role="alert">
             <svg
               className="alert-icon"
               viewBox="0 0 20 20"
@@ -63,39 +69,34 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="email" className="field-label">
-              Địa chỉ Email sinh viên
+            <label htmlFor="password" className="field-label">
+              Mật khẩu mới (tối thiểu 6 ký tự)
             </label>
             <input
-              id="email"
-              type="email"
+              id="password"
+              type="password"
               required
-              autoComplete="email"
-              placeholder="student@unifound.demo"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="new-password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="control"
               disabled={isPending}
             />
           </div>
 
           <div className="form-group">
-            <div className="form-label-row flex justify-between items-center">
-              <label htmlFor="password" className="field-label">
-                Mật khẩu
-              </label>
-              <Link href="/forgot-password" className="auth-link text-xs">
-                Quên mật khẩu?
-              </Link>
-            </div>
+            <label htmlFor="confirmPassword" className="field-label">
+              Xác nhận lại mật khẩu mới
+            </label>
             <input
-              id="password"
+              id="confirmPassword"
               type="password"
               required
-              autoComplete="current-password"
+              autoComplete="new-password"
               placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="control"
               disabled={isPending}
             />
@@ -109,19 +110,19 @@ export default function LoginPage() {
             {isPending ? (
               <span className="btn-loading">
                 <span className="spinner" />
-                Đang xác thực...
+                Đang lưu mật khẩu...
               </span>
             ) : (
-              "Đăng nhập"
+              "Lưu mật khẩu mới"
             )}
           </button>
         </form>
 
         <div className="auth-footer">
           <p>
-            Chưa có tài khoản?{" "}
-            <Link href="/register" className="auth-link">
-              Đăng ký tài khoản mới
+            Quay lại{" "}
+            <Link href="/login" className="auth-link">
+              Trang Đăng nhập
             </Link>
           </p>
         </div>

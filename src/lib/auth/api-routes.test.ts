@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { GET as getMe } from "@/app/api/auth/me/route";
 import { POST as registerPost } from "@/app/api/auth/register/route";
+import { POST as forgotPasswordPost } from "@/app/api/auth/forgot-password/route";
 import { POST as createReportPost } from "@/app/api/reports/route";
 import { PUT as updateReportPut, DELETE as deleteReportDelete } from "@/app/api/reports/[id]/route";
 
@@ -52,6 +53,22 @@ describe("API Routes Security & Verification (CHG-008)", () => {
       expect(response.status).toBe(400);
       expect(body.success).toBe(false);
       expect(body.error).toMatch(/không khớp/i);
+    });
+  });
+
+  describe("POST /api/auth/forgot-password", () => {
+    it("should return 400 Bad Request if email is invalid", async () => {
+      const req = new NextRequest("http://localhost:3000/api/auth/forgot-password", {
+        method: "POST",
+        body: JSON.stringify({ email: "invalid-email" }),
+      });
+
+      const response = await forgotPasswordPost(req);
+      const body = await response.json();
+
+      expect(response.status).toBe(400);
+      expect(body.success).toBe(false);
+      expect(body.error).toMatch(/hợp lệ/i);
     });
   });
 

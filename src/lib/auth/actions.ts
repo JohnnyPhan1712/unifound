@@ -317,3 +317,68 @@ export async function updateReportAction(
   }
 }
 
+/**
+ * Server Action Yêu cầu Quên mật khẩu (Gửi email khôi phục)
+ */
+export async function resetPasswordForEmailAction(
+  email: string
+): Promise<AuthActionResult<{ email: string }>> {
+  if (!email || !email.includes("@")) {
+    return { success: false, error: "Vui lòng nhập địa chỉ email hợp lệ." };
+  }
+
+  try {
+    const supabase = await getSupabaseServerClient();
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/reset-password`,
+    });
+
+    if (error) {
+      return {
+        success: false,
+        error: error.message || "Không thể gửi email khôi phục mật khẩu.",
+      };
+    }
+
+    return { success: true, data: { email } };
+  } catch (err: unknown) {
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : "Đã có lỗi xảy ra khi yêu cầu khôi phục mật khẩu.",
+    };
+  }
+}
+
+/**
+ * Server Action Đặt lại mật khẩu mới
+ */
+export async function updatePasswordAction(
+  newPassword: string
+): Promise<AuthActionResult<void>> {
+  if (!newPassword || newPassword.length < 6) {
+    return { success: false, error: "Mật khẩu mới phải có ít nhất 6 ký tự." };
+  }
+
+  try {
+    const supabase = await getSupabaseServerClient();
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+
+    if (error) {
+      return {
+        success: false,
+        error: error.message || "Không thể cập nhật mật khẩu mới.",
+      };
+    }
+
+    return { success: true, data: undefined };
+  } catch (err: unknown) {
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : "Đã có lỗi xảy ra khi cập nhật mật khẩu.",
+    };
+  }
+}
+
+
