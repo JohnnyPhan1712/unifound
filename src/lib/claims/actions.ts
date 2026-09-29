@@ -24,7 +24,7 @@ export async function createClaim(formData: FormData) {
 
   const parsed = createClaimSchema.safeParse(rawData);
   if (!parsed.success) {
-    return { error: parsed.error.errors[0].message };
+    return { error: parsed.error.issues[0]?.message || "Dữ liệu không hợp lệ." };
   }
 
   const { reportId, proof } = parsed.data;
