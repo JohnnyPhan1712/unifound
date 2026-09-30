@@ -1,79 +1,111 @@
 # Tổng quan dự án
 
+**UniFound** là nền tảng web giúp sinh viên các trường ĐHQG-HCM khu vực Thủ Đức đăng tin và tìm đồ thất lạc, để người mất đồ và người nhặt được đồ gặp nhau nhanh trên một nơi duy nhất.
+
 ## 1. Problem statement
 
-Sinh viên đang tìm hoặc trả đồ thất lạc qua Facebook, nhóm lớp, Zalo/Discord, confession hoặc bảo vệ. Tin đăng phân tán, thiếu cấu trúc và dễ trôi; người mất và người nhặt có thể đăng ở hai kênh khác nhau nên khó tìm thấy nhau.
+- Tin đăng nằm rải rác ở Facebook, nhóm lớp, Zalo/Discord, confession và bàn bảo vệ.
+- Tin không theo mẫu chung (thiếu ảnh, thiếu địa điểm, thiếu thời gian) và trôi rất nhanh.
+- Người mất và người nhặt thường đăng ở hai kênh khác nhau nên không thấy nhau.
 
-UniFound hướng tới tập trung Lost/Found Report và gợi ý các cặp có khả năng liên quan, giúp người dùng đi từ đăng tin đến gửi claim và ghi nhận đồ đã được trả lại trong một luồng rõ ràng.
+UniFound tập trung Lost/Found Report về một nơi, gợi ý các cặp có khả năng liên quan, giúp người dùng đi từ đăng tin đến gửi claim, xác minh, hẹn bàn giao và ghi nhận đồ đã được trả lại trong một luồng rõ ràng.
 
 ## 2. Mục tiêu
 
-- Xây dựng MVP web nhỏ nhưng hoàn chỉnh trong 3–4 tuần.
-- Có ít nhất một luồng end-to-end làm thay đổi trạng thái dữ liệu.
-- Giúp sinh viên tìm report liên quan nhanh hơn bằng matching rule-based có thể giải thích.
-- Hoạt động hợp lý trên desktop và mobile, có URL demo và dữ liệu mẫu.
-- Chứng minh AI được dùng có kiểm soát qua Human Decision và Verification.
+1. Gom mọi tin mất/nhặt đồ về một nơi, theo một mẫu thống nhất.
+2. Giúp hai bên tìm thấy nhau nhanh nhờ tìm kiếm, bộ lọc và gợi ý tin phù hợp (matching rule-based, giải thích được).
+3. Trả đồ đúng chủ nhờ bước xác minh, không lộ thông tin liên hệ bừa bãi.
+4. Có người quản trị để giữ nội dung sạch, không spam.
+5. Xây dựng MVP web nhỏ nhưng hoàn chỉnh trong 3–4 tuần, có ít nhất một luồng end-to-end làm thay đổi trạng thái dữ liệu, hoạt động hợp lý trên desktop và mobile, có URL demo và dữ liệu mẫu.
+6. Chứng minh AI được dùng có kiểm soát qua Human Decision và Verification.
 
-## 3. Người dùng và persona
+**Chỉ số đánh giá thành công (đề xuất):** tỉ lệ tin được đánh dấu "Đã trả", thời gian trung bình từ lúc đăng đến lúc trả, số sinh viên hoạt động mỗi tháng.
 
-### Nhóm người dùng chính
+## 3. Người dùng, vai trò và persona
 
-Sinh viên trong trường cần đăng đồ bị mất, đăng đồ nhặt được, xem kết quả phù hợp và theo dõi claim/report của mình.
+**Đối tượng sử dụng:** sinh viên các trường thành viên ĐHQG-HCM tại Thủ Đức và ký túc xá ĐHQG. Quản trị viên là thành viên nhóm dự án hoặc đại diện Đoàn/Hội.
 
-### Persona
+| Vai trò | Mô tả |
+|---|---|
+| **Khách** | Chưa đăng nhập, chỉ được xem bảng tin và tìm kiếm |
+| **Sinh viên** (`USER`) | Đã đăng nhập. Cùng một tài khoản có thể là *người mất* ở tin này và *người nhặt* ở tin khác |
+| **Quản trị viên** (`ADMIN`) | Kiểm duyệt nội dung, quản lý danh mục/địa điểm, khóa tài khoản, xem thống kê |
 
-- Tên: Minh (giả định).
-- Hồ sơ: sinh viên thường xuyên học tại nhiều khu vực trong trường.
-- Mục tiêu: tìm lại đồ nhanh mà không phải theo dõi nhiều nhóm mạng xã hội.
-- Điểm khó khăn: tin bị trôi, mô tả không đồng nhất, khó biết tin nào đáng kiểm tra.
-- Nhu cầu: đăng tin nhanh, lọc/gợi ý rõ, bảo vệ thông tin dùng để xác minh sở hữu.
+**Persona (giả định):** Minh, sinh viên thường xuyên học tại nhiều khu vực trong trường. Muốn tìm lại đồ nhanh mà không phải theo dõi nhiều nhóm mạng xã hội; khó khăn là tin bị trôi, mô tả không đồng nhất, khó biết tin nào đáng kiểm tra; cần đăng tin nhanh, gợi ý rõ và bảo vệ thông tin dùng để xác minh sở hữu.
 
-## 4. Phạm vi MVP
+## 4. Phạm vi
 
-### Trong phạm vi
+| Trong phạm vi | Ngoài phạm vi (giai đoạn sau) |
+|---|---|
+| Đăng tin mất/nhặt đồ kèm 1–5 ảnh | Ứng dụng di động riêng (native) |
+| Tìm kiếm từ khóa, lọc, xem chi tiết | Nhắn tin trực tiếp trong app |
+| Gợi ý tin phù hợp tự động (rule-based) | Nhận diện đồ vật bằng AI/computer vision qua ảnh, ML/LLM matching |
+| Yêu cầu nhận đồ, xác minh, hẹn bàn giao | Thưởng, thanh toán, vận chuyển đồ |
+| Thông báo trong web, báo cáo vi phạm, trang quản trị | Thông báo qua email (thêm sau, ví dụ dịch vụ Resend) |
+| Đăng nhập giới hạn theo email sinh viên hợp lệ | Liên thông với hệ thống của nhà trường, bản đồ/GPS |
 
-- Feed Lost/Found có tìm kiếm hoặc lọc cơ bản.
-- Tạo Lost Report hoặc Found Report với validation.
-- Xem chi tiết report.
-- Hiển thị Potential Matches bằng rule-based score.
-- Gửi claim, theo dõi report/claim và chuyển Found Report thành `Returned` theo quy trình được chốt.
-- Phân quyền hai vai trò: `USER` (sửa/xóa report của mình) và `ADMIN` (sửa/xóa mọi report để xử lý bài vi phạm).
-- Năm màn hình chính, responsive desktop/mobile, dữ liệu demo và live deployment.
+**Các quyết định thiết kế chính**
 
-### Ngoài phạm vi
-
-- Mobile native, chat real-time, push notification, bản đồ/GPS tracking.
-- Computer vision, ML/LLM matching hoặc chatbot trong website.
-- Quy trình kiểm duyệt riêng, hệ thống danh tiếng hay phân quyền phức tạp hơn hai vai trò `USER`/`ADMIN`.
-- Tích hợp nhiều trường hoặc quy trình pháp lý giải quyết tranh chấp.
+- **Đăng nhập bằng email sinh viên** để chỉ sinh viên thật mới dùng được. Supabase Auth không tự giới hạn tên miền nên server kiểm tra danh sách tên miền hợp lệ sau khi đăng ký/đăng nhập.
+- **Người nhặt tự đặt một câu hỏi xác minh** (ví dụ "Trong ví có thẻ gì?") và giữ kín đáp án. Chỉ người trả lời đúng mới được xét duyệt.
+- **Thông tin liên hệ chỉ hiện sau khi người nhặt chấp nhận yêu cầu**, để tránh bị làm phiền hoặc mạo nhận.
+- **Kiểm duyệt sau khi đăng:** tin lên ngay, quản trị viên xử lý khi có báo cáo vi phạm.
+- **Hết hạn không dùng tác vụ nền:** tin hết hạn sau 60 ngày, yêu cầu hết hạn sau 7 ngày; khi truy vấn, so `expires_at` với thời điểm hiện tại để coi là hết hạn.
 
 ## 5. User stories
 
-| ID | User story |
-|---|---|
-| US-01 | Là sinh viên bị mất đồ, tôi muốn tạo Lost Report để người nhặt và hệ thống có thể tìm thấy nhu cầu của tôi. |
-| US-02 | Là sinh viên nhặt được đồ, tôi muốn tạo Found Report để chủ sở hữu có thể liên hệ/claim. | 
-| US-03 | Là người đăng report, tôi muốn xem các report tương đồng cùng lý do/điểm khớp để ưu tiên kiểm tra. | 
-| US-04 | Là sinh viên, tôi muốn xem chi tiết và gửi claim để bắt đầu quá trình nhận lại đồ. |
-| US-05 | Là người đăng, tôi muốn theo dõi trạng thái report/claim và ghi nhận đồ đã trả để luồng có kết thúc rõ ràng. |
-| US-06 | Là quản trị viên, tôi muốn sửa hoặc xóa report vi phạm để giữ nội dung trên hệ thống phù hợp. |
+| ID | Vai trò | Tôi muốn… | Để… | Ưu tiên |
+|---|---|---|---|---|
+| US01 | Sinh viên | đăng nhập bằng email trường | không phải nhớ thêm mật khẩu và hệ thống biết tôi là sinh viên thật | Cao |
+| US02 | Người mất đồ | đăng tin kèm ảnh, mô tả, nơi và thời điểm làm mất | mọi người dễ nhận ra món đồ của tôi | Cao |
+| US03 | Người nhặt đồ | đăng tin nhặt được, ghi nơi đang giữ và đặt câu hỏi xác minh | đồ được trả đúng chủ | Cao |
+| US04 | Mọi người dùng | xem bảng tin và lọc theo loại tin, danh mục, trường, thời gian | nhanh chóng thu hẹp danh sách | Cao |
+| US05 | Mọi người dùng | tìm kiếm bằng từ khóa | tìm đúng món đồ như "ví da đen", "thẻ sinh viên" | Cao |
+| US06 | Người mất đồ | nhận gợi ý các tin nhặt được có thể là đồ của mình | không phải tự lục từng tin | Cao |
+| US07 | Người mất đồ | gửi yêu cầu nhận và trả lời câu hỏi xác minh | chứng minh đó là đồ của tôi | Cao |
+| US08 | Người nhặt đồ | xem câu trả lời và chấp nhận hoặc từ chối yêu cầu | tránh trả nhầm người | Cao |
+| US09 | Hai bên | chọn điểm hẹn và giờ gặp (bàn bảo vệ, thư viện, căng tin…) | bàn giao an toàn, thuận tiện | Trung bình |
+| US10 | Hai bên | xác nhận đã trả và đã nhận | tin được đóng đúng, tránh người khác tiếp tục hỏi | Cao |
+| US11 | Sinh viên | sửa, đóng hoặc xóa tin của mình | tin luôn đúng và không còn khi đã xong | Trung bình |
+| US12 | Sinh viên | nhận thông báo khi có gợi ý, yêu cầu hoặc phản hồi | không bỏ lỡ cơ hội tìm lại đồ | Trung bình |
+| US13 | Sinh viên | báo cáo tin spam hoặc sai sự thật | cộng đồng sạch và đáng tin | Trung bình |
+| US14 | Quản trị viên | ẩn tin và xử lý báo cáo vi phạm, khóa tài khoản | giữ nội dung an toàn | Cao |
+| US15 | Quản trị viên | quản lý danh mục đồ vật và danh sách địa điểm | hệ thống luôn khớp thực tế các trường | Trung bình |
+| US16 | Quản trị viên | xem thống kê số tin, tỉ lệ đã trả | đánh giá hiệu quả và báo cáo | Thấp |
 
 ## 6. Luồng người dùng chính
 
-```text
-Xem feed công khai
-→ đăng nhập
-→ tạo Lost Report hoặc Found Report
-→ xem Potential Matches giữa Lost và Found Report
-→ gửi Claim kèm thông tin xác minh riêng tư cho Found Report
-→ chủ Found Report Accept hoặc Reject
-→ hai bên trao trả đồ
-→ chủ Found Report đánh dấu Returned
+Luồng đi từ lúc sinh viên mở web đến khi đồ được trả, gồm cả hai tình huống: mất đồ và nhặt được đồ.
+
+```mermaid
+flowchart TD
+    A(["Sinh viên mở UniFound"]) --> B{"Đã đăng nhập?"}
+    B -- "Chưa" --> C["Đăng nhập bằng email sinh viên"]
+    C --> D
+    B -- "Rồi" --> D{"Bạn đang ở tình huống nào?"}
+
+    D -- "Tôi làm mất đồ" --> E["Tìm trong các tin Nhặt được"]
+    E --> F{"Thấy món đồ giống?"}
+    F -- "Không" --> G["Đăng tin Mất đồ"]
+    G --> H["Hệ thống gợi ý tin phù hợp và báo khi có tin mới khớp"]
+    H --> K
+    F -- "Có" --> K["Gửi yêu cầu nhận và trả lời câu hỏi xác minh"]
+
+    D -- "Tôi nhặt được đồ" --> I["Đăng tin Nhặt được, ghi nơi giữ đồ và đặt câu hỏi xác minh"]
+    I --> J["Chờ có người gửi yêu cầu nhận"]
+
+    K --> L["Người nhặt xem câu trả lời"]
+    J --> L
+    L --> M{"Câu trả lời khớp?"}
+    M -- "Không" --> N["Từ chối, tin vẫn mở cho người khác"]
+    M -- "Có" --> O["Chấp nhận và hẹn địa điểm, giờ gặp"]
+    O --> P["Hai bên gặp nhau, bàn giao đồ"]
+    P --> Q["Cả hai bấm xác nhận"]
+    Q --> R(["Tin chuyển sang Đã trả"])
 ```
 
 ## 7. Ràng buộc Mini Project
 
-- Khoảng 3–6 màn hình; hiện dự kiến 5.
 - Ít nhất một user flow hoàn chỉnh và một xử lý dữ liệu/chuyển trạng thái.
 - Không dùng đầu ra AI theo kiểu one-shot mà không review/verify.
 - Có repository, README cài/chạy, live URL, Product Brief, 6–8 slides và Project Hub.
