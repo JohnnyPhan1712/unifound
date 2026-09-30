@@ -15,34 +15,18 @@
 | [`CHG-011`](CHG-011_claim_and_return_flow.md) | xây luồng claim và hoàn tất nhận lại đồ | `rejected` | xây luồng claim và hoàn tất nhận lại đồ |
 | [`CHG-012`](CHG-012_brand_identity_and_ui_mockups.md) | Xác định nhận diện thương hiệu và mockup toàn bộ màn hình | `in_progress` | Xác định nhận diện thương hiệu và mockup UniFound |
 | [`CHG-013`](CHG-013_cleanup_legacy_code.md) | Dọn code cũ của các CHG bị từ chối | `proposed` | Dọn code cũ UniFound |
-| [`CHG-014`](CHG-014_audit_and_fix_database.md) | Rà soát và chỉnh sửa database theo chương 01/02 | `proposed` | Chỉnh database UniFound |
-| [`CHG-015`](CHG-015_ui_foundation.md) | Nền tảng UI: design tokens, layout shell, component dùng chung | `proposed` | Nền tảng UI UniFound |
-| [`CHG-016`](CHG-016_auth_and_roles.md) | Đăng nhập và vai trò USER/ADMIN | `proposed` | Auth và vai trò UniFound |
-| [`CHG-017`](CHG-017_create_report.md) | Tạo Lost/Found Report (SCR-02) | `proposed` | Tạo report UniFound |
-| [`CHG-018`](CHG-018_seed_demo_data.md) | Seed dữ liệu demo | `proposed` | Seed dữ liệu demo UniFound |
-| [`CHG-019`](CHG-019_feed_and_filters.md) | Feed công khai và tìm/lọc (SCR-01) | `proposed` | Feed và bộ lọc UniFound |
-| [`CHG-020`](CHG-020_report_detail.md) | Chi tiết report chỉ-đọc (SCR-03) | `proposed` | Chi tiết report UniFound |
-| [`CHG-021`](CHG-021_edit_delete_report.md) | Sửa/xóa report và phân quyền (FR-07) | `proposed` | Sửa xóa report UniFound |
-| [`CHG-022`](CHG-022_matching_engine.md) | Matching engine rule-based | `proposed` | Matching engine UniFound |
-| [`CHG-023`](CHG-023_potential_matches_screen.md) | Màn hình Potential Matches (SCR-04) | `proposed` | Potential Matches UniFound |
-| [`CHG-024`](CHG-024_submit_claim.md) | Gửi Claim kèm thông tin xác minh riêng tư | `proposed` | Gửi claim UniFound |
-| [`CHG-025`](CHG-025_claim_decision_and_returned.md) | Accept/Reject Claim và đánh dấu Returned | `proposed` | Xử lý claim UniFound |
-| [`CHG-026`](CHG-026_my_reports_and_claim_status.md) | My Reports / Claim Status (SCR-05) | `proposed` | My Reports UniFound |
-| [`CHG-027`](CHG-027_e2e_golden_path_and_polish.md) | E2E golden path và rà responsive/a11y | `proposed` | E2E và polish UniFound |
-| [`CHG-028`](CHG-028_deployment_and_readme.md) | Deploy Vercel, README và URL demo | `proposed` | Deploy UniFound |
 
-Số CHG tiếp theo: `CHG-029`.
+| [`CHG-014`](CHG-014_ui_foundation_auth_profile.md) | Nền UI dùng chung, đăng nhập email trường và hồ sơ | `proposed` | |
+| [`CHG-015`](CHG-015_seed_and_create_report.md) | Seed dữ liệu và đăng tin Mất đồ / Nhặt được | `proposed` | |
+| [`CHG-016`](CHG-016_feed_search_report_detail.md) | Bảng tin, tìm kiếm và chi tiết tin | `proposed` | |
+| [`CHG-017`](CHG-017_my_reports_edit_delete.md) | Tin của tôi, sửa/đóng/xóa tin | `proposed` | |
+| [`CHG-018`](CHG-018_matching_and_notifications.md) | Gợi ý tin phù hợp (matching) và thông báo trong web | `proposed` | |
+| [`CHG-019`](CHG-019_claim_submit_and_decision.md) | Gửi yêu cầu nhận đồ và xử lý chấp nhận/từ chối | `proposed` | |
+| [`CHG-020`](CHG-020_handover_and_returned.md) | Bàn giao (điểm hẹn, liên hệ) và xác nhận Đã trả | `proposed` | |
+| [`CHG-021`](CHG-021_flags_and_admin_moderation.md) | Báo cáo vi phạm và kiểm duyệt admin | `proposed` | |
+| [`CHG-022`](CHG-022_admin_catalog_and_stats.md) | Quản trị danh mục, địa điểm và thống kê | `proposed` | |
+| [`CHG-023`](CHG-023_e2e_deploy_readme.md) | E2E golden path, rà soát UI, deploy Vercel và README | `proposed` | |
 
-> CHG-008 → CHG-011 đã `rejected`; CHG-013 → CHG-028 dọn code cũ, chỉnh database rồi xây lại phần auth → claim theo chương 01–03.
+Số CHG tiếp theo: `CHG-024`.
 
-### Thứ tự phụ thuộc
-
-```text
-CHG-005
-	↓
-CHG-006 ──→ CHG-007
-
-CHG-013 ─→ CHG-014 ─┬→ CHG-015 ─→ CHG-016 ─→ CHG-017 ─→ CHG-018 ─→ CHG-019 ─→ CHG-020 ─┬→ CHG-021
-                    │                                                                  ├→ CHG-023 (cần thêm CHG-022)
-                    └→ CHG-022 (matching engine, làm song song được)                   └→ CHG-024 ─→ CHG-025 ─→ CHG-026 ─→ CHG-027 ─→ CHG-028
-```
+> CHG-008 → CHG-011 đã `rejected`; CHG-013 dọn code cũ của các CHG bị từ chối.

@@ -1,545 +1,230 @@
 ---
-version: alpha
-name: Airbnb-design-analysis
-description: A warm, generous consumer marketplace anchored on a clean white canvas and Airbnb Rausch (#ff385c), the single brand voltage that carries every primary CTA, search-button orb, and rating dot. Type runs Airbnb Cereal VF at modest weights — display sits at 22–28px in weight 500/600 rather than the heavy 700+ that fintech and enterprise systems use; the brand trusts photography and generous whitespace over typographic muscle. Three product entries (Homes, Experiences, Services) sit in the top nav with hand-illustrated 32-icon glyphs and "NEW" badges, signaling a marketplace expansion rather than a feature dump. Pill-shaped search bars (`{rounded.full}`), softly rounded property cards (`{rounded.lg}` ~14px), and 32px button radii read as friendly and human — there is no hard corner anywhere except the body grid.
-
+name: UniFound
+description: Bảng tin đồ thất lạc của sinh viên, tiếp nối ngôn ngữ Airbnb (thoáng, bo mềm, một màu nhấn) nhưng nhấn bằng teal trấn an và chữ Be Vietnam Pro cho tiếng Việt.
 colors:
-  primary: "#ff385c"
-  primary-active: "#e00b41"
-  primary-disabled: "#ffd1da"
-  primary-error-text: "#c13515"
-  primary-error-text-hover: "#b32505"
-  luxe: "#460479"
-  plus: "#92174d"
-  ink: "#222222"
-  body: "#3f3f3f"
-  muted: "#6a6a6a"
-  muted-soft: "#929292"
-  hairline: "#dddddd"
-  hairline-soft: "#ebebeb"
-  border-strong: "#c1c1c1"
-  canvas: "#ffffff"
-  surface-soft: "#f7f7f7"
-  surface-card: "#ffffff"
-  surface-strong: "#f2f2f2"
+  primary: "#00685f"
+  primary-hover: "#00554d"
+  primary-soft: "#d9f4ef"
+  lost: "#a73a00"
+  lost-hover: "#842e00"
+  lost-soft: "#ffdfd2"
+  info: "#245b91"
+  info-soft: "#e1efff"
+  danger: "#b42318"
+  danger-soft: "#fee4e2"
+  ink: "#17212b"
+  muted: "#596773"
+  line: "#dce3e7"
+  border-control: "#bcc7cd"
+  surface: "#ffffff"
+  surface-soft: "#f5f7f8"
+  canvas: "#f7f9fa"
   on-primary: "#ffffff"
-  on-dark: "#ffffff"
-  legal-link: "#428bff"
-  star-rating: "#222222"
-  scrim: "#000000"
-
 typography:
-  display-xl:
-    fontFamily: "'Airbnb Cereal VF', Circular, -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif"
-    fontSize: 28px
+  h1:
+    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
+    fontSize: "clamp(1.65rem, 4vw, 2.4rem)"
     fontWeight: 700
-    lineHeight: 1.43
-    letterSpacing: 0
-  display-lg:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 22px
-    fontWeight: 500
-    lineHeight: 1.18
-    letterSpacing: -0.44px
-  display-md:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 21px
+    lineHeight: 1.2
+  h2:
+    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
+    fontSize: "clamp(1.35rem, 3vw, 1.75rem)"
     fontWeight: 700
-    lineHeight: 1.43
-    letterSpacing: 0
-  display-sm:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 20px
+    lineHeight: 1.3
+  h3:
+    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
+    fontSize: "1.05rem"
+    fontWeight: 700
+    lineHeight: 1.4
+  body:
+    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
+    fontSize: "14px"
+    fontWeight: 400
+    lineHeight: 1.55
+  label:
+    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
+    fontSize: "0.82rem"
     fontWeight: 600
-    lineHeight: 1.20
-    letterSpacing: -0.18px
-  title-md:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 16px
-    fontWeight: 600
-    lineHeight: 1.25
-    letterSpacing: 0
-  title-sm:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 16px
-    fontWeight: 500
-    lineHeight: 1.25
-    letterSpacing: 0
-  rating-display:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 64px
+  eyebrow:
+    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
+    fontSize: "0.75rem"
     fontWeight: 700
-    lineHeight: 1.1
-    letterSpacing: -1px
-  body-md:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 16px
-    fontWeight: 400
-    lineHeight: 1.5
-    letterSpacing: 0
-  body-sm:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 14px
-    fontWeight: 400
-    lineHeight: 1.43
-    letterSpacing: 0
-  caption:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 14px
-    fontWeight: 500
-    lineHeight: 1.29
-    letterSpacing: 0
-  caption-sm:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 13px
-    fontWeight: 400
-    lineHeight: 1.23
-    letterSpacing: 0
+    letterSpacing: "0.06em"
   badge:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 11px
-    fontWeight: 600
-    lineHeight: 1.18
-    letterSpacing: 0
-  micro-label:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 12px
+    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
+    fontSize: "0.7rem"
     fontWeight: 700
-    lineHeight: 1.33
-    letterSpacing: 0
-  uppercase-tag:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 8px
-    fontWeight: 700
-    lineHeight: 1.25
-    letterSpacing: 0.32px
-    textTransform: uppercase
-  button-md:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 16px
-    fontWeight: 500
-    lineHeight: 1.25
-    letterSpacing: 0
-  button-sm:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 14px
-    fontWeight: 500
-    lineHeight: 1.29
-    letterSpacing: 0
-  link:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 14px
-    fontWeight: 400
-    lineHeight: 1.43
-    letterSpacing: 0
-  nav-link:
-    fontFamily: "'Airbnb Cereal VF', Circular, sans-serif"
-    fontSize: 16px
-    fontWeight: 600
-    lineHeight: 1.25
-    letterSpacing: 0
-
 rounded:
-  none: 0px
-  xs: 4px
-  sm: 8px
-  md: 14px
-  lg: 20px
-  xl: 32px
-  full: 9999px
-
-spacing:
-  xxs: 2px
-  xs: 4px
-  sm: 8px
-  md: 12px
-  base: 16px
-  lg: 24px
-  xl: 32px
-  xxl: 48px
-  section: 64px
-
+  sm: "0.65rem"
+  md: "0.8rem"
+  lg: "1rem"
+  xl: "1.4rem"
+  full: "999px"
 components:
   button-primary:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.on-primary}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.sm}"
-    padding: 14px 24px
-    height: 48px
-  button-primary-active:
-    backgroundColor: "{colors.primary-active}"
+    rounded: "{rounded.md}"
+    padding: "0.65rem 1rem"
+    height: "42px"
+  button-primary-hover:
+    backgroundColor: "{colors.primary-hover}"
+  button-lost:
+    backgroundColor: "{colors.lost}"
     textColor: "{colors.on-primary}"
-    rounded: "{rounded.sm}"
-  button-primary-disabled:
-    backgroundColor: "{colors.primary-disabled}"
-    textColor: "{colors.on-primary}"
-    rounded: "{rounded.sm}"
+    rounded: "{rounded.md}"
   button-secondary:
-    backgroundColor: "{colors.canvas}"
+    backgroundColor: "{colors.surface-soft}"
     textColor: "{colors.ink}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.sm}"
-    padding: 13px 23px
-    height: 48px
-  button-tertiary-text:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.button-md}"
-  button-pill-rausch:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.button-sm}"
-    rounded: "{rounded.full}"
-    padding: 10px 20px
-  search-orb:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    rounded: "{rounded.full}"
-    height: 48px
-  icon-button-circle:
-    backgroundColor: "{colors.surface-strong}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.full}"
-    height: 32px
-  icon-button-outline:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.full}"
-    height: 40px
-  top-nav:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.nav-link}"
-    height: 80px
-  product-tab-active:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.nav-link}"
-    rounded: "{rounded.none}"
-  product-tab-inactive:
+    rounded: "{rounded.md}"
+  button-ghost:
     backgroundColor: transparent
     textColor: "{colors.muted}"
-    typography: "{typography.nav-link}"
-  search-bar-pill:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.full}"
-    padding: 14px 24px
-    height: 64px
-  search-field-segment:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.caption}"
-    padding: 8px 24px
-  category-strip:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.muted}"
-    typography: "{typography.button-sm}"
-  category-tab-active:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.button-sm}"
-    rounded: "{rounded.none}"
-  property-card:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
     rounded: "{rounded.md}"
-  property-card-photo:
+  panel:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.xl}"
+    padding: "1.25rem"
+  control:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
     rounded: "{rounded.md}"
-  experience-card:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.title-md}"
-    rounded: "{rounded.md}"
-  city-link-block:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.title-sm}"
-  rating-display-card:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.rating-display}"
-  guest-favorite-badge:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
+    padding: "0.7rem 0.8rem"
+    height: "44px"
+  type-badge-found:
+    backgroundColor: "{colors.primary-soft}"
+    textColor: "{colors.primary-hover}"
     typography: "{typography.badge}"
     rounded: "{rounded.full}"
-    padding: 4px 10px
-  new-tag:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.uppercase-tag}"
+  type-badge-lost:
+    backgroundColor: "{colors.lost-soft}"
+    textColor: "{colors.lost-hover}"
+    typography: "{typography.badge}"
     rounded: "{rounded.full}"
-    padding: 2px 6px
-  amenity-row:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.body-md}"
-    padding: 12px 0
-  reviews-card:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
-  host-card:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.md}"
-    padding: 24px
-  reservation-card:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.md}"
-    padding: 24px
-  date-picker-day:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
-    rounded: "{rounded.full}"
-  date-picker-day-selected:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.on-dark}"
-    rounded: "{rounded.full}"
-  text-input:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-md}"
-    rounded: "{rounded.sm}"
-    padding: 14px 12px
-    height: 56px
-  footer-light:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
-    padding: 48px 80px
-  footer-link:
-    backgroundColor: transparent
-    textColor: "{colors.ink}"
-    typography: "{typography.body-sm}"
-  legal-band:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.muted}"
-    typography: "{typography.caption-sm}"
 ---
+
+# Design System: UniFound
 
 ## Overview
 
-Airbnb is the canonical example of a generous, photography-led consumer marketplace. The base canvas is **pure white** (`{colors.canvas}` — #ffffff) with deep near-black ink (`{colors.ink}` — #222222) for headlines and body, and a single voltage of **Rausch** (`{colors.primary}` — #ff385c) carrying every primary CTA, the search-button orb, the heart save state, and inline brand links. There is no secondary brand color in mainline marketing — the **Luxe purple** (`{colors.luxe}` — #460479) and **Plus magenta** (`{colors.plus}` — #92174d) tokens are sub-brand accents that only appear inside Airbnb Luxe / Plus contexts.
+**Creative North Star: "The Calm Noticeboard"**
 
-Type runs **Airbnb Cereal VF** (a custom variable font Airbnb licenses), with **Circular** as the historic in-house fallback and a system stack underneath. Cereal sits at modest weights — display headlines render at 22–28px in weight 500–600, not the heavy 700+ weights that financial or enterprise systems lean on. The hero h1 ("Inspiration for future getaways") on the homepage is just 28px / 700, which would feel small on a typical SaaS page; here it works because the layout leans on photography (city collage, property cards) for visual weight rather than typographic muscle.
+UniFound là bảng tin của trường: thoáng, có trật tự, mọi tin theo một mẫu. Người mở app thường đang lo vì mất đồ hoặc đang cầm đồ của người khác, nên giao diện phải trấn an và nói rõ bước tiếp theo, không gây báo động. Nền tảng bố cục lấy từ Airbnb (nhiều khoảng trắng, một màu nhấn duy nhất, bo góc mềm, một tầng bóng), nhưng mọi giá trị cụ thể đã thay bằng những gì `src/app/globals.css` đang dùng.
 
-The shape language is **soft**. Buttons are 8px radius (`{rounded.sm}`), property cards are ~14px (`{rounded.md}`), the search bar is fully pill-shaped (`{rounded.full}`), wishlist hearts and search orbs are circles (`{rounded.full}`), and category strip rounded corners run at 32px (`{rounded.xl}`). There is essentially no hard corner anywhere except the body grid itself — every interactive element is rounded.
+Nhận diện: teal trấn an cho hành động chính, cam cho "Mất đồ", chữ Be Vietnam Pro để dấu tiếng Việt không chồng. Riêng tư là tính cách hiển thị được: thông tin xác minh có nhãn khóa, không lộ liên hệ bừa bãi.
 
 **Key Characteristics:**
-- Single accent color: `{colors.primary}` (#ff385c — "Rausch") carries every primary CTA, the search orb, the heart save state, and the brand wordmark. Used scarcely — most pages are 90% white + ink with one or two Rausch moments.
-- Custom variable type: `Airbnb Cereal VF`. Display weights sit at 500–700, body at 400. Modest weight is intentional — the system trusts photography for visual heft.
-- Three-product top nav: Homes, Experiences, Services — each with a hand-illustrated 32px icon and "NEW" badges (`{component.new-tag}`) on the two newer products. Active tab uses an underline rule (`{component.product-tab-active}`).
-- Pill-shaped global search bar: white surface, fully rounded (`{rounded.full}`), divided by 1px hairlines into Where / When / Who segments, terminated by a circular Rausch search orb (`{component.search-orb}`).
-- Property cards are photo-first: aspect-ratio rectangles with `{rounded.md}` corner clipping, swipeable image carousel, "Guest favorite" floating badge top-left, heart icon top-right, then 4–5 lines of meta beneath.
-- Editorial dropdowns (footer, language picker) are clean text columns over the white canvas — no card surface, no shadow.
-- The design system caps elevation at one shadow tier (`box-shadow: rgba(0,0,0,0.02) 0 0 0 1px, rgba(0,0,0,0.04) 0 2px 6px, rgba(0,0,0,0.1) 0 4px 8px`) — used on hover-floated cards and search/account dropdowns.
-- 8px base spacing system, with major sections at `{spacing.section}` (64px) — generous but not airy enough to feel editorial-magazine; the marketplace density wants more cards per scroll.
+- Một màu nhấn (teal `{colors.primary}`) cho hành động chính; cam `{colors.lost}` chỉ dành cho nghĩa "Mất đồ".
+- Nền canvas xám rất nhạt, thẻ trắng viền hairline, bo góc lớn.
+- Loại tin phân biệt bằng icon + chữ + màu, không chỉ màu.
+- Chỉ light mode.
+- Tiếng Việt có dấu là ngôn ngữ giao diện; nút gọi đúng việc ("Gửi yêu cầu").
 
 ## Colors
 
-### Brand & Accent
-- **Rausch** (`{colors.primary}` — #ff385c): The single brand color. Used for primary CTA backgrounds (Reserve, Continue), the search orb, the heart save state on property cards, and inline brand links. The most recognizable color in consumer travel.
-- **Rausch Active** (`{colors.primary-active}` — #e00b41): The press / pointer-down variant — slightly more saturated. Used on `{component.button-primary-active}`.
-- **Rausch Disabled** (`{colors.primary-disabled}` — #ffd1da): A pale tint used on disabled CTAs.
-- **Luxe Purple** (`{colors.luxe}` — #460479): Sub-brand accent for Airbnb Luxe. Only appears inside Luxe-branded surfaces — never in mainline marketing.
-- **Plus Magenta** (`{colors.plus}` — #92174d): Sub-brand accent for Airbnb Plus. Same scoping as Luxe — sub-product only.
+Teal trấn an, một cam nghiệp vụ, neutral lạnh nhẹ.
 
-### Surface
-- **Canvas** (`{colors.canvas}` — #ffffff): The default page floor for every public page. Airbnb does not have a dark mode on the public web.
-- **Surface Soft** (`{colors.surface-soft}` — #f7f7f7): The lightest fill — used on disabled fields, sub-nav hover backgrounds, and the inline search filter band.
-- **Surface Strong** (`{colors.surface-strong}` — #f2f2f2): Slightly heavier fill — circular icon-button surface (e.g., the breadcrumb back-arrow and listing toolbar buttons).
+### Primary
+- **Teal trấn an** (#00685f): CTA chính, link nhấn, eyebrow, viền focus của ô nhập, nhãn "Nhặt được". Hover #00554d, nền nhạt #d9f4ef.
 
-### Hairlines & Borders
-- **Hairline** (`{colors.hairline}` — #dddddd): The default 1px border tone — search bar dividers, table separators, footer column splitters, card 1px borders.
-- **Hairline Soft** (`{colors.hairline-soft}` — #ebebeb): A lighter divider used on long-scrolling editorial body separators.
-- **Border Strong** (`{colors.border-strong}` — #c1c1c1): A heavier stroke used on disabled outline buttons and form input outlines after focus.
+### Secondary
+- **Cam Mất đồ** (#a73a00): nút và nhãn cho tin Mất đồ, vùng minh họa tin Mất đồ. Hover #842e00, nền nhạt #ffdfd2.
 
-### Text
-- **Ink** (`{colors.ink}` — #222222): The dominant text color on light surfaces. Display headlines, body paragraphs, primary nav links, and most inline link text. Never pure black.
-- **Body** (`{colors.body}` — #3f3f3f): A secondary running-text color used inside long-form review and amenity copy where ink would feel too heavy.
-- **Muted** (`{colors.muted}` — #6a6a6a): Sub-titles inside city link blocks ("Cottage rentals", "Villa rentals"), inactive product-tab labels, footer category sub-labels, "View all" links.
-- **Muted Soft** (`{colors.muted-soft}` — #929292): Disabled link text. Used very sparingly.
-- **Star Rating** (`{colors.star-rating}` — #222222): The same ink token — Airbnb's star icon and "4.81" rating numbers all render in ink rather than a yellow/gold color, which is a deliberate brand choice (yellow stars feel cheap in travel context).
-- **On Primary** (`{colors.on-primary}` — #ffffff): White text on Rausch CTAs.
+### Neutral
+- **Ink lạnh** (#17212b): chữ chính.
+- **Muted** (#596773): chữ phụ, gợi ý trường nhập, ghost button.
+- **Line** (#dce3e7): viền hairline của panel, segmented, divider.
+- **Viền ô nhập** (#bcc7cd): viền control, đậm hơn line để ô nhập nhận ra được.
+- **Canvas** (#f7f9fa) / **Surface** (#ffffff) / **Surface soft** (#f5f7f8): sàn trang, thẻ, vùng chọn.
 
 ### Semantic
-- **Error** (`{colors.primary-error-text}` — #c13515): Inline error text for form validation. Distinct from Rausch — slightly darker, more saturated red.
-- **Error Hover** (`{colors.primary-error-text-hover}` — #b32505): Darkens on link hover.
-- **Legal Link Blue** (`{colors.legal-link}` — #428bff): Inline links inside legal copy (Privacy, Terms). Only used inside the legal sub-band.
+- **Danger** (#b42318, nền #fee4e2): lỗi validation, hành động hủy.
+- **Info** (#245b91, nền #e1efff): thông báo thông tin.
+- Cảnh báo dùng nền hổ phách nhạt (#fff4df, chữ #62401e) trong `.notice`; chưa là token.
 
-### Scrim
-- **Scrim** (`{colors.scrim}` — #000000 at 50% opacity): The global modal backdrop tone — date picker, login dialog, language picker. Stored as the base hex; opacity is applied at render time.
+### Named Rules
+**The One Voice Rule.** Teal là giọng hành động duy nhất; cam chỉ mang nghĩa Mất đồ, không dùng làm CTA chung.
+**The Not-Just-Color Rule.** Mất đồ / Nhặt được luôn đi kèm icon và chữ, vì hai màu này không được là kênh phân biệt duy nhất.
 
 ## Typography
 
-### Font Family
-The system runs **Airbnb Cereal VF** for everything — display, body, navigation, captions, microcopy. Fallbacks walk `Circular, -apple-system, system-ui, Roboto, "Helvetica Neue", sans-serif`. **Circular** is the historic in-house typeface still kept as the first non-variable fallback; system stacks back it up.
+**Display / Body Font:** Be Vietnam Pro (fallback system-ui, sans-serif), nạp qua `next/font`.
 
-There is no separate display family. The variable font carries the entire scale.
+**Character:** hình học thân thiện, dấu tiếng Việt đặt đúng chỗ ở cả cỡ nhỏ. Không có font riêng cho tiêu đề; thang chữ do một font gánh.
 
 ### Hierarchy
+- **h1** (700, clamp 1.65–2.4rem, 1.2): tiêu đề trang.
+- **h2** (700, clamp 1.35–1.75rem, 1.3): tiêu đề mục.
+- **h3** (700, 1.05rem, 1.4): tiêu đề thẻ.
+- **Body** (400, 14px, 1.55): nội dung mặc định; giữ đoạn mô tả quanh 65–70 ký tự/dòng.
+- **Label** (600, 0.82rem): nhãn trường nhập, nút nhỏ.
+- **Eyebrow** (700, 0.75rem, +0.06em, in hoa): mào đầu mục, màu primary.
+- **Badge** (700, 0.7rem): nhãn loại tin, trạng thái.
 
-| Token | Size | Weight | Line Height | Letter Spacing | Use |
-|---|---|---|---|---|---|
-| `{typography.rating-display}` | 64px | 700 | 1.1 | -1px | Listing detail rating display ("4.81") |
-| `{typography.display-xl}` | 28px | 700 | 1.43 | 0 | Homepage h1 ("Inspiration for future getaways") |
-| `{typography.display-lg}` | 22px | 500 | 1.18 | -0.44px | Listing detail h1 ("Close to Fethiye Aliyah Bali Beach…") |
-| `{typography.display-md}` | 21px | 700 | 1.43 | 0 | Section heads inside listing detail ("What this place offers") |
-| `{typography.display-sm}` | 20px | 600 | 1.20 | -0.18px | Sub-section titles ("Things to know") |
-| `{typography.title-md}` | 16px | 600 | 1.25 | 0 | City link block titles ("Wilmington", "Athens") |
-| `{typography.title-sm}` | 16px | 500 | 1.25 | 0 | Footer column heads ("Support", "Hosting", "Airbnb") |
-| `{typography.body-md}` | 16px | 400 | 1.5 | 0 | Default running-text inside listing copy |
-| `{typography.body-sm}` | 14px | 400 | 1.43 | 0 | Card meta lines, dates, prices, distance text |
-| `{typography.caption}` | 14px | 500 | 1.29 | 0 | Search field segment labels ("Where", "When", "Who") |
-| `{typography.caption-sm}` | 13px | 400 | 1.23 | 0 | Footer legal line ("© 2026 Airbnb, Inc.") |
-| `{typography.badge}` | 11px | 600 | 1.18 | 0 | "Guest favorite" floating badge text |
-| `{typography.micro-label}` | 12px | 700 | 1.33 | 0 | Card amenity micro-labels ("Inline 6") |
-| `{typography.uppercase-tag}` | 8px | 700 | 1.25 | 0.32px (uppercase) | "NEW" badge on product nav tabs |
-| `{typography.button-md}` | 16px | 500 | 1.25 | 0 | Primary CTA button labels |
-| `{typography.button-sm}` | 14px | 500 | 1.29 | 0 | Pill button labels (category strip) |
-| `{typography.link}` | 14px | 400 | 1.43 | 0 | Inline body links |
-| `{typography.nav-link}` | 16px | 600 | 1.25 | 0 | Top product-nav labels (Homes, Experiences, Services) |
-
-### Principles
-Display weights stay modest. The homepage h1 at 28px / 700 is deliberately small — it tucks under the search bar so photography and the city-link grid carry visual hierarchy. The listing-detail h1 at 22px / 500 is even quieter; the listing photo banner does the work above it.
-
-The single typographically loud moment in the entire system is the **rating display** (`{typography.rating-display}` — 64px / 700) on listing pages. That is the only place the system trusts type alone to carry hierarchy — rating numbers are a peak trust signal, so they get the loudest treatment.
-
-### Note on Font Substitutes
-If Airbnb Cereal VF and Circular are unavailable, **Inter** is the closest open-source substitute. Adjust display headlines down by ~2% in line-height to match Cereal's slightly tighter cap height; otherwise the proportions transfer cleanly.
+### Named Rules
+**The Diacritic Rule.** Không hạ dòng chữ tiếng Việt xuống dưới ~12px và không ép line-height dưới 1.2, để dấu không bị cắt hay đè.
 
 ## Layout
 
-### Spacing System
-- **Base unit:** 4px (with 2px micro-step).
-- **Tokens:** `{spacing.xxs}` 2px · `{spacing.xs}` 4px · `{spacing.sm}` 8px · `{spacing.md}` 12px · `{spacing.base}` 16px · `{spacing.lg}` 24px · `{spacing.xl}` 32px · `{spacing.xxl}` 48px · `{spacing.section}` 64px.
-- **Section padding (vertical):** `{spacing.section}` (64px) for major page bands; tighter than typical SaaS marketing (80–96px) because marketplace pages need higher card density per scroll.
-- **Card internal padding:** `{spacing.lg}` (24px) for `{component.host-card}` and `{component.reservation-card}`; `{spacing.base}` (16px) for property-card meta block; `{spacing.sm}` (8px) for caption / date-row gutters.
-- **Gutters:** `{spacing.base}` (16px) between cards in the homepage city grid; `{spacing.lg}` (24px) inside footer column gutters; `{spacing.xs}` (4px) on dense category-strip dividers.
+Bố cục theo tinh thần Airbnb: nội dung căn giữa, container rộng vừa (khoảng 1080–1280px), khoảng trắng rộng ở các dải trang, thẻ xếp dày hơn. Spacing bội số 4px; khoảng 1–1.5rem trong panel và form; form auth rộng tối đa 460px. Responsive dựa trên nguyên tắc giảm cột chứ không reflow hàng: điện thoại 1 cột, tablet 2, desktop nhiều hơn. Mục tiêu chạm tối thiểu 42–44px. Các giá trị breakpoint chính xác chưa chốt trong code.
 
-### Grid & Container
-- **Max content width:** ~1280px centered on the homepage and editorial pages. Listing detail pages cap closer to 1080px to keep the photo banner and reservation rail readable.
-- **City link grid (homepage footer):** 6-column grid at desktop with each cell housing a city name in `{typography.title-md}` and a category sub-label in `{typography.body-sm}` muted.
-- **Listing detail:** 2-column with photo / amenity body on the left (~64% width) and a sticky reservation card (`{component.reservation-card}`) on the right (~32%).
-- **Footer:** 3-column link list (Support / Hosting / Airbnb) at desktop, collapsing to 1-column on mobile.
+## Elevation & Depth
 
-### Whitespace Philosophy
-The system gives editorial bands 64px of vertical breathing room but compresses card grids — property and city-link cards sit just 16px apart. The contrast is intentional: the page reads as "open hero, dense marketplace below," reinforcing the marketplace nature without overwhelming the visitor at the fold.
+Phẳng mặc định; sâu đến từ nền canvas xám nhạt với thẻ trắng và viền hairline. Một tầng bóng rất nhẹ cho panel và chip đang chọn.
 
-## Elevation
+### Shadow Vocabulary
+- **Panel** (`box-shadow: 0 4px 18px rgb(30 50 60 / 0.045)`): panel, auth card.
+- **Chip chọn** (`box-shadow: 0 2px 8px rgb(30 50 60 / 0.08)`): mục đang chọn trong segmented.
 
-The system has essentially **one shadow tier** plus the flat baseline.
+### Named Rules
+**The One Soft Tier Rule.** Không thêm tầng bóng thứ ba; trạng thái nhấn mạnh bằng viền và màu.
 
-- **Flat (no shadow):** Body, hero, footer, all editorial bands — 95% of surfaces.
-- **Card hover float:** `box-shadow: rgba(0, 0, 0, 0.02) 0 0 0 1px, rgba(0, 0, 0, 0.04) 0 2px 6px 0, rgba(0, 0, 0, 0.1) 0 4px 8px 0` — applied to property cards on pointer hover, the search bar at rest, and the dropdown menus (account menu, language picker, date picker). This is the single shadow definition in the entire system.
-- **Modal scrim:** `{colors.scrim}` rendered at 50% opacity — the global modal backdrop. Used on date pickers, login dialogs, language picker.
+## Shapes
 
-There are no progressive elevation tiers — the system either has the one shadow or none. Depth comes from photography, the white-on-white surface separation, and rounded-corner clipping rather than from layered shadows.
+Mềm, không góc cứng. Nút và ô nhập bo 0.8rem (~13px), segmented 0.9rem, chip 0.65rem, vùng trống 1rem, panel và thẻ 1.4rem (~22px), nhãn là pill 999px. Panel viền 1px `{colors.line}`.
 
 ## Components
 
 ### Buttons
+- **Shape:** bo 0.8rem, cao tối thiểu 42px (nhỏ 36px), chữ weight 650.
+- **Primary:** nền teal, chữ trắng; hover đậm hơn (#00554d) và nhấc 1px.
+- **Lost:** cùng hình dạng, nền cam, chỉ cho hành động thuộc luồng Mất đồ.
+- **Secondary / Ghost:** secondary nền `surface-soft` viền line; ghost chữ muted, hover có nền.
+- **Disabled:** mờ 60%, không nhấc.
 
-**`button-primary`** — Rausch fill, white text, 8px radius, 14×24px padding, 48px height, weight 500. The most common CTA across the system: "Reserve", "Continue", "Search", account-flow primaries.
+### Chips / Segmented
+- Segmented: nền `surface-soft`, viền line, bo 0.9rem; chip đang chọn nền trắng chữ teal kèm bóng nhẹ.
 
-**`button-primary-active`** — The press state. Background flips to `{colors.primary-active}`. No transform, no shadow change.
+### Cards / Containers
+- **Panel:** nền trắng, viền line, bo 1.4rem, padding 1.25rem, bóng Panel.
+- **Report visual:** vùng minh họa dùng gradient nhạt theo loại tin (teal nhạt cho Nhặt được, cam nhạt cho Mất đồ); là placeholder khi tin chưa có ảnh (theo 01_overview, mỗi tin có 1–5 ảnh).
+- **Empty state:** viền đứt nét, chỉ ra bước tiếp theo.
 
-**`button-primary-disabled`** — Pale Rausch tint at #ffd1da with white text. Cursor not-allowed.
+### Inputs / Fields
+- **Style:** nền trắng, viền #bcc7cd, bo 0.8rem, cao ≥44px, textarea ≥110px.
+- **Focus:** viền teal kèm vòng mờ 3px; focus-visible toàn cục vòng teal mờ 3px, offset 2px.
+- **Error:** viền danger + chữ lỗi danger; thông báo lỗi nêu vấn đề và cách sửa.
 
-**`button-secondary`** — White fill with ink text and a 1px ink outline. 8px radius. Used for "Save", "Cancel", and inverse CTAs over Rausch surfaces.
+### Badges
+- **Loại tin:** pill nền nhạt + chữ đậm (teal cho Nhặt được, cam cho Mất đồ), luôn có icon.
+- **Trạng thái:** pill nền `surface-soft` viền line; trạng thái đang hoạt động dùng nền `primary-soft`.
 
-**`button-tertiary-text`** — Plain ink text, no surface, no border. Underlined on hover. Used for "Show more" type links and modal close labels.
+### Notices
+- Ba biến thể: cảnh báo (hổ phách), info (xanh dương nhạt), error (đỏ nhạt), bo 0.8rem, có icon.
 
-**`button-pill-rausch`** — A pill-shaped Rausch CTA used on featured cells (e.g., "Become a host" sub-CTA) — 9999px radius, 10×20px padding, 14px label.
+## Do's and Don'ts
 
-### Search Surface
+### Do:
+- **Do** dùng teal cho hành động chính và cam chỉ cho nghĩa Mất đồ.
+- **Do** kèm icon và chữ cho mọi nhãn loại tin và trạng thái.
+- **Do** để mỗi màn hình nói rõ bước tiếp theo, kể cả trạng thái trống.
+- **Do** giữ WCAG AA và tôn trọng `prefers-reduced-motion`.
+- **Do** dùng chữ tiếng Việt có dấu và nút gọi đúng việc.
 
-**`search-bar-pill`** — The signature global search bar. White fill, 9999px radius, 64px height, 1px hairline 1px-shadow border. Internally divided by vertical hairline rules into `{component.search-field-segment}` cells (Where / When / Who). Each segment holds an uppercase caption label above a placeholder line in `{typography.caption}`.
-
-**`search-orb`** — The circular Rausch orb terminating the right edge of the search bar. 48×48px, fully rounded, white magnifying-glass icon centered. The hottest single color moment on the homepage.
-
-### Top Navigation
-
-**`top-nav`** — White surface, 80px height, 1px bottom hairline. The Airbnb wordmark sits flush left, the three product tabs (Homes / Experiences / Services) sit in the dead center, and account utilities (host link, language globe, account menu) sit flush right.
-
-**`product-tab-active`** — Ink label in `{typography.nav-link}`, 32px hand-illustrated icon, 2px ink underline rule beneath the icon-label pair.
-
-**`product-tab-inactive`** — Muted label, illustrated icon, no underline. Becomes active on click.
-
-**`new-tag`** — A tiny rounded-pill badge (`{rounded.full}`) anchored top-right of an icon, carrying the uppercase "NEW" label in `{typography.uppercase-tag}` (8px / 700 with 0.32px tracking, uppercase). Used on Experiences and Services to signal recency.
-
-### Listing Cards
-
-**`property-card`** — A photo-first card. 1:1 aspect-ratio image with `{rounded.md}` corner clipping, image carousel dots overlay, "Guest favorite" floating badge top-left (`{component.guest-favorite-badge}`), and a heart icon top-right (`{component.icon-button-circle}` in default outlined state, Rausch-filled when saved). Beneath the image: 4–5 lines of meta — title (`{typography.title-md}`), distance / dates (`{typography.body-sm}` muted), and price ("$X night") right-aligned.
-
-**`property-card-photo`** — The photo plate itself, separated as a token because some surfaces (wishlist, search results) reuse just the photo without the meta block.
-
-**`experience-card`** — A taller-aspect card (4:5) for experience listings. Same `{rounded.md}` clipping, floating "NEW" badge top-left, heart top-right, and a single-line title beneath.
-
-**`guest-favorite-badge`** — White rounded pill (`{rounded.full}`) at 11px / 600 weight. Sits over the photo with the system's only shadow tier applied for elevation.
-
-### Listing Detail
-
-**`rating-display-card`** — The signature listing-detail moment. A 64px / 700 rating number ("4.81") flanked left and right by tiny laurel-wreath SVG ornaments. Beneath the rating: "Guest favorite" tagline and a row of ink stat columns. The largest typographic weight in the whole system.
-
-**`amenity-row`** — A 1-column list of amenity icons + ink labels in `{typography.body-md}`. 12px row padding, no border between rows; section is closed by a 1px hairline divider above and below.
-
-**`reviews-card`** — A 2-column grid of review excerpts. Each column holds an author row (avatar, name, date) above a 3-line excerpt with "Show more" tertiary link.
-
-**`host-card`** — A white card with `{rounded.md}` rounding and 24px padding holding a host avatar, name, "Superhost" badge, response-rate stat, and a "Contact host" `{component.button-secondary}`.
-
-**`reservation-card`** — The sticky right-rail card on listing detail pages. White surface, `{rounded.md}` rounding, 1px hairline border, 1px shadow tier elevation, 24px padding. Contains: nightly price (`{typography.display-md}` ink), date-range selector, guest-count stepper, "Reserve" primary CTA full-width, and a fee breakdown stack beneath in `{typography.body-sm}`.
-
-### Date Picker
-
-**`date-picker-day`** — A 40×40px circular cell carrying the day number in `{typography.body-sm}`. Default state is transparent fill, ink text.
-
-**`date-picker-day-selected`** — Ink fill, white text, full circle (`{rounded.full}`). Range states between two selected days carry a `{colors.surface-soft}` lozenge background that connects them.
-
-### Forms
-
-**`text-input`** — White surface, 1px hairline outline, `{rounded.sm}` 8px radius, 56px height, 14×12px padding. Stacked label above (in `{typography.caption}` muted), placeholder text in `{typography.body-md}` muted. On focus, the border thickens to 2px ink and the border color flips to `{colors.ink}` — no glow, no ring.
-
-### Footer
-
-**`footer-light`** — White surface (matches the page canvas — Airbnb has no contrast footer), 48×80px padding. Three columns of link blocks (Support / Hosting / Airbnb), separated by generous 24px gutters. Each column heads with a `{typography.title-sm}` ink label and stacks `{component.footer-link}` rows in `{typography.body-sm}` ink.
-
-**`legal-band`** — A bottom strip beneath the footer columns carrying the copyright line, language picker (globe icon + "English (US)" link), currency picker, and social icons (Facebook, X, Instagram). All text in muted `{colors.muted}` at `{typography.caption-sm}`.
-
-## Responsive Behavior
-
-| Name | Width | Key Changes |
-|---|---|---|
-| Mobile | < 744px | Top nav collapses to logo + hamburger; product tabs hide behind a sheet; search bar collapses to a single tappable pill; property cards stack 1-up; city grid 1-column; listing detail collapses reservation card to a sticky bottom bar. |
-| Tablet | 744–1128px | Top nav keeps product tabs but search bar narrows; property cards 2-up; city grid 2–3 column; reservation card stays sticky right-rail at narrower width. |
-| Desktop | 1128–1440px | Full top nav with three product tabs centered; search bar at full pill width with all 3 segments visible; property cards 4-up; city grid 6-column; listing detail 2-column with reservation rail. |
-| Wide | > 1440px | Content width caps at 1440px on listing/search pages and ~1280px on editorial; gutters absorb the rest. |
-
-### Touch Targets
-- Primary CTAs at minimum 48×48px (above WCAG AAA).
-- Search orb is 48×48px circular — the most-tapped element on the page.
-- Heart save button is 32×32px circular — borderline for AAA but compensated by a generous 12px padding inside the photo card.
-- Date-picker day cells are 40×40px circular.
-
-### Collapsing Strategy
-- Top product tabs collapse into a hamburger sheet below 744px.
-- Search bar's 3 segments collapse into a single-tap entry that opens a full-screen search overlay on mobile.
-- Property and city-link grids drop column counts cleanly at each breakpoint — never reflow rows; always reduce columns.
-- Reservation card on listing detail switches from sticky right-rail to a sticky bottom bar on mobile, carrying just the "Reserve" CTA + nightly price summary.
-
-## Known Gaps
-
-- **Hover state colors:** intentionally not documented per the global no-hover policy — Airbnb's actual `:hover` styling for property cards is a subtle elevation lift, but precise extraction is unreliable.
-- **Loading states / skeleton screens:** not visible on the extracted surfaces.
-- **Map view styling:** the search-results map uses Mapbox-tinted tiles with custom Rausch markers; not captured here.
-- **Form input error states:** error text color (`{colors.primary-error-text}`) is documented, but the full input outline + helper-text combination on validation failure was not visible in the captured surfaces.
-- **Sub-brand palettes:** Luxe (`{colors.luxe}`) and Plus (`{colors.plus}`) are documented as tokens, but their full sub-system (typography overrides, surface treatment) lives on separate sub-domains and is not captured here.
+### Don't:
+- **Don't** dùng đỏ cho hành động chính; đỏ chỉ dành cho lỗi và hành động nguy hiểm.
+- **Don't** hiện số điện thoại hoặc email trước khi người nhặt chấp nhận; thông tin xác minh phải có nhãn riêng tư.
+- **Don't** thêm tầng shadow mới hay gradient trang trí ngoài vùng minh họa loại tin.
+- **Don't** làm dark mode trong MVP.
+- **Don't** để điểm trùng khớp đứng một mình; luôn kèm lý do và lời nhắc "không phải xác nhận sở hữu".

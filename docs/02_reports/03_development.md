@@ -7,8 +7,20 @@
 | Frontend | Next.js, TypeScript, Tailwind CSS |
 | Backend | Next.js server, Zod, Drizzle ORM, postgres, @supabase/ssr |
 | Data storage/Auth | PostgreSQL + Supabase, Supabase Auth |
+| File storage | Supabase Storage (ảnh đồ vật) |
+| Tìm kiếm | PostgreSQL full-text search (có sẵn) |
 | Testing | Vitest, Playwright |
 | Deployment | Vercel |
+
+### Bổ sung stack cho thiết kế
+
+| Nhu cầu trong thiết kế | Giải pháp |
+|---|---|
+| Đăng 1–5 ảnh mỗi tin | Supabase Storage, cùng nền tảng nên không thêm dịch vụ |
+| Chỉ email trường mới đăng nhập được | Supabase Auth không tự giới hạn tên miền; server kiểm tra danh sách tên miền hợp lệ sau khi đăng ký/đăng nhập |
+| Thông báo qua email | MVP chỉ thông báo trong web. Email để sau, khi cần thì thêm dịch vụ như Resend |
+| Tin hết hạn sau 60 ngày, yêu cầu hết hạn sau 7 ngày | Không cần tác vụ nền: khi truy vấn, coi bản ghi quá hạn là hết hạn (so `expires_at` với thời điểm hiện tại) |
+| Tìm kiếm từ khóa | Tìm kiếm văn bản có sẵn của PostgreSQL, không thêm công cụ |
 
 ### Sơ đồ tổng thể
 
@@ -19,11 +31,13 @@ flowchart TD
     Zod --> Server[Server-side Next.js<br/>business rules]
     Server --> Auth[Supabase Auth]
     Server --> Drizzle[Drizzle ORM]
-    Drizzle --> PG[(PostgreSQL)]
+    Server --> Storage[Supabase Storage<br/>ảnh đồ vật]
+    Drizzle --> PG[(PostgreSQL<br/>+ full-text search)]
 
     subgraph Supabase[Hạ tầng Supabase]
         Auth
         PG
+        Storage
     end
 
     Vercel[Vercel] -. deploy .-> UI
@@ -31,7 +45,7 @@ flowchart TD
     Playwright[Playwright] -. End-to-End Test .-> UI
 ```
 
-Next.js chứa UI và phần server cần thiết trong cùng project. Zod kiểm tra dữ liệu đi vào; business rule và Authorization vẫn do server thực hiện. Drizzle là lớp truy cập PostgreSQL, còn Supabase cung cấp PostgreSQL được host và Authentication.
+Next.js chứa UI và phần server cần thiết trong cùng project. Zod kiểm tra dữ liệu đi vào; business rule và Authorization vẫn do server thực hiện. Drizzle là lớp truy cập PostgreSQL, còn Supabase cung cấp PostgreSQL được host, Authentication và Storage cho ảnh.
 
 ### Next.js
 
@@ -71,7 +85,7 @@ Next.js chứa UI và phần server cần thiết trong cùng project. Zod kiể
 
 ### Zod
 
-**Vai trò trong UniFound:** thư viện Validation, tức kiểm tra dữ liệu đầu vào; không phải database hoặc Authentication. Schema Zod có thể kiểm tra `title` không rỗng, `type` chỉ là `Lost` hoặc `Found`, `eventDate` đúng định dạng và category/location thuộc danh sách hợp lệ (danh sách cố định xem [02_requirements_design.md](02_requirements_design.md#6-data-model-dự-kiến)). Validation quan trọng phải chạy phía server, không chỉ ở frontend.
+**Vai trò trong UniFound:** thư viện Validation, tức kiểm tra dữ liệu đầu vào; không phải database hoặc Authentication. Schema Zod có thể kiểm tra `title` không rỗng, `type` chỉ là `LOST` hoặc `FOUND`, thời điểm xảy ra đúng định dạng, số ảnh trong khoảng 1–5, email thuộc tên miền trường hợp lệ và category/location thuộc danh sách hợp lệ (mô hình dữ liệu xem [02_requirements_design.md](02_requirements_design.md#9-mô-hình-dữ-liệu-erd)). Validation quan trọng phải chạy phía server, không chỉ ở frontend.
 
 **Vì sao chọn**
 
@@ -85,13 +99,20 @@ Zod kiểm tra dữ liệu tại ranh giới ứng dụng và giúp trả lỗi 
 
 ### PostgreSQL
 
-**Vai trò trong UniFound:** hệ quản trị cơ sở dữ liệu quan hệ và là nguồn dữ liệu nghiệp vụ chính, lưu User/profile, Report, Claim, Category, Location, trạng thái và các quan hệ cần thiết.
+**Vai trò trong UniFound:** hệ quản trị cơ sở dữ liệu quan hệ và là nguồn dữ liệu nghiệp vụ chính, lưu School, User/profile, Report, Report image, Match, Claim, Notification, Flag, Category, Location, trạng thái và các quan hệ cần thiết (ERD đầy đủ ở [02_requirements_design.md](02_requirements_design.md#9-mô-hình-dữ-liệu-erd)).
 
 ```text
+School 1 ── N User
 User   1 ── N Report
-User   1 ── N Claim
+Report 1 ── N Report image
 Report 1 ── N Claim
+User   1 ── N Claim
+Report 1 ── N Match (tin mất / tin nhặt)
+User   1 ── N Notification
+Report 1 ── N Flag
 ```
+
+PostgreSQL cũng cung cấp full-text search để tìm từ khóa trong tiêu đề và mô tả, nên không cần thêm công cụ tìm kiếm riêng.
 
 **Vì sao chọn**
 
@@ -106,12 +127,12 @@ Report 1 ── N Claim
 
 ### Supabase
 
-**Vai trò trong UniFound:** cung cấp PostgreSQL được host, Supabase Auth và hạ tầng hỗ trợ cần thiết. PostgreSQL vẫn là database cốt lõi; Supabase không phải ORM và không thay business logic phía server.
+**Vai trò trong UniFound:** cung cấp PostgreSQL được host, Supabase Auth, Supabase Storage (lưu 1–5 ảnh mỗi tin, bảng `report_images` giữ đường dẫn) và hạ tầng hỗ trợ cần thiết. PostgreSQL vẫn là database cốt lõi; Supabase không phải ORM và không thay business logic phía server.
 
 **Vì sao chọn**
 
 - Nhóm không phải tự vận hành máy chủ PostgreSQL cho MVP.
-- Database và Authentication có thể dùng trong cùng một hạ tầng quản lý.
+- Database, Authentication và file storage có thể dùng trong cùng một hạ tầng quản lý, không thêm dịch vụ cho ảnh.
 - Phù hợp với nhu cầu demo có dữ liệu dùng chung và tài khoản thật của ứng dụng.
 
 **Nếu không dùng:** nhóm phải chọn dịch vụ PostgreSQL/Auth khác hoặc tự host và vận hành các phần tương ứng.
@@ -130,14 +151,14 @@ Report 1 ── N Claim
 
 ### Supabase Auth
 
-**Vai trò trong UniFound:** xử lý Authentication (xác thực người dùng là ai): đăng ký, đăng nhập, đăng xuất, session và xác định user hiện tại.
+**Vai trò trong UniFound:** xử lý Authentication (xác thực người dùng là ai): đăng ký, đăng nhập, đăng xuất, session và xác định user hiện tại. Supabase Auth không tự giới hạn theo tên miền, nên server UniFound kiểm tra email có thuộc danh sách tên miền trường hợp lệ hay không sau khi đăng ký/đăng nhập và từ chối nếu không.
 
 ```text
 Authentication = Người dùng là ai?
 Authorization  = Người đó được phép làm gì?
 ```
 
-Authorization (phân quyền thao tác) vẫn do server UniFound kiểm tra: chỉ owner của Found Report được Accept Claim, người dùng không được sửa report của người khác và không được claim report của chính mình (quy tắc đầy đủ ở [02_requirements_design.md](02_requirements_design.md#1-yêu-cầu-chức-năng)).
+Authorization (phân quyền thao tác) vẫn do server UniFound kiểm tra: chỉ chủ tin Nhặt được (`FOUND`) được chấp nhận yêu cầu nhận đồ, người dùng không được sửa tin của người khác và không được gửi yêu cầu vào tin của chính mình (quy tắc đầy đủ ở [02_requirements_design.md](02_requirements_design.md#2-yêu-cầu-chức-năng)).
 
 **Vì sao chọn**
 
@@ -204,14 +225,14 @@ Giá trị thật không được ghi vào tài liệu hoặc commit.
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Client + server | URL project Supabase |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Client + server | Publishable key cho Supabase client |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Client + server | Tương thích ngược với anon key |
 | `DATABASE_URL` | Chỉ server | Kết nối PostgreSQL cho Drizzle qua Supabase transaction pooler |
+| `ALLOWED_EMAIL_DOMAINS` | Chỉ server | Danh sách tên miền email trường hợp lệ (phân tách bằng dấu phẩy) để server từ chối email ngoài trường |
 
-Tên biến phải được xác nhận lại theo code và cấu hình Supabase thực tế. Không đưa database password hoặc secret server vào biến có tiền tố `NEXT_PUBLIC_`.
+Tên biến phải được xác nhận lại theo cấu hình Supabase thực tế khi triển khai. Không đưa database password hoặc secret server vào biến có tiền tố `NEXT_PUBLIC_`.
 
 ## 5. Local development
 
-Scripts đã được khai báo trong `package.json`:
+Project Supabase đã được tạo và các công nghệ trong stack đã được chọn/cấu hình; chưa có mã nguồn ứng dụng. Scripts dự kiến trong `package.json` khi khởi tạo project:
 
 | Thao tác | Lệnh |
 |---|---|
@@ -228,42 +249,47 @@ Scripts đã được khai báo trong `package.json`:
 
 ## 6. Database workflow
 
+Schema theo ERD ở [02_requirements_design.md](02_requirements_design.md#9-mô-hình-dữ-liệu-erd) được định nghĩa bằng Drizzle, không sửa trực tiếp trên database.
+
 ```text
 Drizzle schema (src/db/schema.ts)
       ↓ drizzle-kit generate
-Migration có phiên bản (drizzle/0000_massive_sphinx.sql)
+Migration có phiên bản (thư mục drizzle/)
       ↓ drizzle-kit migrate (npm run db:migrate)
 PostgreSQL trên Supabase
 ```
 
-- **Schema design:** Định nghĩa 3 bảng `users`, `reports`, `claims` và 5 enums (`report_type`, `report_category`, `report_location`, `report_status`, `claim_status`) theo DEC-001/DEC-002/DEC-005. Ràng buộc toàn vẹn: onDelete cascade cho khóa ngoại, partial unique index `unique_accepted_claim_per_report` trên `claims(report_id) WHERE status = 'accepted'`.
-- **Migration:** Sinh bằng `npm run db:generate` tại `drizzle/0000_massive_sphinx.sql`, áp dụng bằng `npm run db:migrate`.
-- **Database client:** Triển khai tại `src/db/index.ts` dùng driver `postgres` với singleton connection pool (`prepare: false` tương thích transaction pooler) và proxy fallback khi build tĩnh không có `DATABASE_URL`.
-- **Seed demo data:** Triển khai tại `src/db/seed.ts` chứa dữ liệu mẫu chuẩn khuôn viên trường; an toàn, không chứa thông tin cá nhân thật (PII) hay secret.
+- **Schema design:** 10 bảng `schools`, `users`, `categories`, `locations`, `reports`, `report_images`, `matches`, `claims`, `notifications`, `flags`, với các enum cho `report.type` (`LOST`/`FOUND`), `report.status` (`OPEN`, `IN_PROGRESS`, `RETURNED`, `CLOSED`, `HIDDEN`), `claim.status` (`PENDING`, `ACCEPTED`, `REJECTED`, `COMPLETED`, `EXPIRED`), `match.status` (`SUGGESTED`, `DISMISSED`, `USED`), `user.role` (`USER`/`ADMIN`) và `user.status` (`active`/`locked`).
+- **Ràng buộc toàn vẹn dự kiến:** khóa ngoại theo ERD; `UNIQUE(claims.report_id, claims.claimant_id)` để mỗi người chỉ gửi một yêu cầu cho mỗi tin; partial unique index trên `claims(report_id) WHERE status = 'ACCEPTED'` để mỗi tin có tối đa một yêu cầu được chấp nhận; `UNIQUE(matches.lost_report_id, matches.found_report_id)`; `CHECK` giới hạn score 0–100.
+- **Tìm kiếm:** full-text search PostgreSQL trên `reports.title` và `reports.description` (ví dụ cột `tsvector` + index GIN).
+- **Hết hạn:** `reports.expires_at` = thời điểm tạo + 60 ngày; yêu cầu quá 7 ngày chưa phản hồi coi là `EXPIRED`. Truy vấn lọc theo thời điểm hiện tại, không có tác vụ nền.
+- **Lưu ảnh:** file ảnh trong Supabase Storage; `report_images.image_url` giữ đường dẫn.
+- **Database client:** dùng driver `postgres` với connection pool và `prepare: false` để tương thích transaction pooler.
+- **Seed demo data:** dữ liệu mẫu gồm trường, danh mục, địa điểm và một số tin; không chứa thông tin cá nhân thật (PII) hay secret.
 
 ## 7. Testing
 
 | Công cụ | Phạm vi chính | Lệnh |
 |---|---|---|
-| Vitest | Matching score, validation helper, state transition, schema contract | `npm test` |
-| Playwright | Luồng login → report → claim → accept → returned trên ứng dụng hoàn chỉnh | `npm run test:e2e` |
+| Vitest | Matching score, validation (email tên miền, số ảnh), state transition, kiểm tra hết hạn | `npm test` |
+| Playwright | Luồng đăng nhập → đăng tin → gửi yêu cầu nhận đồ → chấp nhận → hai bên xác nhận → Đã trả trên ứng dụng hoàn chỉnh | `npm run test:e2e` |
 
 ## 8. Deployment
 
 - Target: Vercel.
-- Cấu hình environment variables trên môi trường deploy bằng đúng tên được code sử dụng; không commit giá trị thật.
+- Cấu hình environment variables trên môi trường deploy bằng đúng tên ở mục 4; không commit giá trị thật.
 - Build command và cấu hình runtime: `npm run build`.
 - Production/demo URL: `TBD`; không tạo URL giả.
 
-## 9. Cấu trúc hiện tại
+## 9. Cấu trúc thư mục dự kiến
 
 ```text
 unifound/
 ├── src/
-│   ├── app/         # Next.js routes, pages, API routes (auth, reports)
-│   ├── components/  # Component dùng chung (auth header, claims)
-│   ├── lib/         # Server logic: auth (ownership, schemas), claims (actions, queries, schema)
-│   ├── db/          # Drizzle schema, database client, migrate/seed scripts, schema unit tests
+│   ├── app/         # Next.js routes, pages, API routes/Server Actions (màn hình S01–S13)
+│   ├── components/  # Component dùng chung
+│   ├── lib/         # Server logic: auth (domain email, ownership), reports, claims, matching, notifications
+│   ├── db/          # Drizzle schema, database client, migrate/seed scripts
 │   ├── utils/       # Supabase SSR server/client/middleware helpers
 │   └── middleware.ts # Next.js session refresh middleware
 ├── drizzle/      # Migration SQL có phiên bản được sinh bởi Drizzle Kit
