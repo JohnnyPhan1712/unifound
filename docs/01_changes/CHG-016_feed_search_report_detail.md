@@ -6,8 +6,8 @@
 - Người phụ trách: `chưa phân công`
 - Dependency: `CHG-015`
 - File/module dự kiến sửa/tạo: `src/app/page.tsx`, `src/app/reports/[id]`, `src/lib/reports/query.ts`, `src/components/reports/*` (card, filter, pagination), `src/db/schema.ts` + migration (cột `tsvector` + index GIN)
-- Branch: 
-- Commit sau merge: 
+- Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
+- Commit: `chưa có` (ghi hash commit trên `main` sau khi push)
 
 ## Kết quả người dùng
 

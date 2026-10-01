@@ -6,8 +6,8 @@
 - Người phụ trách: `chưa phân công`
 - Dependency: `CHG-019`
 - File/module dự kiến sửa/tạo: `src/lib/claims/handover.ts`, `src/app/claims/[id]`, `src/components/claims/*`, `src/lib/notifications/*`
-- Branch: 
-- Commit sau merge: 
+- Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
+- Commit: `chưa có` (ghi hash commit trên `main` sau khi push)
 
 ## Kết quả người dùng
 
