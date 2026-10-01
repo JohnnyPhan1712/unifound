@@ -1,7 +1,7 @@
 # CHG-013: Dọn code cũ của các CHG bị từ chối
 
 - ID: `CHG-013`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `chưa phân công`
 - Dependency: `không có`
