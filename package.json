@@ -19,7 +19,7 @@
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "latest",
     "drizzle-orm": "latest",
-    "next": "latest",
+    "next": "^16.3.8",
     "postgres": "^3.4.5",
     "react": "latest",
     "react-dom": "latest",

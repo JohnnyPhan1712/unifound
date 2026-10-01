@@ -2,7 +2,7 @@
 
 CHG ghi lại lý do, phạm vi, quyết định và việc kiểm tra của một công việc đáng kể. **Một CHG tương ứng một Task, không tương ứng máy móc với từng file hoặc từng commit.
 
-Đơn vị triển khai mặc định là **một Task = một CHG = một branch = một pull request**. Một CHG có thể có nhiều commit, nhưng chỉ có một người phụ trách cuối cùng. CHG đồng thời là **nhật ký bằng chứng của Task** — nơi ghi AI Development Log, bug discovery và test case của người làm.
+Một CHG có thể có nhiều commit, nhưng chỉ có một người phụ trách cuối cùng. CHG đồng thời là **nhật ký bằng chứng của Task** — nơi ghi AI Development Log, bug discovery và test case của người làm.
 
 ## Khi cần CHG
 
@@ -11,7 +11,7 @@ Tạo CHG cho tài liệu nền tảng, quyết định kỹ thuật, kiến tr�
 ## Tạo Task mới
 
 1. Lấy số CHG tiếp theo từ `docs/01_changes/README.md` (hiện là `CHG-NNN`).
-2. Copy template ở cuối tài liệu này, điền ID, ngày tạo, tên công việc.
+2. Copy template ở cuối tài liệu này, điền thông tin cần thiết.
 3. Thêm dòng vào bảng CHG trong `docs/01_changes/README.md`.
 
 Người tạo CHG ghi rõ **Người phụ trách** (người làm) sau khi thống nhất.
@@ -20,10 +20,9 @@ Người tạo CHG ghi rõ **Người phụ trách** (người làm) sau khi th�
 
 Checklist cho người phụ trách trước khi chuyển `in_progress`:
 
-- [ ] Đã đọc `docs/02_reports/` và guide liên quan.
-- [ ] Đã điền đầy đủ: owner, reviewer, dependency, file/module dự kiến sửa, acceptance criteria.
-- [ ] Người tạo CHG đã xác nhận CHG sẵn sàng (Definition of Ready).
-- [ ] Đã tạo branch từ `main` theo tên `<loại>/<CHG>-<slug>` (vd: `feat/CHG-011-claim-flow`).
+- [ ] Đã đọc `File/tài liệu cần đọc trước khi thực hiện` và guide liên quan.
+- [ ] Người tạo CHG tự xác nhận status thành `approved`.
+- [ ] Đã tạo branch từ `main` theo tên `<loại>/<CHG>-<slug>` (vd: `feat/CHG-011-claim-flow`) 
 - [ ] Đã cập nhật trạng thái CHG thành `in_progress` và ghi Branch, ngày bắt đầu.
 
 ## Định danh và trạng thái
@@ -83,21 +82,19 @@ Checklist cho reviewer/người tạo CHG trước khi chuyển `done`:
 - [ ] Acceptance criteria đều đạt, bằng chứng kiểm tra (test, UI, log, evidence) đã ghi trong CHG.
 - [ ] Đã ghi log phát sinh (AI Log, Bug, Test case) trong CHG; nếu không có ghi "Không có".
 - [ ] Branch đã cập nhật từ `main`, conflict đã được xử lý.
-- [ ] Pull request được reviewer chấp thuận, code đã merge vào `main`.
+- [ ] Code đã merge vào `main`.
 - [ ] Đã cập nhật dòng CHG trong `docs/01_changes/README.md` (Branch, PR, Commit sau merge).
 - [ ] Đã ghi Commit sau merge trong CHG.
-- [ ] Notion Task cập nhật trạng thái = `done`.
 
 ## Quy trình tổng quát
 
-1. **Tạo Task mới** (mục "Tạo Task mới" ở trên).
-2. **Trước khi làm**: checklist "Trước khi làm" ở trên.
+1. **Tạo Task mới** (mục "Tạo Task mới" ở trên). 
+2. **Trước khi làm**: checklist "Trước khi làm" ở trên. 
 3. **Thực hiện**: làm theo phạm vi CHG, ghi log ngay khi phát sinh (mục "Trong khi làm" ở trên).
 4. **Nếu có dependency**: làm phần độc lập trước, ghi rõ phần chờ, dùng `waiting_for_integration` hoặc `blocked` thay vì mở rộng sang CHG khác.
 5. **Chạy kiểm tra**: test, sửa bug nếu cần, ghi bằng chứng trong CHG.
-6. **Mở pull request**: cập nhật branch từ `main`, xử lý conflict, mở PR.
 7. **Reviewer duyệt**: reviewer kiểm tra log/test/bug/acceptance criteria, cấp xác nhận, merge PR.
-8. **Hoàn tất**: checklist "Definition of Done" ở trên, chuyển CHG sang `done`.
+8. **Hoàn tất**: checklist "Definition of Done" ở trên, chuyển CHG sang `done`. 
 
 ## Hỗ trợ người quản lý docs chọn log để báo cáo
 
@@ -119,7 +116,6 @@ Team Lead (Huy) đọc phần log trong các CHG `done`, chọn ~5–10 AI log t
 - Dependency: `không có`
 - File/module dự kiến sửa/tạo: `chưa xác định`
 - Branch: 
-- Commit sau merge: 
 
 ## Kết quả người dùng
 
