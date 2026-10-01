@@ -1,13 +1,13 @@
 # CHG-019: Gửi yêu cầu nhận đồ và xử lý (chấp nhận/từ chối)
 
 - ID: `CHG-019`
-- Trạng thái: `proposed`
+- Trạng thái: `in_review`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-016`, `CHG-017` (Tin của tôi), `CHG-018` (hạ tầng thông báo)
 - File/module dự kiến sửa/tạo: `src/lib/claims/*` (state machine, submit, decide), `src/app/reports/[id]/claim`, `src/app/my` (tab yêu cầu), `src/app/claims/[id]`, `src/components/claims/*`, `src/db/schema.ts` (rà unique/partial index của `claims`)
 - Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
-- Commit: `chưa có` (ghi hash commit trên `main` sau khi push)
+- Commit: `e8cdd04` (trên `main`, commit chung cho CHG-014 → CHG-023)
 
 ## Kết quả người dùng
 
@@ -47,26 +47,73 @@ Người mất đồ mở tin Nhặt được, trả lời câu hỏi xác minh 
 - [ ] Người thứ ba không xem được câu trả lời xác minh.
 - [ ] `npm run typecheck`, `npm test`, `npm run build` pass.
 
+## Ghi chú triển khai
+
+- Schema đã có từ CHG-014: `UNIQUE(report_id, claimant_id)` và partial unique index `claims(report_id) WHERE status = 'ACCEPTED'`.
+- Thêm cột `claims.note` (ngoài ERD) cho ô "mô tả thêm" của S05.
+- `src/lib/claims/rules.ts`:
+  - State machine chỉ cho `PENDING→ACCEPTED/REJECTED` và `ACCEPTED→COMPLETED`.
+  - `effectiveClaimStatus` coi `PENDING` từ 7 ngày trở lên là `EXPIRED` khi đọc; yêu cầu hết hạn không duyệt được.
+  - `claimSubmitError` gom các luật gửi: chỉ tin `FOUND`, không gửi vào tin của mình, không gửi lần hai, tin phải `OPEN` và còn hạn.
+- `decideClaim` chạy trong một transaction, khóa dòng tin bằng `SELECT … FOR UPDATE OF reports`:
+  - Chấp nhận: claim → `ACCEPTED`, tin → `IN_PROGRESS`, các claim `PENDING` khác của tin → `REJECTED` ("đóng").
+  - Từ chối: claim → `REJECTED`, tin vẫn `OPEN`.
+  - Bắt lỗi vi phạm unique (23505) để báo lỗi thân thiện.
+  - Thông báo gửi sau khi transaction commit.
+- Chỉ chủ tin FOUND duyệt được; ADMIN không duyệt thay.
+- Người thứ ba mở `/claims/[id]` nhận 404 để không lộ việc yêu cầu tồn tại.
+- Người nhặt thấy "Đáp án bạn đã đặt" để so với câu trả lời. Trang là Server Component nên đáp án chỉ render cho chủ tin, không gửi xuống người gửi yêu cầu.
+- Nút "Tôi đã thấy đồ này" trên tin LOST không làm, theo đúng ghi chú phạm vi.
+- `/my` có 3 tab: tin đã đăng, yêu cầu đã gửi, yêu cầu nhận được (kèm số "chờ duyệt").
+
+### Cập nhật 2026-10-01: form gửi yêu cầu nằm trong trang chi tiết
+
+- Theo mockup, form "Gửi yêu cầu nhận lại" (câu hỏi xác minh, câu trả lời, mô tả thêm) nằm ngay cột bên phải trang chi tiết tin; trang `/reports/[id]/claim` vẫn còn và dùng cùng form. Người đã gửi thấy bốn bước tiến độ; chủ tin thấy danh sách yêu cầu kèm nút "Xem và duyệt".
+- Việc duyệt vẫn làm ở `/claims/[id]` (đáp án đặt sẵn hiện cạnh câu trả lời) để giữ một nơi duy nhất xử lý quy tắc.
+- Test E2E cập nhật theo luồng mới.
+
 ## AI Log
 
-Chưa có.
+### AI-1 — State machine và transaction chấp nhận yêu cầu
+
+- Nhiệm vụ (Task): Luật gửi yêu cầu, state machine, duyệt yêu cầu trong transaction bảo đảm tối đa một `ACCEPTED`.
+- Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5), Supabase MCP (select kiểm tra `claims`), plugin ponytail.
+- Đầu vào / Ngữ cảnh (Input/Context): FR09, FR10, quy tắc nghiệp vụ, mục 10a, `03_development.md` mục 6.
+- Kết quả AI (AI Output):
+  - Logic: `src/lib/claims/rules.ts`, `actions.ts`, `query.ts`.
+  - Trang: `/reports/[id]/claim`, `/claims/[id]`, các tab ở `/my`.
+- Quyết định của nhóm (Human Decision): chờ xác nhận. Hai điểm là đề xuất của AI: claim "đóng" dùng trạng thái `REJECTED`, và ADMIN không duyệt thay chủ tin.
+- Kiểm tra / Xác minh (Verification):
+  - Vitest TC-019-01/02/03/08.
+  - Playwright 4 tài khoản, có ca hai trình duyệt bấm "Chấp nhận" cùng lúc cho hai yêu cầu của cùng một tin.
+  - Supabase MCP xác nhận chỉ một yêu cầu `ACCEPTED`.
+- Ứng viên đưa vào báo cáo: có
 
 ## Bug
 
-Chưa có.
+### BUG-1 — Thời gian hiện "sau 14 giây nữa"
+
+- Biểu hiện: Tab "Yêu cầu tôi đã gửi" hiện yêu cầu vừa gửi là "sau 14 giây nữa".
+- Các bước tái hiện: Gửi yêu cầu rồi mở `/my?tab=sent` ngay.
+- Kết quả mong đợi / thực tế: Mong đợi "vừa xong" / thực tế hiện thời điểm tương lai.
+- Nguyên nhân gốc: `created_at` lấy `now()` của DB, còn `timeAgo` so với đồng hồ máy chạy app; đồng hồ máy chậm hơn DB khoảng 14 giây.
+- Fix: `timeAgo` coi lệch dưới 5 phút về tương lai và dưới 1 phút về quá khứ là "vừa xong" (`src/lib/labels.ts`).
+- Verification: Test `timeAgo` trong `src/lib/reports/reports.test.ts` pass.
+- Commit/issue: `e8cdd04`.
 
 ## Test case
 
 | ID | Test | Kết quả mong đợi | Kết quả thực tế | Trạng thái | Evidence |
 |---|---|---|---|---|---|
-| TC-019-01 | Vitest: state machine claim (hợp lệ/không hợp lệ) | Chỉ chuyển trạng thái cho phép | | Pending | |
-| TC-019-02 | Vitest: luật gửi (tin mình, tin đóng, trùng) | Từ chối đúng | | Pending | |
-| TC-019-03 | Vitest: hết hạn 7 ngày | `EXPIRED` đúng ranh giới | | Pending | |
-| TC-019-04 | Vitest/DB: hai `ACCEPTED` cùng tin | Bị chặn bởi partial unique index | | Pending | |
-| TC-019-05 | UI: B gửi yêu cầu vào tin của A | Lưu, A có thông báo | | Pending | screenshot |
-| TC-019-06 | UI: A chấp nhận nhiều claim | Chỉ một ACCEPTED, còn lại đóng | | Pending | |
-| TC-019-07 | UI: A từ chối | Tin vẫn mở, B có thông báo | | Pending | |
-| TC-019-08 | Người thứ ba mở URL yêu cầu | Bị từ chối (403/404) | | Pending | |
+| TC-019-01 | Vitest: state machine claim (hợp lệ/không hợp lệ) | Chỉ chuyển trạng thái cho phép | Duyệt toàn bộ cặp trạng thái, chỉ còn đúng 3 chuyển hợp lệ | Passed | `src/lib/claims/claims.test.ts` |
+| TC-019-02 | Vitest: luật gửi (tin mình, tin đóng, trùng) | Từ chối đúng | Tin của mình, tin LOST, gửi lần hai, tin RETURNED/CLOSED/HIDDEN/IN_PROGRESS, tin hết hạn đều bị từ chối; Zod câu trả lời | Passed | `src/lib/claims/claims.test.ts` |
+| TC-019-03 | Vitest: hết hạn 7 ngày | `EXPIRED` đúng ranh giới | 7 ngày − 1 ms → `PENDING`; đúng 7 ngày → `EXPIRED`; không áp dụng cho `ACCEPTED` | Passed | `src/lib/claims/claims.test.ts` |
+| TC-019-04 | Vitest/DB: hai `ACCEPTED` cùng tin | Bị chặn bởi partial unique index | Hai phiên của A bấm "Chấp nhận" đồng thời cho 2 yêu cầu của cùng tin → DB còn 1 `ACCEPTED`, 1 `REJECTED`, tin `IN_PROGRESS`. Ca này chứng minh khóa dòng trong transaction; index `claims_one_accepted_per_report` có trong migration 0002 làm lớp chặn cuối, chưa ép riêng lỗi 23505 | Passed | Playwright + Supabase MCP (select) |
+| TC-019-05 | UI: B gửi yêu cầu vào tin của A | Lưu, A có thông báo | Yêu cầu `PENDING`, hiện ở "Yêu cầu tôi đã gửi" của B; chuông A "1 chưa đọc" | Passed | Playwright, `019_received_desktop.png` |
+| TC-019-06 | UI: A chấp nhận nhiều claim | Chỉ một ACCEPTED, còn lại đóng | Chấp nhận B → B "Đã chấp nhận", C "Bị từ chối" (không còn nút duyệt), tin "Đang bàn giao"; C nhận thông báo "đã chọn một yêu cầu khác" | Passed | Playwright, `019_claim_finder_desktop.png` |
+| TC-019-07 | UI: A từ chối | Tin vẫn mở, B có thông báo | Tin vẫn "Đang mở"; B nhận "không được chấp nhận" | Passed | Playwright + MCP |
+| TC-019-08 | Người thứ ba mở URL yêu cầu | Bị từ chối (403/404) | Admin (không liên quan) mở `/claims/<id>` → 404, HTML không có câu trả lời; người gửi yêu cầu không nhận được đáp án đúng trong HTML/RSC | Passed | Playwright |
+| TC-019-09 | B gửi lần hai / A tự gửi vào tin mình | Bị từ chối với thông báo đúng | B: "Bạn đã gửi yêu cầu cho tin này…"; A không thấy nút "Đây là đồ của tôi", mở URL → "Bạn không thể gửi yêu cầu vào tin của chính mình." | Passed | Playwright |
 
 ## Hướng dẫn tự chạy
 
@@ -80,3 +127,8 @@ npm run dev
 1. A đăng tin FOUND (câu hỏi xác minh). B và C đăng nhập, gửi yêu cầu.
 2. A mở "Yêu cầu tôi nhận được", chấp nhận B; kiểm tra yêu cầu của C bị đóng.
 3. Thử B gửi lần hai, A tự gửi vào tin mình, D (người ngoài) mở URL yêu cầu.
+
+Ghi chú khi tự chạy (bổ sung sau khi thực hiện):
+
+- Mở app bằng `http://localhost:3000` (không dùng `127.0.0.1`). Tài khoản demo: `unifound.demo1/2/3@gm.uit.edu.vn` (A/B/C) và `unifound.admin@uit.edu.vn`, mật khẩu là `SEED_DEMO_PASSWORD` trong `.env.local`.
+- A, B, C = Demo A/B/C; D (người ngoài) dùng tài khoản admin hoặc tài khoản khác không liên quan.
