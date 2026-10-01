@@ -3,7 +3,7 @@
 - ID: `CHG-016`
 - Trạng thái: `proposed`
 - Ngày tạo: `2026-09-30`
-- Người phụ trách: `chưa phân công`
+- Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-015`
 - File/module dự kiến sửa/tạo: `src/app/page.tsx`, `src/app/reports/[id]`, `src/lib/reports/query.ts`, `src/components/reports/*` (card, filter, pagination), `src/db/schema.ts` + migration (cột `tsvector` + index GIN)
 - Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)

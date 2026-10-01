@@ -3,7 +3,7 @@
 - ID: `CHG-015`
 - Trạng thái: `proposed`
 - Ngày tạo: `2026-09-30`
-- Người phụ trách: `chưa phân công`
+- Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-014`
 - File/module dự kiến sửa/tạo: `src/db/seed.ts`, `src/db/schema.ts` (rà `reports`, `report_images`), `src/lib/reports/*` (Zod schema, create), `src/app/reports/new`, `src/components/reports/*`, cấu hình Supabase Storage bucket ảnh
 - Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
