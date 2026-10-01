@@ -7,7 +7,7 @@
 - Dependency: `không có`
 - File/module dự kiến sửa/xóa: `src/app/*`, `src/components/*`, `src/lib/*`, `src/middleware.ts`, `src/utils/supabase/*`, `src/db/seed.ts`, `src/db/schema.test.ts`, `tests/e2e/*.spec.ts`
 - Branch: `chore/CHG-013-cleanup-legacy-code`
-- Commit sau merge: 
+- Commit sau merge: `ea61a42`
 
 ## Kết quả người dùng
 
