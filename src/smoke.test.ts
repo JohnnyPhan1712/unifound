@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-describe("app shell", () => {
-  it("has the expected product name", () => {
+describe("smoke", () => {
+  it("runs the test runner", () => {
     expect("UniFound").toBe("UniFound");
   });
 });
