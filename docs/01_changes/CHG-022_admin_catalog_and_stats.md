@@ -3,7 +3,7 @@
 - ID: `CHG-022`
 - Trạng thái: `proposed`
 - Ngày tạo: `2026-09-30`
-- Người phụ trách: `chưa phân công`
+- Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-021` (khu vực /admin và guard)
 - File/module dự kiến sửa/tạo: `src/app/admin/page.tsx`, `src/app/admin/catalog`, `src/lib/admin/catalog.ts`, `src/lib/admin/stats.ts`, `src/db/schema.ts` + migration (cờ ẩn `is_active` cho `categories`/`locations` nếu chưa có)
 - Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)

@@ -3,7 +3,7 @@
 - ID: `CHG-017`
 - Trạng thái: `proposed`
 - Ngày tạo: `2026-09-30`
-- Người phụ trách: `chưa phân công`
+- Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-016`
 - File/module dự kiến sửa/tạo: `src/app/my`, `src/app/reports/[id]/edit`, `src/lib/reports/update.ts`, `src/lib/auth/permissions.ts`, `src/components/reports/*`
 - Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)

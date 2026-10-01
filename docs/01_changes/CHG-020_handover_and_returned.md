@@ -3,7 +3,7 @@
 - ID: `CHG-020`
 - Trạng thái: `proposed`
 - Ngày tạo: `2026-09-30`
-- Người phụ trách: `chưa phân công`
+- Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-019`
 - File/module dự kiến sửa/tạo: `src/lib/claims/handover.ts`, `src/app/claims/[id]`, `src/components/claims/*`, `src/lib/notifications/*`
 - Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)

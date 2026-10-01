@@ -3,7 +3,7 @@
 - ID: `CHG-019`
 - Trạng thái: `proposed`
 - Ngày tạo: `2026-09-30`
-- Người phụ trách: `chưa phân công`
+- Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-016`, `CHG-017` (Tin của tôi), `CHG-018` (hạ tầng thông báo)
 - File/module dự kiến sửa/tạo: `src/lib/claims/*` (state machine, submit, decide), `src/app/reports/[id]/claim`, `src/app/my` (tab yêu cầu), `src/app/claims/[id]`, `src/components/claims/*`, `src/db/schema.ts` (rà unique/partial index của `claims`)
 - Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)

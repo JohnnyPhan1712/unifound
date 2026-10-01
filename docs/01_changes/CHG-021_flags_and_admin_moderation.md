@@ -3,7 +3,7 @@
 - ID: `CHG-021`
 - Trạng thái: `proposed`
 - Ngày tạo: `2026-09-30`
-- Người phụ trách: `chưa phân công`
+- Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-016`, `CHG-018` (thông báo), `CHG-014` (guard/role)
 - File/module dự kiến sửa/tạo: `src/lib/flags/*`, `src/lib/admin/*`, `src/app/admin/layout.tsx`, `src/app/admin/moderation`, `src/components/reports/flag-button.tsx`, `src/lib/auth/*` (khóa tài khoản)
 - Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)

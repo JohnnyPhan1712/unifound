@@ -3,7 +3,7 @@
 - ID: `CHG-013`
 - Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
-- Người phụ trách: `chưa phân công`
+- Người phụ trách: `Phan Ngọc Đức Huy`
 - Dependency: `không có`
 - File/module dự kiến sửa/xóa: `src/app/*`, `src/components/*`, `src/lib/*`, `src/middleware.ts`, `src/utils/supabase/*`, `src/db/seed.ts`, `src/db/schema.test.ts`, `tests/e2e/*.spec.ts`
 - Branch: `chore/CHG-013-cleanup-legacy-code`
