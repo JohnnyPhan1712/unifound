@@ -94,7 +94,7 @@ Nhóm có một tài liệu nhận diện thương hiệu UniFound (màu, palett
 - Nguyên nhân gốc: container `narrow` (1120px, đã gồm padding 80px) cộng cột luật tính điểm 320px làm vùng danh sách còn khoảng 575px, không đủ chỗ cho lưới `148px 1fr 260px`.
 - Fix: nới `.container.narrow` lên 1280px; lưới thẻ đổi thành `120px 1fr 248px`; dưới 1280px thẻ chuyển sang dạng xếp chồng (khối điểm nằm dưới).
 - Verification: chụp lại SCR-04 ở 1440px và 390px, không còn chồng chữ (`screenshots/matches_desktop.png`, `matches_mobile.png`).
-- Commit/issue: chưa commit.
+- Commit/issue: `e8cdd04`.
 
 ### BUG-2 — Icon trong hộp tóm tắt lỗi bị đẩy lên dòng riêng
 
@@ -104,7 +104,7 @@ Nhóm có một tài liệu nhận diện thương hiệu UniFound (màu, palett
 - Nguyên nhân gốc: `.err-summary { display: grid }` ghi đè `.notice { display: flex }` trên cùng phần tử.
 - Fix: chuyển `display: grid` sang phần tử con (`.err-summary > div`).
 - Verification: `screenshots/create_validation_mobile.png` (chụp sau khi sửa).
-- Commit/issue: chưa commit.
+- Commit/issue: `e8cdd04`.
 
 ## Test case
 
