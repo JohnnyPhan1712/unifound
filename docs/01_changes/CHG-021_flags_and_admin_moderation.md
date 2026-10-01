@@ -6,8 +6,8 @@
 - Người phụ trách: `chưa phân công`
 - Dependency: `CHG-016`, `CHG-018` (thông báo), `CHG-014` (guard/role)
 - File/module dự kiến sửa/tạo: `src/lib/flags/*`, `src/lib/admin/*`, `src/app/admin/layout.tsx`, `src/app/admin/moderation`, `src/components/reports/flag-button.tsx`, `src/lib/auth/*` (khóa tài khoản)
-- Branch: 
-- Commit sau merge: 
+- Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
+- Commit: `chưa có` (ghi hash commit trên `main` sau khi push)
 
 ## Kết quả người dùng
 

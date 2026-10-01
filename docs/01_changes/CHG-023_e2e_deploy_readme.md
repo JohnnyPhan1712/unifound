@@ -6,8 +6,8 @@
 - Người phụ trách: `chưa phân công`
 - Dependency: `CHG-014` → `CHG-022`
 - File/module dự kiến sửa/tạo: `tests/e2e/*.spec.ts`, `playwright.config.ts`, `README.md`, các component UI cần polish, cấu hình Vercel/env (không commit giá trị thật)
-- Branch: 
-- Commit sau merge: 
+- Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
+- Commit: `chưa có` (ghi hash commit trên `main` sau khi push)
 
 ## Kết quả người dùng
 

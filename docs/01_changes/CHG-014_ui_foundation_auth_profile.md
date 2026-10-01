@@ -6,8 +6,8 @@
 - Người phụ trách: `chưa phân công`
 - Dependency: `CHG-013` (repo sạch code cũ)
 - File/module dự kiến sửa/tạo: `src/app/globals.css`, `src/app/layout.tsx`, `src/components/ui/*`, `src/components/layout/*`, `src/app/login`, `src/app/register`, `src/app/profile`, `src/middleware.ts`, `src/utils/supabase/*`, `src/lib/auth/*`, `src/db/schema.ts` (nếu cần rà soát bảng `users`, `schools`)
-- Branch: 
-- Commit sau merge: 
+- Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
+- Commit: `chưa có` (ghi hash commit trên `main` sau khi push)
 
 ## Kết quả người dùng
 

@@ -6,8 +6,8 @@
 - Người phụ trách: `chưa phân công`
 - Dependency: `CHG-016`, `CHG-017` (Tin của tôi), `CHG-018` (hạ tầng thông báo)
 - File/module dự kiến sửa/tạo: `src/lib/claims/*` (state machine, submit, decide), `src/app/reports/[id]/claim`, `src/app/my` (tab yêu cầu), `src/app/claims/[id]`, `src/components/claims/*`, `src/db/schema.ts` (rà unique/partial index của `claims`)
-- Branch: 
-- Commit sau merge: 
+- Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
+- Commit: `chưa có` (ghi hash commit trên `main` sau khi push)
 
 ## Kết quả người dùng
 

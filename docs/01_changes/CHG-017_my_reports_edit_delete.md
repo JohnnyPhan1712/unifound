@@ -6,8 +6,8 @@
 - Người phụ trách: `chưa phân công`
 - Dependency: `CHG-016`
 - File/module dự kiến sửa/tạo: `src/app/my`, `src/app/reports/[id]/edit`, `src/lib/reports/update.ts`, `src/lib/auth/permissions.ts`, `src/components/reports/*`
-- Branch: 
-- Commit sau merge: 
+- Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
+- Commit: `chưa có` (ghi hash commit trên `main` sau khi push)
 
 ## Kết quả người dùng
 
