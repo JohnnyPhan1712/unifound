@@ -1,105 +1,138 @@
 ---
 name: UniFound
-description: Bảng tin đồ thất lạc của sinh viên, tiếp nối ngôn ngữ Airbnb (thoáng, bo mềm, một màu nhấn) nhưng nhấn bằng teal trấn an và chữ Be Vietnam Pro cho tiếng Việt.
+description: Bảng tin đồ thất lạc của sinh viên UIT, nền ngôn ngữ Airbnb (thoáng, bo mềm, một màu nhấn) đổi branding sang UniFound Blue, Mất đồ cam, Nhặt được xanh lục, chữ Be Vietnam Pro.
 colors:
-  primary: "#00685f"
-  primary-hover: "#00554d"
-  primary-soft: "#d9f4ef"
-  lost: "#a73a00"
-  lost-hover: "#842e00"
-  lost-soft: "#ffdfd2"
-  info: "#245b91"
-  info-soft: "#e1efff"
-  danger: "#b42318"
-  danger-soft: "#fee4e2"
-  ink: "#17212b"
-  muted: "#596773"
-  line: "#dce3e7"
-  border-control: "#bcc7cd"
+  primary: "#2d5bd7"
+  primary-hover: "#1f47b8"
+  primary-disabled: "#c9d6f7"
+  primary-soft: "#eef3ff"
+  lost: "#9a3d0b"
+  lost-soft: "#fff1e6"
+  found: "#0b6b4a"
+  found-soft: "#e6f6ef"
+  found-accent: "#1fa774"
+  pending: "#8a5700"
+  pending-soft: "#fff7e0"
+  pending-accent: "#e0a100"
+  danger: "#c13515"
+  danger-soft: "#fff0ec"
+  danger-hover: "#a82c10"
+  danger-wash: "#fffaf8"
+  ink: "#222222"
+  body: "#3f3f3f"
+  muted: "#6a6a6a"
+  muted-soft: "#929292"
+  line: "#dddddd"
+  line-soft: "#ebebeb"
+  border-control: "#c1c1c1"
   surface: "#ffffff"
-  surface-soft: "#f5f7f8"
-  canvas: "#f7f9fa"
+  surface-soft: "#f7f7f7"
+  surface-strong: "#f2f2f2"
   on-primary: "#ffffff"
 typography:
   h1:
-    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
-    fontSize: "clamp(1.65rem, 4vw, 2.4rem)"
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "clamp(1.5rem, 3vw, 1.75rem)"
     fontWeight: 700
-    lineHeight: 1.2
+    lineHeight: 1.25
   h2:
-    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
-    fontSize: "clamp(1.35rem, 3vw, 1.75rem)"
-    fontWeight: 700
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "1.3125rem"
+    fontWeight: 600
     lineHeight: 1.3
   h3:
-    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
-    fontSize: "1.05rem"
-    fontWeight: 700
-    lineHeight: 1.4
-  body:
-    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
-    fontSize: "14px"
-    fontWeight: 400
-    lineHeight: 1.55
-  label:
-    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
-    fontSize: "0.82rem"
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "1.0625rem"
     fontWeight: 600
-  eyebrow:
-    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
-    fontSize: "0.75rem"
+    lineHeight: 1.35
+  body:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "16px"
+    fontWeight: 400
+    lineHeight: 1.5
+  label:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 600
+  caption:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 400
+  lead:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 400
+  title-sm:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 600
+  title-md:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 600
+  title-lg:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "1.375rem"
+    fontWeight: 600
+  headline:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "1.625rem"
+    fontWeight: 600
+  score:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "3.5rem"
     fontWeight: 700
-    letterSpacing: "0.06em"
+  score-sm:
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "2.75rem"
+    fontWeight: 700
   badge:
-    fontFamily: "Be Vietnam Pro, system-ui, sans-serif"
-    fontSize: "0.7rem"
-    fontWeight: 700
+    fontFamily: "Be Vietnam Pro, Inter, system-ui, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 600
 rounded:
-  sm: "0.65rem"
-  md: "0.8rem"
-  lg: "1rem"
-  xl: "1.4rem"
-  full: "999px"
+  xs: "4px"
+  sm: "8px"
+  md: "14px"
+  lg: "20px"
+  xl: "32px"
+  full: "9999px"
 components:
   button-primary:
     backgroundColor: "{colors.primary}"
     textColor: "{colors.on-primary}"
-    rounded: "{rounded.md}"
-    padding: "0.65rem 1rem"
-    height: "42px"
+    rounded: "{rounded.sm}"
+    padding: "0 24px"
+    height: "48px"
   button-primary-hover:
     backgroundColor: "{colors.primary-hover}"
-  button-lost:
-    backgroundColor: "{colors.lost}"
-    textColor: "{colors.on-primary}"
-    rounded: "{rounded.md}"
   button-secondary:
-    backgroundColor: "{colors.surface-soft}"
+    backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.md}"
-  button-ghost:
+    rounded: "{rounded.sm}"
+  button-text:
     backgroundColor: transparent
-    textColor: "{colors.muted}"
-    rounded: "{rounded.md}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.sm}"
   panel:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.xl}"
-    padding: "1.25rem"
+    rounded: "{rounded.md}"
+    padding: "24px"
   control:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.md}"
-    padding: "0.7rem 0.8rem"
-    height: "44px"
+    rounded: "{rounded.sm}"
+    padding: "14px 12px"
+    height: "56px"
   type-badge-found:
-    backgroundColor: "{colors.primary-soft}"
-    textColor: "{colors.primary-hover}"
+    backgroundColor: "{colors.found-soft}"
+    textColor: "{colors.found}"
     typography: "{typography.badge}"
     rounded: "{rounded.full}"
   type-badge-lost:
     backgroundColor: "{colors.lost-soft}"
-    textColor: "{colors.lost-hover}"
+    textColor: "{colors.lost}"
     typography: "{typography.badge}"
     rounded: "{rounded.full}"
 ---
@@ -110,121 +143,104 @@ components:
 
 **Creative North Star: "The Calm Noticeboard"**
 
-UniFound là bảng tin của trường: thoáng, có trật tự, mọi tin theo một mẫu. Người mở app thường đang lo vì mất đồ hoặc đang cầm đồ của người khác, nên giao diện phải trấn an và nói rõ bước tiếp theo, không gây báo động. Nền tảng bố cục lấy từ Airbnb (nhiều khoảng trắng, một màu nhấn duy nhất, bo góc mềm, một tầng bóng), nhưng mọi giá trị cụ thể đã thay bằng những gì `src/app/globals.css` đang dùng.
+UniFound là bảng tin của trường: thoáng, có trật tự, mọi tin theo một mẫu. Người mở app thường đang lo vì mất đồ hoặc đang cầm đồ của người khác, nên giao diện phải trấn an và nói rõ bước tiếp theo, không gây báo động. Nền bố cục lấy từ Airbnb (nhiều khoảng trắng, một màu nhấn, thẻ không viền, ô tìm kiếm dạng pill, một tầng bóng) và chỉ đổi branding: màu nhấn xanh dương, hai màu nghiệp vụ cam/xanh lục, font Be Vietnam Pro.
 
-Nhận diện: teal trấn an cho hành động chính, cam cho "Mất đồ", chữ Be Vietnam Pro để dấu tiếng Việt không chồng. Riêng tư là tính cách hiển thị được: thông tin xác minh có nhãn khóa, không lộ liên hệ bừa bãi.
+Nguồn tham chiếu trực quan: bộ mockup `docs/02_reports/assets/claude_ui_mockups/` (CHG-012) và `docs/02_reports/07_brand_identity.md`. Token trong `src/app/globals.css` lấy từ `uf.css` của mockup. Cập nhật 2026-10-01: đổi từ teal sang UniFound Blue theo mockup.
 
 **Key Characteristics:**
-- Một màu nhấn (teal `{colors.primary}`) cho hành động chính; cam `{colors.lost}` chỉ dành cho nghĩa "Mất đồ".
-- Nền canvas xám rất nhạt, thẻ trắng viền hairline, bo góc lớn.
+- Một màu nhấn (xanh dương `{colors.primary}`) cho hành động chính; cam và xanh lục chỉ mang nghĩa Mất đồ / Nhặt được.
+- Nền trắng, thẻ tin không viền; khối thông tin (rail, panel) có viền hairline và một tầng bóng.
 - Loại tin phân biệt bằng icon + chữ + màu, không chỉ màu.
 - Chỉ light mode.
 - Tiếng Việt có dấu là ngôn ngữ giao diện; nút gọi đúng việc ("Gửi yêu cầu").
 
 ## Colors
 
-Teal trấn an, một cam nghiệp vụ, neutral lạnh nhẹ.
-
 ### Primary
-- **Teal trấn an** (#00685f): CTA chính, link nhấn, eyebrow, viền focus của ô nhập, nhãn "Nhặt được". Hover #00554d, nền nhạt #d9f4ef.
+- **UniFound Blue** (#2d5bd7): CTA chính, ô tìm kiếm tròn, link thương hiệu, wordmark, chấm "Đang mở". Hover #1f47b8, vô hiệu #c9d6f7, nền nhạt #eef3ff (thông báo thông tin).
 
-### Secondary
-- **Cam Mất đồ** (#a73a00): nút và nhãn cho tin Mất đồ, vùng minh họa tin Mất đồ. Hover #842e00, nền nhạt #ffdfd2.
+### Nghiệp vụ
+- **Cam Mất đồ** (#9a3d0b, nền #fff1e6): nhãn, icon và vùng minh họa tin Mất đồ.
+- **Xanh lục Nhặt được** (#0b6b4a, nền #e6f6ef, nhấn #1fa774): nhãn, icon và vùng minh họa tin Nhặt được; chấm "Đã chấp nhận".
+- **Chờ xử lý** (#8a5700, nền #fff7e0, nhấn #e0a100): yêu cầu đang chờ, cảnh báo.
 
 ### Neutral
-- **Ink lạnh** (#17212b): chữ chính.
-- **Muted** (#596773): chữ phụ, gợi ý trường nhập, ghost button.
-- **Line** (#dce3e7): viền hairline của panel, segmented, divider.
-- **Viền ô nhập** (#bcc7cd): viền control, đậm hơn line để ô nhập nhận ra được.
-- **Canvas** (#f7f9fa) / **Surface** (#ffffff) / **Surface soft** (#f5f7f8): sàn trang, thẻ, vùng chọn.
+- **Ink** (#222222) chữ chính, **Body** (#3f3f3f), **Muted** (#6a6a6a), **Muted soft** (#929292).
+- **Line** (#dddddd), **Line soft** (#ebebeb), **Viền ô nhập** (#c1c1c1).
+- **Surface** (#ffffff), **Surface soft** (#f7f7f7), **Surface strong** (#f2f2f2).
 
 ### Semantic
-- **Danger** (#b42318, nền #fee4e2): lỗi validation, hành động hủy.
-- **Info** (#245b91, nền #e1efff): thông báo thông tin.
-- Cảnh báo dùng nền hổ phách nhạt (#fff4df, chữ #62401e) trong `.notice`; chưa là token.
+- **Danger** (#c13515, nền #fff0ec): lỗi validation, hành động nguy hiểm (xóa).
 
 ### Named Rules
-**The One Voice Rule.** Teal là giọng hành động duy nhất; cam chỉ mang nghĩa Mất đồ, không dùng làm CTA chung.
-**The Not-Just-Color Rule.** Mất đồ / Nhặt được luôn đi kèm icon và chữ, vì hai màu này không được là kênh phân biệt duy nhất.
+**The One Voice Rule.** Xanh dương là giọng hành động duy nhất; cam và xanh lục không bao giờ làm CTA chung.
+**The Not-Just-Color Rule.** Mất đồ / Nhặt được luôn đi kèm icon (kính lúp / hộp) và chữ.
 
 ## Typography
 
-**Display / Body Font:** Be Vietnam Pro (fallback system-ui, sans-serif), nạp qua `next/font`.
+**Font:** Be Vietnam Pro (fallback Inter, system-ui), nạp qua `next/font`.
 
-**Character:** hình học thân thiện, dấu tiếng Việt đặt đúng chỗ ở cả cỡ nhỏ. Không có font riêng cho tiêu đề; thang chữ do một font gánh.
-
-### Hierarchy
-- **h1** (700, clamp 1.65–2.4rem, 1.2): tiêu đề trang.
-- **h2** (700, clamp 1.35–1.75rem, 1.3): tiêu đề mục.
-- **h3** (700, 1.05rem, 1.4): tiêu đề thẻ.
-- **Body** (400, 14px, 1.55): nội dung mặc định; giữ đoạn mô tả quanh 65–70 ký tự/dòng.
-- **Label** (600, 0.82rem): nhãn trường nhập, nút nhỏ.
-- **Eyebrow** (700, 0.75rem, +0.06em, in hoa): mào đầu mục, màu primary.
-- **Badge** (700, 0.7rem): nhãn loại tin, trạng thái.
+- **h1** 700, clamp 1.5–1.75rem; **h2** 600, 1.3125rem; **h3** 600, 1.0625rem; tiêu đề trang chi tiết 1.625rem (1.375rem trên điện thoại); điểm gợi ý 3.5rem (2.75rem trên điện thoại).
+- Bậc phụ: caption 0.8125rem (gợi ý, thông tin phụ), lead 0.9375rem, tiêu đề khối 1.125 / 1.25 / 1.375rem.
+- **Body** 400, 16px, line-height 1.5; giữ đoạn mô tả quanh 65–70 ký tự/dòng.
+- **Label** 600, 0.875rem; **Badge** 600, 0.75rem.
+- Số liệu dùng `tabular-nums`.
 
 ### Named Rules
-**The Diacritic Rule.** Không hạ dòng chữ tiếng Việt xuống dưới ~12px và không ép line-height dưới 1.2, để dấu không bị cắt hay đè.
+**The Diacritic Rule.** Không hạ chữ tiếng Việt xuống dưới ~12px và không ép line-height dưới 1.2.
 
 ## Layout
 
-Bố cục theo tinh thần Airbnb: nội dung căn giữa, container rộng vừa (khoảng 1080–1280px), khoảng trắng rộng ở các dải trang, thẻ xếp dày hơn. Spacing bội số 4px; khoảng 1–1.5rem trong panel và form; form auth rộng tối đa 460px. Responsive dựa trên nguyên tắc giảm cột chứ không reflow hàng: điện thoại 1 cột, tablet 2, desktop nhiều hơn. Mục tiêu chạm tối thiểu 42–44px. Các giá trị breakpoint chính xác chưa chốt trong code.
+Container tối đa 1440px, lề ngang 80px (≥1128px), 40px (≤1128px), 24px (≤744px). Header cao 80px (64px trên điện thoại), lưới 3 cột: logo, tab loại tin giữa, hành động bên phải. Bảng tin 4 cột, giảm còn 3 / 2 / 1 theo độ rộng. Trang chi tiết: nội dung chính và cột hành động cố định rộng 372px, trên điện thoại chuyển thành một cột kèm thanh hành động cố định cuối màn hình. Form tối đa 760px; thẻ đăng nhập 568px. Spacing bội số 4px; mục tiêu chạm tối thiểu 42–48px.
 
 ## Elevation & Depth
 
-Phẳng mặc định; sâu đến từ nền canvas xám nhạt với thẻ trắng và viền hairline. Một tầng bóng rất nhẹ cho panel và chip đang chọn.
-
-### Shadow Vocabulary
-- **Panel** (`box-shadow: 0 4px 18px rgb(30 50 60 / 0.045)`): panel, auth card.
-- **Chip chọn** (`box-shadow: 0 2px 8px rgb(30 50 60 / 0.08)`): mục đang chọn trong segmented.
+Phẳng mặc định; sâu đến từ viền hairline và **một** tầng bóng: `rgba(0,0,0,.02) 0 0 0 1px, rgba(0,0,0,.04) 0 2px 6px, rgba(0,0,0,.1) 0 4px 8px` (panel, rail, ô tìm kiếm, chip đang chọn, nhãn loại tin trên ảnh).
 
 ### Named Rules
-**The One Soft Tier Rule.** Không thêm tầng bóng thứ ba; trạng thái nhấn mạnh bằng viền và màu.
+**The One Soft Tier Rule.** Không thêm tầng bóng thứ hai; nhấn mạnh bằng viền và màu.
 
 ## Shapes
 
-Mềm, không góc cứng. Nút và ô nhập bo 0.8rem (~13px), segmented 0.9rem, chip 0.65rem, vùng trống 1rem, panel và thẻ 1.4rem (~22px), nhãn là pill 999px. Panel viền 1px `{colors.line}`.
+Bo góc 4 / 8 / 14 / 20 / 32 / pill. Nút và ô nhập 8px, thẻ/panel/rail 14px, vùng minh họa tin 14px, nhãn và tab dạng pill. Ô tìm kiếm là pill cao 66px.
 
 ## Components
 
 ### Buttons
-- **Shape:** bo 0.8rem, cao tối thiểu 42px (nhỏ 36px), chữ weight 650.
-- **Primary:** nền teal, chữ trắng; hover đậm hơn (#00554d) và nhấc 1px.
-- **Lost:** cùng hình dạng, nền cam, chỉ cho hành động thuộc luồng Mất đồ.
-- **Secondary / Ghost:** secondary nền `surface-soft` viền line; ghost chữ muted, hover có nền.
-- **Disabled:** mờ 60%, không nhấc.
-
-### Chips / Segmented
-- Segmented: nền `surface-soft`, viền line, bo 0.9rem; chip đang chọn nền trắng chữ teal kèm bóng nhẹ.
-
-### Cards / Containers
-- **Panel:** nền trắng, viền line, bo 1.4rem, padding 1.25rem, bóng Panel.
-- **Report visual:** vùng minh họa dùng gradient nhạt theo loại tin (teal nhạt cho Nhặt được, cam nhạt cho Mất đồ); là placeholder khi tin chưa có ảnh (theo 01_overview, mỗi tin có 1–5 ảnh).
-- **Empty state:** viền đứt nét, chỉ ra bước tiếp theo.
+- Cao 48px (nhỏ 36px), bo 8px, chữ 500. **Primary** nền xanh dương chữ trắng; **Secondary** viền ink nền trắng; **Text** chữ ink gạch chân (Sửa, Xóa, Hủy); **Danger** nền #c13515.
+- Disabled: primary đổi sang #c9d6f7; không nhấc khi hover, `scale(.98)` khi nhấn.
 
 ### Inputs / Fields
-- **Style:** nền trắng, viền #bcc7cd, bo 0.8rem, cao ≥44px, textarea ≥110px.
-- **Focus:** viền teal kèm vòng mờ 3px; focus-visible toàn cục vòng teal mờ 3px, offset 2px.
-- **Error:** viền danger + chữ lỗi danger; thông báo lỗi nêu vấn đề và cách sửa.
+- Cao tối thiểu 56px, viền #c1c1c1, bo 8px; focus viền ink kèm viền trong 1px (không glow màu). Lỗi: viền danger + icon + chữ nêu vấn đề và cách sửa. Nhãn luôn hiện (không chỉ placeholder); có bộ đếm ký tự khi có giới hạn.
+- Chọn dạng ô (loại tin, danh mục): ô viền hairline, đang chọn viền ink + nền surface-soft.
+
+### Cards
+- **Thẻ tin:** không viền; vùng minh họa 4:3 (16:10 trên điện thoại), nhãn loại tin dạng pill trắng có bóng ở góc trên trái, pill trạng thái ở góc dưới, bên dưới là tiêu đề đậm một dòng, "địa điểm · danh mục", ngày.
+- **Category plate** (khi chưa có ảnh): nền nhạt theo loại tin, icon danh mục lớn ở giữa, hoa văn chấm mờ.
+- **Panel / rail:** nền trắng, viền hairline, bo 14px, một tầng bóng.
 
 ### Badges
-- **Loại tin:** pill nền nhạt + chữ đậm (teal cho Nhặt được, cam cho Mất đồ), luôn có icon.
-- **Trạng thái:** pill nền `surface-soft` viền line; trạng thái đang hoạt động dùng nền `primary-soft`.
+- **Loại tin:** pill có icon; nền nhạt theo loại khi đứng riêng, nền trắng có bóng khi nằm trên ảnh.
+- **Trạng thái:** pill viền hairline + chấm màu (mở xanh dương, chờ vàng, đã chấp nhận xanh lục, từ chối đỏ, đóng xám); "Đã trả" nền ink chữ trắng kèm dấu tích.
+
+### Navigation
+- Tab loại tin giữa header (Tất cả / Mất đồ / Nhặt được) có icon trong ô bo 8px và gạch chân ink cho mục đang chọn. Menu tài khoản dạng pill (icon menu + avatar) mở popover.
+- Tab dạng viên thuốc cho "Tin và yêu cầu của tôi" kèm bộ đếm.
 
 ### Notices
-- Ba biến thể: cảnh báo (hổ phách), info (xanh dương nhạt), error (đỏ nhạt), bo 0.8rem, có icon.
+- Ba biến thể: info (xanh nhạt), cảnh báo (vàng nhạt), lỗi (đỏ nhạt), thành công (xanh lục nhạt); bo 14px, có icon.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** dùng teal cho hành động chính và cam chỉ cho nghĩa Mất đồ.
+- **Do** dùng xanh dương cho hành động chính; cam chỉ cho Mất đồ, xanh lục chỉ cho Nhặt được.
 - **Do** kèm icon và chữ cho mọi nhãn loại tin và trạng thái.
 - **Do** để mỗi màn hình nói rõ bước tiếp theo, kể cả trạng thái trống.
 - **Do** giữ WCAG AA và tôn trọng `prefers-reduced-motion`.
-- **Do** dùng chữ tiếng Việt có dấu và nút gọi đúng việc.
 
 ### Don't:
 - **Don't** dùng đỏ cho hành động chính; đỏ chỉ dành cho lỗi và hành động nguy hiểm.
 - **Don't** hiện số điện thoại hoặc email trước khi người nhặt chấp nhận; thông tin xác minh phải có nhãn riêng tư.
-- **Don't** thêm tầng shadow mới hay gradient trang trí ngoài vùng minh họa loại tin.
+- **Don't** thêm tầng bóng mới hoặc gradient trang trí ngoài ảnh minh họa test/placeholder.
 - **Don't** làm dark mode trong MVP.
 - **Don't** để điểm trùng khớp đứng một mình; luôn kèm lý do và lời nhắc "không phải xác nhận sở hữu".

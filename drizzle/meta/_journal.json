@@ -8,6 +8,41 @@
       "when": 1790091823512,
       "tag": "0000_massive_sphinx",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790843114779,
+      "tag": "0001_drop_legacy_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790843136153,
+      "tag": "0002_erd_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790843816135,
+      "tag": "0003_report_images_bucket",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790845104543,
+      "tag": "0004_report_search_vector",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790857932404,
+      "tag": "0005_catalog_is_active",
+      "breakpoints": true
     }
   ]
 }
