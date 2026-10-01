@@ -14,7 +14,7 @@
 | [`CHG-010`](CHG-010_match_suggestions.md) | xây cơ chế gợi ý report trùng khớp | `rejected` | xây cơ chế gợi ý report trùng khớp |
 | [`CHG-011`](CHG-011_claim_and_return_flow.md) | xây luồng claim và hoàn tất nhận lại đồ | `rejected` | xây luồng claim và hoàn tất nhận lại đồ |
 | [`CHG-012`](CHG-012_brand_identity_and_ui_mockups.md) | Xác định nhận diện thương hiệu và mockup toàn bộ màn hình | `in_progress` | Xác định nhận diện thương hiệu và mockup UniFound |
-| [`CHG-013`](CHG-013_cleanup_legacy_code.md) | Dọn code cũ của các CHG bị từ chối | `proposed` | Dọn code cũ UniFound |
+| [`CHG-013`](CHG-013_cleanup_legacy_code.md) | Dọn code cũ của các CHG bị từ chối | `in_review` | Dọn code cũ UniFound |
 
 | [`CHG-014`](CHG-014_ui_foundation_auth_profile.md) | Nền UI dùng chung, đăng nhập email trường và hồ sơ | `proposed` | |
 | [`CHG-015`](CHG-015_seed_and_create_report.md) | Seed dữ liệu và đăng tin Mất đồ / Nhặt được | `proposed` | |
