@@ -14,11 +14,13 @@ export async function loginAs(browser: Browser, email: string): Promise<Page> {
   if (!password) throw new Error("Thiếu SEED_DEMO_PASSWORD (chạy `npm run db:seed` với biến này trong .env.local)");
   const page = await (await browser.newContext()).newPage();
   page.on("dialog", (d) => d.accept());
-  await page.goto("/login");
-  await page.getByLabel("Email sinh viên").fill(email);
-  await page.locator("input[name=password]").fill(password);
-  await page.locator("main").getByRole("button", { name: "Đăng nhập" }).click();
-  await expect(page).not.toHaveURL(/\/login/);
+  await page.goto("/?auth=login");
+  await page.waitForLoadState("networkidle");
+  const dialog = page.getByRole("dialog", { name: "Đăng nhập" });
+  await dialog.getByLabel("Email sinh viên").fill(email);
+  await dialog.locator("input[name=password]").fill(password);
+  await dialog.getByRole("button", { name: "Đăng nhập" }).click();
+  await expect(dialog).toBeHidden();
   return page;
 }
 

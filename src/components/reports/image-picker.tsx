@@ -17,10 +17,20 @@ export function ImagePicker({
   userId,
   error,
   onBusyChange,
+  bucket = IMAGE_BUCKET,
+  max = MAX_IMAGES,
+  label = "Ảnh đồ vật",
+  required = true,
+  hint = "",
 }: {
   userId: string;
   error?: string[];
   onBusyChange: (busy: boolean) => void;
+  bucket?: string;
+  max?: number;
+  label?: string;
+  required?: boolean;
+  hint?: string;
 }) {
   const [items, setItems] = useState<Item[]>([]);
   const [message, setMessage] = useState<string>();
@@ -29,9 +39,9 @@ export function ImagePicker({
   async function onPick(files: FileList | null) {
     if (!files?.length) return;
     setMessage(undefined);
-    const room = MAX_IMAGES - items.length;
+    const room = max - items.length;
     const picked = Array.from(files);
-    if (picked.length > room) setMessage(`Tối đa ${MAX_IMAGES} ảnh; đã bỏ bớt ${picked.length - room} ảnh.`);
+    if (picked.length > room) setMessage(`Tối đa ${max} ảnh; đã bỏ bớt ${picked.length - room} ảnh.`);
     const accepted = picked.slice(0, Math.max(room, 0)).filter((f) => {
       if (!IMAGE_TYPES.includes(f.type)) return setMessage(`"${f.name}" không phải ảnh JPG, PNG hoặc WEBP.`), false;
       if (f.size > MAX_IMAGE_BYTES) return setMessage(`"${f.name}" lớn hơn 5 MB.`), false;
@@ -47,7 +57,7 @@ export function ImagePicker({
     await Promise.all(
       fresh.map(async ({ key, file }) => {
         const path = `${userId}/${crypto.randomUUID()}.${EXT[file.type]}`;
-        const { error: upErr } = await supabase.storage.from(IMAGE_BUCKET).upload(path, file, { contentType: file.type });
+        const { error: upErr } = await supabase.storage.from(bucket).upload(path, file, { contentType: file.type });
         setItems((prev) =>
           prev.map((it) => (it.key === key ? { ...it, ...(upErr ? { error: "Tải lên thất bại" } : { path }) } : it))
         );
@@ -67,7 +77,13 @@ export function ImagePicker({
   return (
     <div>
       <span className="label" id="images-label">
-        Ảnh đồ vật <span className="text-danger" aria-hidden>*</span>
+        {label}
+        {required && (
+          <span className="text-danger" aria-hidden>
+            {" "}
+            *
+          </span>
+        )}
       </span>
       <input type="hidden" name="images" value={JSON.stringify(paths)} />
       <ul className="grid grid-cols-3 gap-2 sm:grid-cols-5" aria-labelledby="images-label">
@@ -93,7 +109,7 @@ export function ImagePicker({
             </button>
           </li>
         ))}
-        {items.length < MAX_IMAGES && (
+        {items.length < max && (
           <li>
             <label
               className={`flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-sm border border-dashed text-center text-[0.8125rem] font-semibold ${
@@ -116,7 +132,7 @@ export function ImagePicker({
         )}
       </ul>
       <p id="images-help" className={`mt-1.5 text-[0.8125rem] ${shownError ? "font-medium text-danger" : "text-muted"}`} role={shownError ? "alert" : undefined}>
-        {shownError ?? `1–${MAX_IMAGES} ảnh JPG, PNG hoặc WEBP, mỗi ảnh tối đa 5 MB.`}
+        {shownError ?? `${required ? `1–${max}` : `Tối đa ${max}`} ảnh JPG, PNG hoặc WEBP, mỗi ảnh tối đa 5 MB.${hint}`}
       </p>
     </div>
   );

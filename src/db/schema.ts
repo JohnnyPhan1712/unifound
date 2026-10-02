@@ -196,6 +196,21 @@ export const claims = pgTable(
   ]
 ).enableRLS();
 
+/** Ảnh minh chứng người mất đồ đính kèm yêu cầu; nằm trong bucket riêng tư `claim-images`. */
+export const claimImages = pgTable(
+  "claim_images",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    claimId: uuid("claim_id")
+      .notNull()
+      .references(() => claims.id, { onDelete: "cascade" }),
+    // Đường dẫn object trong bucket Supabase Storage
+    imagePath: text("image_path").notNull(),
+    position: integer("position").default(0).notNull(),
+  },
+  (t) => [index("claim_images_claim_idx").on(t.claimId)]
+).enableRLS();
+
 export const notifications = pgTable(
   "notifications",
   {

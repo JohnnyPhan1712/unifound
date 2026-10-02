@@ -43,6 +43,13 @@
       "when": 1790857932404,
       "tag": "0005_catalog_is_active",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1790971341427,
+      "tag": "0006_claim_images",
+      "breakpoints": true
     }
   ]
 }

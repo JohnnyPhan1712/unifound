@@ -3,11 +3,13 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { and, eq, ne } from "drizzle-orm";
-import { claims, db, reports } from "@/db";
+import { claimImages, claims, db, reports } from "@/db";
 import { forbidden, formValues, invalid, type ActionState } from "@/lib/action-state";
 import { requireUser } from "@/lib/auth/session";
 import { isUniqueViolation } from "@/lib/db-errors";
 import { notify, type NewNotification } from "@/lib/notifications";
+import { checkImages } from "@/lib/reports/checks";
+import { CLAIM_IMAGE_BUCKET } from "@/lib/reports/schemas";
 import { canTransition, claimSubmitError, effectiveClaimStatus } from "./rules";
 import { claimSchema, decisionSchema } from "./schemas";
 
@@ -31,13 +33,19 @@ export async function submitClaim(reportId: string, _prev: ActionState, formData
   const error = claimSubmitError(report, user.id, Boolean(existing));
   if (error) return { message: error, values };
 
+  const { images, answerText, note } = parsed.data;
+  if (images.length) {
+    const imageError = await checkImages(images, user.id, CLAIM_IMAGE_BUCKET);
+    if (imageError) return { fieldErrors: { images: [imageError] }, values };
+  }
+
   let claimId: string;
   try {
-    const [row] = await db
-      .insert(claims)
-      .values({ reportId, claimantId: user.id, answerText: parsed.data.answerText, note: parsed.data.note })
-      .returning({ id: claims.id });
-    claimId = row.id;
+    claimId = await db.transaction(async (tx) => {
+      const [row] = await tx.insert(claims).values({ reportId, claimantId: user.id, answerText, note }).returning({ id: claims.id });
+      if (images.length) await tx.insert(claimImages).values(images.map((imagePath, position) => ({ claimId: row.id, imagePath, position })));
+      return row.id;
+    });
   } catch (e) {
     // Hai lần gửi đồng thời: UNIQUE(report_id, claimant_id) chặn lần thứ hai
     if (isUniqueViolation(e)) return { message: "Bạn đã gửi yêu cầu cho tin này, hãy chờ người nhặt phản hồi.", values };

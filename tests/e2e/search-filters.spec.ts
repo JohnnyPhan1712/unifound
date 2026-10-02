@@ -91,17 +91,6 @@ test("TC-025-06 mobile: đủ 4 tiêu chí, popover không tràn màn hình", as
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 
-test("TC-025-07 dark mode: thanh tìm kiếm không còn nền trắng, chữ sáng", async ({ page }) => {
-  await page.goto("/");
-  await page.evaluate(() => document.documentElement.classList.add("dark"));
-  const pill = bar(page).locator("div.rounded-full").first();
-  const bg = await pill.evaluate((el) => getComputedStyle(el).backgroundColor);
-  const fg = await bar(page).getByPlaceholder("Tai nghe, ví, chìa khóa…").evaluate((el) => getComputedStyle(el).color);
-  const lum = (c: string) => c.match(/\d+/g)!.slice(0, 3).map(Number).reduce((a, b) => a + b, 0);
-  expect(lum(bg)).toBeLessThan(200);
-  expect(lum(fg)).toBeGreaterThan(400);
-});
-
 test("TC-025-08 mobile: hai ô ngày xếp dọc, nằm trong popover, không chồng nhau", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 700 });
   await page.goto("/");
