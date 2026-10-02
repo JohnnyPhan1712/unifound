@@ -4,6 +4,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Pagination } from "@/components/ui/pagination";
 import { FeedFilters } from "@/components/reports/feed-filters";
 import { ReportCard } from "@/components/reports/report-card";
+import { authUrl } from "@/lib/auth/auth-url";
 import { getCurrentUser } from "@/lib/auth/session";
 import { feedHref } from "@/lib/reports/feed-url";
 import { getCatalogOptions } from "@/lib/reports/catalog";
@@ -50,7 +51,7 @@ export default async function HomePage({ searchParams }: PageProps<"/">) {
             <Info className="mt-px size-5 shrink-0 text-primary-hover" aria-hidden />
             <span>
               Ai cũng xem được bảng tin.{" "}
-              <Link href="/login" className="font-semibold">
+              <Link href={authUrl("login")} className="font-semibold">
                 Đăng nhập
               </Link>{" "}
               để đăng tin hoặc gửi yêu cầu nhận lại.

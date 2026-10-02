@@ -63,25 +63,6 @@
   }
 }
 
-/* Dark mode: chỉ đảo token nền/chữ/viền; công tắc (class `dark` trên <html>) thuộc CHG-026. */
-html.dark {
-  color-scheme: dark;
-  --color-ink: #f4f4f6;
-  --color-body: #d4d4d8;
-  --color-muted: #a1a1aa;
-  --color-muted-soft: #8a8a93;
-  --color-line: #3a3a40;
-  --color-line-soft: #2a2a2f;
-  --color-control: #52525b;
-  --color-canvas: #121214;
-  --color-surface: #1c1c1f;
-  --color-surface-soft: #1a1a1d;
-  --color-surface-strong: #27272b;
-  --color-primary-soft: #1d2a52;
-  --color-info: #c9d6f7;
-  --color-info-soft: #1d2a52;
-}
-
 @layer base {
   html {
     color-scheme: light;

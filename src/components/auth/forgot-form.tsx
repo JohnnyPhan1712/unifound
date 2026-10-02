@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/field";
 import { ActionMessage } from "@/components/ui/notice";
 import { SubmitButton } from "@/components/ui/submit-button";
 
-export function ForgotForm({ domains }: { domains: string[] }) {
+export function ForgotForm({ domains, loginHref }: { domains: string[]; loginHref: string }) {
   const [state, action] = useActionState(requestPasswordReset, idle);
   return (
     <form action={action} className="grid gap-5" noValidate>
@@ -29,7 +29,7 @@ export function ForgotForm({ domains }: { domains: string[] }) {
         Gửi hướng dẫn đặt lại mật khẩu
       </SubmitButton>
       <p className="text-center text-[0.875rem] text-muted">
-        <Link href="/login" className="font-semibold text-ink">
+        <Link href={loginHref} replace scroll={false} className="font-semibold text-ink">
           Quay lại đăng nhập
         </Link>
       </p>

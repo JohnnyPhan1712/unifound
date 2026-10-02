@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { CLAIM_STATUSES } from "@/db/schema";
 import { canViewClaim } from "./query";
 import { canTransition, claimSubmitError, effectiveClaimStatus } from "./rules";
+import { checkImages } from "@/lib/reports/checks";
+import { CLAIM_IMAGE_BUCKET } from "@/lib/reports/schemas";
 import { claimSchema } from "./schemas";
 
 const now = new Date("2026-10-01T10:00:00Z");
@@ -39,7 +41,7 @@ describe("TC-019-02 luật gửi yêu cầu", () => {
   it("Zod: câu trả lời bắt buộc, giới hạn độ dài", () => {
     expect(claimSchema.safeParse({ answerText: "  " }).success).toBe(false);
     expect(claimSchema.safeParse({ answerText: "x".repeat(501) }).success).toBe(false);
-    expect(claimSchema.parse({ answerText: " thẻ xe ", note: "" })).toEqual({ answerText: "thẻ xe", note: null });
+    expect(claimSchema.parse({ answerText: " thẻ xe ", note: "" })).toEqual({ answerText: "thẻ xe", note: null, images: [] });
   });
 });
 
@@ -61,5 +63,32 @@ describe("TC-019-08 quyền xem câu trả lời", () => {
     expect(canViewClaim(claim, "finder")).toBe(true);
     expect(canViewClaim(claim, "someone")).toBe(false);
     expect(canViewClaim(claim, undefined)).toBe(false);
+  });
+});
+
+describe("TC-028 ảnh minh chứng (Zod)", () => {
+  const ok = { answerText: "thẻ xe" };
+  const path = (n: number) => `${"a".repeat(8)}-aaaa-aaaa-aaaa-aaaaaaaaaaaa/${"b".repeat(8)}-bbbb-bbbb-bbbb-bbbbbbbbbb0${n}.jpg`;
+  it("không bắt buộc, tối đa 3 ảnh", () => {
+    expect(claimSchema.safeParse({ ...ok, images: "[]" }).success).toBe(true);
+    expect(claimSchema.parse({ ...ok, images: JSON.stringify([path(1), path(2), path(3)]) }).images).toHaveLength(3);
+    expect(claimSchema.safeParse({ ...ok, images: JSON.stringify([1, 2, 3, 4].map(path)) }).success).toBe(false);
+  });
+  it("từ chối chuỗi ảnh hỏng", () => {
+    expect(claimSchema.safeParse({ ...ok, images: "không phải json" }).success).toBe(false);
+    expect(claimSchema.safeParse({ ...ok, images: "[1]" }).success).toBe(false);
+  });
+});
+
+describe("TC-028-06 checkImages từ chối sớm (không cần Storage)", () => {
+  const me = "11111111-1111-1111-1111-111111111111";
+  const mine = `${me}/22222222-2222-2222-2222-222222222222.jpg`;
+  it("ảnh trùng", async () => {
+    expect(await checkImages([mine, mine], me, CLAIM_IMAGE_BUCKET)).toBe("Ảnh bị trùng.");
+  });
+  it("đường dẫn của người khác hoặc sai dạng", async () => {
+    const theirs = "99999999-9999-9999-9999-999999999999/22222222-2222-2222-2222-222222222222.jpg";
+    expect(await checkImages([theirs], me, CLAIM_IMAGE_BUCKET)).toBe("Ảnh không hợp lệ.");
+    expect(await checkImages([`${me}/../x.jpg`], me, CLAIM_IMAGE_BUCKET)).toBe("Ảnh không hợp lệ.");
   });
 });

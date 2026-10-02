@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import { db, schools, users } from "@/db";
 import { createClient } from "@/utils/supabase/server";
 import { formValues, invalid, type ActionState } from "@/lib/action-state";
+import { authUrl } from "./auth-url";
 import { allowedDomains, isAllowedEmail } from "./email";
 import { credentialsSchema, emailSchema, newPasswordSchema, profileSchema } from "./schemas";
 import { ensureUserRow, getSessionUser, requireUser } from "./session";
@@ -120,7 +121,7 @@ export async function updatePassword(_prev: ActionState, formData: FormData): Pr
   const supabase = await createClient();
   if (user.status === "locked") {
     await supabase.auth.signOut();
-    redirect("/login?error=locked");
+    redirect(authUrl("login", { error: "locked" }));
   }
   const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
   if (error) {
@@ -129,7 +130,7 @@ export async function updatePassword(_prev: ActionState, formData: FormData): Pr
     };
   }
   await supabase.auth.signOut();
-  redirect("/login?reset=1");
+  redirect(authUrl("login", { reset: "1" }));
 }
 
 export async function logout() {

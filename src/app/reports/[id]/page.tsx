@@ -11,6 +11,7 @@ import { ClaimForm } from "@/components/claims/claim-form";
 import { FlagButton } from "@/components/reports/flag-button";
 import { ManageActions } from "@/components/reports/manage-actions";
 import { ReportVisual } from "@/components/reports/report-card";
+import { authUrl } from "@/lib/auth/auth-url";
 import { canManageReport } from "@/lib/auth/permissions";
 import { getCurrentUser, isAdmin } from "@/lib/auth/session";
 import { submitClaim } from "@/lib/claims/actions";
@@ -174,12 +175,12 @@ export default async function ReportPage({ params, searchParams }: PageProps<"/r
             <div className="rail">
               <h3 className="text-[1.25rem]">Đây có phải đồ của bạn?</h3>
               <p className="text-[0.875rem] text-muted">Đăng nhập để gửi yêu cầu nhận lại kèm thông tin xác minh riêng tư.</p>
-              <Link href={`/login?next=/reports/${report.id}`} className="btn btn-primary btn-block">
+              <Link href={authUrl("login", {}, `/reports/${report.id}`)} className="btn btn-primary btn-block">
                 Đăng nhập để gửi yêu cầu
               </Link>
               <p className="text-[0.875rem] text-muted">
                 Chưa có tài khoản?{" "}
-                <Link href="/register" className="text-ink">
+                <Link href={authUrl("register", {}, `/reports/${report.id}`)} className="text-ink">
                   Tạo tài khoản
                 </Link>
               </p>
@@ -190,7 +191,7 @@ export default async function ReportPage({ params, searchParams }: PageProps<"/r
             <div className="rail">
               <h3 className="text-[1.25rem]">Bạn nhặt được món đồ này?</h3>
               <p className="text-[0.875rem] text-muted">Đăng nhập rồi đăng tin Nhặt được để hệ thống gợi ý tin của bạn cho chủ đồ.</p>
-              <Link href="/login?next=/reports/new%3Ftype%3DFOUND" className="btn btn-primary btn-block">
+              <Link href={authUrl("login", { next: "/reports/new?type=FOUND" }, `/reports/${report.id}`)} className="btn btn-primary btn-block">
                 Đăng nhập
               </Link>
             </div>
@@ -199,7 +200,7 @@ export default async function ReportPage({ params, searchParams }: PageProps<"/r
           {claimable && viewer && (
             <div className="rail">
               <h3 className="text-[1.25rem]">Gửi yêu cầu nhận lại</h3>
-              <ClaimForm action={submitClaim.bind(null, report.id)} question={question ?? "Mô tả đặc điểm riêng của món đồ."} />
+              <ClaimForm action={submitClaim.bind(null, report.id)} question={question ?? "Mô tả đặc điểm riêng của món đồ."} userId={viewer.id} />
             </div>
           )}
 
@@ -282,7 +283,7 @@ export default async function ReportPage({ params, searchParams }: PageProps<"/r
 
           {viewer && !isOwner && report.status !== "HIDDEN" && <FlagButton action={flagReport.bind(null, report.id)} />}
           {!viewer && report.status !== "HIDDEN" && (
-            <Link href={`/login?next=/reports/${report.id}`} className="text-[0.8125rem] font-semibold text-muted">
+            <Link href={authUrl("login", {}, `/reports/${report.id}`)} className="text-[0.8125rem] font-semibold text-muted">
               Đăng nhập để báo cáo tin vi phạm
             </Link>
           )}
@@ -296,7 +297,7 @@ export default async function ReportPage({ params, searchParams }: PageProps<"/r
               <div className="text-[0.875rem] font-semibold leading-tight">{found ? "Đây có phải đồ của bạn?" : "Bạn nhặt được món đồ này?"}</div>
               <div className="text-[0.75rem] text-muted">Cần đăng nhập</div>
             </div>
-            <Link href={`/login?next=/reports/${report.id}`} className="btn btn-primary">
+            <Link href={authUrl("login", {}, `/reports/${report.id}`)} className="btn btn-primary">
               Đăng nhập
             </Link>
           </>
