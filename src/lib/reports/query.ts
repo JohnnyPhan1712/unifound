@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { and, asc, count, desc, eq, gt, gte, inArray, lt, sql, type SQL } from "drizzle-orm";
+import { and, asc, count, desc, eq, gt, gte, inArray, lt, or, sql, type SQL } from "drizzle-orm";
 import { categories, db, locations, reportImages, reports, schools, users, type ReportStatus, type ReportType } from "@/db";
 import { parseLocalDateTime } from "./schemas";
 
@@ -39,6 +39,35 @@ export function parseFeedParams(raw: Raw): FeedParams {
   };
 }
 
+/** Bỏ dấu tiếng Việt: "Ví da" → "vi da". */
+export const removeTones = (s: string) =>
+  s
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/đ/gi, "d")
+    .toLowerCase();
+
+// translate() của Postgres bỏ dấu ngay trong SQL, không cần extension unaccent hay đổi schema.
+const TONED: Record<string, string> = {
+  a: "àáạảãâầấậẩẫăằắặẳẵ",
+  e: "èéẹẻẽêềếệểễ",
+  i: "ìíịỉĩ",
+  o: "òóọỏõôồốộổỗơờớợởỡ",
+  u: "ùúụủũưừứựửữ",
+  y: "ỳýỵỷỹ",
+  d: "đ",
+};
+const TONED_FROM = Object.values(TONED).join("");
+const TONED_TO = Object.entries(TONED)
+  .map(([plain, chars]) => plain.repeat(chars.length))
+  .join("");
+
+/** Khớp không dấu (gõ "vi" ra "ví") trên tiêu đề + mô tả; không dùng index nên chỉ hợp quy mô nhỏ. */
+function unaccentedMatch(q: string): SQL {
+  const pattern = `%${removeTones(q).replace(/[\\%_]/g, "\\$&")}%`;
+  return sql`translate(${reports.title} || ' ' || coalesce(${reports.description}, ''), ${TONED_FROM + TONED_FROM.toUpperCase()}, ${TONED_TO + TONED_TO}) ilike ${pattern}`;
+}
+
 /** Điều kiện SQL của bảng tin: còn hạn, đúng trạng thái công khai, cộng các bộ lọc. */
 export function feedConditions(p: FeedParams, now: Date): SQL {
   const conds: (SQL | undefined)[] = [
@@ -51,7 +80,7 @@ export function feedConditions(p: FeedParams, now: Date): SQL {
     p.from ? gte(reports.eventTime, parseLocalDateTime(`${p.from}T00:00`)!) : undefined,
     // "đến ngày" tính hết ngày đó
     p.to ? lt(reports.eventTime, new Date(parseLocalDateTime(`${p.to}T00:00`)!.getTime() + 86_400_000)) : undefined,
-    p.q ? sql`${reports.searchVector} @@ websearch_to_tsquery('simple', ${p.q})` : undefined,
+    p.q ? or(sql`${reports.searchVector} @@ websearch_to_tsquery('simple', ${p.q})`, unaccentedMatch(p.q)) : undefined,
   ];
   return and(...conds)!;
 }

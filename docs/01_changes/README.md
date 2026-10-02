@@ -26,7 +26,7 @@
 | [`CHG-022`](CHG-022_admin_catalog_and_stats.md) | Quản trị danh mục, địa điểm và thống kê | `done` |
 | [`CHG-023`](CHG-023_e2e_deploy_readme.md) | E2E golden path, rà soát UI, deploy Vercel và README | `done` |
 | [`CHG-024`](CHG-024_forgot_password_and_school_domains.md) | Quên mật khẩu và bổ sung tên miền email trường | `done` |
-| [`CHG-025`](CHG-025_unify_search_filters.md) | Gôm chung mục tìm kiếm và bộ lọc bảng tin | `proposed` |
+| [`CHG-025`](CHG-025_unify_search_filters.md) | Gôm chung mục tìm kiếm và bộ lọc bảng tin | `done` |
 | [`CHG-026`](CHG-026_header_auth_popup_help_footer.md) | Header (avatar + menu), popup xác thực, trợ giúp và footer | `proposed` |
 
 Số CHG tiếp theo: `CHG-027`.
