@@ -33,12 +33,13 @@ Mini Project AI-assisted Web Development.
 
 ## Tính năng
 
-- **Tài khoản:** đăng ký/đăng nhập bằng email trường (`ALLOWED_EMAIL_DOMAINS`), xác nhận email qua Supabase Auth, quên/đặt lại mật khẩu qua email, hồ sơ (họ tên, MSSV, trường, liên hệ riêng tư).
+- **Tài khoản:** đăng ký/đăng nhập/quên mật khẩu ngay trong một popup trên trang hiện tại (các đường dẫn `/login`, `/register`, `/forgot-password` chỉ chuyển hướng về popup), email trường (`ALLOWED_EMAIL_DOMAINS`), xác nhận email qua Supabase Auth, đặt lại mật khẩu qua email, hồ sơ (họ tên, MSSV, trường, liên hệ riêng tư).
 - **Tin đăng:** 1–5 ảnh (Supabase Storage), tin Nhặt được có nơi giữ đồ + câu hỏi/đáp án xác minh, tự hết hạn sau 60 ngày; sửa/đóng/xóa tin của mình.
-- **Bảng tin:** hai tab, tìm kiếm full-text PostgreSQL, lọc theo danh mục/trường/địa điểm/khoảng ngày, phân trang.
+- **Bảng tin:** hai tab, một thanh tìm kiếm gộp (từ khóa full-text PostgreSQL, gõ không dấu vẫn ra kết quả, lọc theo danh mục/trường → khu vực/khoảng ngày), chip bộ lọc, link chia sẻ được, phân trang.
 - **Gợi ý phù hợp:** chấm điểm deterministic (địa điểm, trường, thời gian, từ khóa; lưu từ 50 điểm), luôn kèm lý do, nút "Không phải".
-- **Nhận đồ & bàn giao:** gửi yêu cầu → người nhặt chấp nhận/từ chối → lộ liên hệ hai bên, đặt điểm hẹn → hai bên xác nhận → Đã trả.
+- **Nhận đồ & bàn giao:** gửi yêu cầu (kèm tối đa 3 ảnh minh chứng riêng tư, không bắt buộc) → người nhặt xem câu trả lời + ảnh rồi chấp nhận/từ chối → lộ liên hệ hai bên, đặt điểm hẹn → hai bên xác nhận → Đã trả.
 - **Thông báo trong web** cho gợi ý, yêu cầu, kết quả duyệt, lịch hẹn, ẩn tin.
+- **Trợ giúp & giao diện:** nút Trợ giúp nổi (hướng dẫn cho người mất/nhặt đồ), menu tài khoản gọn ở header, chân trang 4 cột; giao diện chỉ có chế độ sáng.
 - **Quản trị:** kiểm duyệt báo cáo vi phạm (ẩn tin/bỏ qua), khóa/mở khóa tài khoản, danh mục & địa điểm, thống kê.
 
 ## Công nghệ
@@ -54,7 +55,7 @@ git clone <repo-url>
 cd unifound
 npm ci
 cp .env.example .env.local   # điền giá trị thật, KHÔNG commit
-npm run db:migrate           # tạo schema, bucket ảnh, policy
+npm run db:migrate           # tạo schema, bucket ảnh (công khai) + ảnh minh chứng (riêng tư), policy
 npm run db:seed              # trường, danh mục, địa điểm, tài khoản demo, tin mẫu
 npm run dev                  # http://localhost:3000
 ```
@@ -81,8 +82,8 @@ Supabase Auth đang bật "Confirm email": đăng ký thật cần bấm link tr
 | `npm run build` / `npm start` | Build và chạy bản production |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | `next typegen` + `tsc --noEmit` |
-| `npm test` | Unit test (Vitest) |
-| `npm run test:e2e` | E2E Playwright (golden path + edge case); tự bật dev server nếu chưa chạy |
+| `npm test` | Unit test (Vitest, 78 test) |
+| `npm run test:e2e` | E2E Playwright (22 test: golden path, edge case, tìm kiếm/lọc, header/popup/Trợ giúp, ảnh minh chứng); tự bật dev server nếu chưa chạy |
 | `npm run db:generate` | Sinh migration từ `src/db/schema.ts` |
 | `npm run db:migrate` | Áp dụng migration |
 | `npm run db:push` | Đồng bộ schema trực tiếp (chỉ dùng khi cần, ưu tiên migration có phiên bản) |
@@ -95,8 +96,8 @@ E2E cần Chromium của Playwright: `npx playwright install chromium`. Test đ�
 ```
 unifound/
 ├── src/
-│   ├── app/            # Route (S01–S13), loading/error/not-found
-│   ├── components/     # ui/ (field, badge, notice…), layout/, reports/, claims/, matching/, admin/
+│   ├── app/            # Route, loading/error/not-found
+│   ├── components/     # ui/ (field, badge, modal…), layout/ (header, menu, popup xác thực, trợ giúp, footer), auth/, reports/, claims/, matching/, admin/
 │   ├── lib/            # Logic server: auth, reports, matching, claims, notifications, flags, admin
 │   ├── db/             # Drizzle schema, client, migrate, seed
 │   ├── utils/supabase/ # Supabase client cho server/trình duyệt

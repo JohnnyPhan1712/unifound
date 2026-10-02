@@ -12,9 +12,9 @@
 | Skill `impeccable` | Skill thiết kế UI | Thiết kế, rà soát UI; lệnh `detect` quét lỗi thiết kế | Thiết kế UI, rà soát UI |
 | Skill `taste-skill` | Skill thẩm mỹ UI | Nâng chất lượng layout, typography, spacing, không lệch `DESIGN.md` | Đã cài; chưa ghi nhận đã dùng |
 | Skill `ponytail` | Plugin giữ code tối giản | Đi theo thứ tự "có cần viết không → tái sử dụng → thư viện sẵn có → code tối thiểu" | Từ giai đoạn dọn code cũ trở đi |
-| Supabase skills và Supabase MCP | Skill + MCP | Tra cứu Auth/RLS/Postgres, đọc cấu trúc bảng, kiểm tra dữ liệu bằng truy vấn đọc | Giai đoạn làm lại |
+| Supabase skills và Supabase MCP | Skill + MCP | Tra cứu Auth/RLS/Postgres/Storage, đọc cấu trúc bảng, kiểm tra dữ liệu, bucket và policy bằng truy vấn đọc | Giai đoạn làm lại, ảnh minh chứng |
 | Playwright MCP | MCP kiểm thử UI | Duyệt và chụp màn hình để tự kiểm tra | Thiết kế mockup |
-| Playwright (thư viện) | Thư viện test | E2E và quét UI khi phiên làm việc không có Playwright MCP | Giai đoạn làm lại |
+| Playwright (thư viện) | Thư viện test | E2E và quét UI khi phiên làm việc không có Playwright MCP (các task tìm kiếm, header/popup, ảnh minh chứng đều dùng cách này, ảnh chụp từ script) | Giai đoạn làm lại và hoàn thiện giao diện |
 
 Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân thật vào prompt/log/ảnh chụp; thao tác ghi vào database chỉ làm khi người dùng duyệt; schema chỉ đổi qua Drizzle, không sửa trực tiếp bằng MCP.
 
@@ -52,16 +52,7 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 - Human Decision: **Accepted** (2026-10-02: nhóm trưởng xác nhận); người dùng đánh giá đây là bản dễ nhìn nhất và dùng làm chuẩn giao diện khi viết code.
 - Verification: Tính tương phản WCAG bằng script (thấp nhất 5,41:1); Playwright MCP duyệt desktop 1440×900 và mobile 390×844, console 0 lỗi; lần duyệt đầu phát hiện hai lỗi AI tạo ra (BUG-1 thẻ gợi ý chồng chữ, BUG-2 icon bị đẩy xuống dòng), đã sửa rồi chụp lại (xem `05_testing_deployment.md`).
 
-### AI-LOG-004 — Dọn code cũ và xử lý lỗi môi trường
-
-- Nguồn: giai đoạn dọn code cũ, Phan Ngọc Đức Huy.
-- AI Tool: Claude Code (Sonnet 5.5), ponytail.
-- Task: Xóa code của các task bị từ chối, giữ hạ tầng DB, rồi làm `typecheck`/`build` pass.
-- AI Output: `git rm` 46 file theo 7 nhóm (người dùng duyệt từng nhóm), viết lại trang placeholder. Sau đó `typecheck` lỗi do `next@16.3.5` cài thiếu `types.d.ts`; AI đề xuất nâng `next` lên 16.3.8 và xóa `.next/dev`.
-- Human Decision: Xóa code: **Accepted** (2026-10-02: nhóm trưởng xác nhận; đã duyệt từng nhóm xóa trong phiên). Nâng `next` và xóa `.next/dev`: **Accepted** (người dùng chọn phương án).
-- Verification: `typecheck`, `test`, `build` pass; grep không còn import tới module đã xóa.
-
-### AI-LOG-005 — Schema theo ERD và lớp xác thực
+### AI-LOG-004 — Schema theo ERD và lớp xác thực
 
 - Nguồn: giai đoạn nền tảng, Trần Minh Chiến.
 - AI Tool: Claude Code (Opus 5.5), Supabase MCP, ponytail.
@@ -69,7 +60,7 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 - Human Decision: **Accepted** (ủy quyền 2026-10-02). Người dùng đã chọn: cho phép drop dữ liệu cũ, giữ bật xác nhận email, tên miền `gm.uit.edu.vn,uit.edu.vn`.
 - Verification: `db:migrate` thành công; Supabase MCP xác nhận 10 bảng đều bật RLS; Vitest kiểm tra tên miền (từ chối cả đuôi giả `uit.edu.vn.evil.com`) và Zod; Playwright kiểm tra luồng đăng ký/đăng nhập thật.
 
-### AI-LOG-006 — Làm lại giao diện theo mockup khi `DESIGN.md` và mockup mâu thuẫn
+### AI-LOG-005 — Làm lại giao diện theo mockup khi `DESIGN.md` và mockup mâu thuẫn
 
 - Nguồn: giai đoạn nền tảng, Trần Minh Chiến.
 - AI Tool: Claude Code (Opus 5.5, Sonnet 5.5), skill `impeccable` (`detect`), Playwright.
@@ -78,7 +69,7 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 - Human Decision: AI-2 **Modified** (bị thay bằng AI-3); AI-3 **Accepted** phần chọn hướng, phần kết quả Accepted theo ủy quyền 2026-10-02.
 - Verification: Ảnh chụp desktop 1440px và iPhone 13 so với ảnh trong mockup; `impeccable detect` còn 0 cảnh báo; E2E 4/4 trên bản build; quét 17 màn hình mobile.
 
-### AI-LOG-007 — State machine và transaction khi chấp nhận yêu cầu nhận đồ
+### AI-LOG-006 — State machine và transaction khi chấp nhận yêu cầu nhận đồ
 
 - Nguồn: giai đoạn luồng claim, Trần Minh Chiến.
 - AI Tool: Claude Code (Opus 5.5), Supabase MCP, ponytail.
@@ -86,7 +77,7 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 - Human Decision: **Accepted** (ủy quyền 2026-10-02). Hai đề xuất của AI được giữ: yêu cầu bị đóng dùng trạng thái `REJECTED`; ADMIN không duyệt thay chủ tin.
 - Verification: Vitest (state machine, luật gửi, hết hạn); Playwright với 4 tài khoản, có ca hai trình duyệt bấm "Chấp nhận" cùng lúc cho hai yêu cầu của cùng một tin; Supabase MCP xác nhận chỉ còn một `ACCEPTED`.
 
-### AI-LOG-008 — E2E golden path và edge case
+### AI-LOG-007 — E2E golden path và edge case
 
 - Nguồn: giai đoạn kiểm thử và triển khai, Dương Đăng Khang.
 - AI Tool: Claude Code (Opus 5.5), thư viện Playwright.
@@ -94,7 +85,7 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 - Human Decision: **Accepted** (ủy quyền 2026-10-02).
 - Verification: Lần chạy đầu 3/4 pass; ca đăng ký fail vì selector `getByLabel("Mật khẩu", { exact: true })` không khớp nhãn có dấu `*` — lỗi ở test chứ không ở app. Đổi sang regex → 4/4 pass.
 
-### AI-LOG-009 — Quên mật khẩu (PKCE) và thêm tên miền trường
+### AI-LOG-008 — Quên mật khẩu (PKCE) và thêm tên miền trường
 
 - Nguồn: giai đoạn bổ sung, Phan Ngọc Đức Huy.
 - AI Tool: Claude Code (Sonnet 5.5), Supabase MCP (`search_docs`, SELECT), Playwright, ponytail.
@@ -103,14 +94,25 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 - Human Decision: **Accepted** (2026-10-02: nhóm trưởng xác nhận).
 - Verification: `lint`, `typecheck`, `test` 72/72, `build`; Playwright cho các ca lỗi và mobile. Chưa kiểm: gửi mail thật và bấm liên kết, tài khoản `locked`, đăng ký thật bằng email các trường mới.
 
-### AI-LOG-010 — Dọn dữ liệu test trên database dev/demo
+### AI-LOG-009 — Popup xác thực, Trợ giúp và kiểm tra nội dung với code thật
 
-- Nguồn: giai đoạn kiểm thử và triển khai, Dương Đăng Khang.
-- AI Tool: Claude Code (Sonnet 5.5), Supabase MCP (`execute_sql` chỉ SELECT), Storage API.
-- Task: Xóa dữ liệu do E2E và test tay tạo ra, giữ dữ liệu seed.
-- AI Output: AI liệt kê (SELECT) dữ liệu cần xóa; chủ dự án duyệt danh sách; AI xóa 25 file ảnh qua Storage API; chủ dự án tự chạy SQL xóa (vì lệnh xóa bị hệ thống phân quyền của Claude Code chặn).
-- Human Decision: **Accepted** (chủ dự án duyệt danh sách xóa ngày 2026-10-02).
-- Verification: Đếm lại bằng SELECT: còn 8 tin seed, 0 yêu cầu/gợi ý/thông báo/báo cáo/ảnh; `db:seed` chạy lại không tạo trùng. Còn 2 hồ sơ mồ côi trong `public.users` chờ chủ dự án xử lý.
+- Nguồn: giai đoạn hoàn thiện giao diện (header, popup, trợ giúp).
+- AI Tool: Claude Code (Sonnet 5.5), ponytail, thư viện Playwright; tham khảo cấu trúc iLost Support Center.
+- Task: Cho đăng nhập/đăng ký/quên mật khẩu và Trợ giúp mở thành popup ngay trên trang hiện tại từ nhiều nơi (avatar, menu, nút "Đăng tin", proxy, server action); viết nội dung trợ giúp.
+- Input / Context: Header cũ, các trang `/login` `/register` `/forgot-password`, server action và proxy hiện có, logic chấm điểm (`score.ts`) và bàn giao (`handover.ts`).
+- AI Output: Trạng thái popup nằm trên URL (`?auth=login|register|forgot`, `?help=1`) thay vì React context, nên server chỉ cần `redirect` về URL tương ứng; popup dùng `<dialog>` gốc (có sẵn focus trap, phím Esc và lớp nền), không thêm thư viện. Menu giữ trong DOM (ẩn bằng `hidden`) để form Đăng xuất không bị gỡ trước khi gửi. Bản nháp nội dung trợ giúp ban đầu sai hai điểm: mô tả gợi ý trùng khớp thiếu điều kiện (cùng danh mục, trong 14 ngày) và nói tin đóng khi một bên bấm "Đã trả"; AI tự đối chiếu mã nguồn rồi sửa thành "cả hai bên cùng xác nhận". Danh sách điểm tiếp nhận chỉ dùng tên địa điểm có trong dữ liệu mẫu, không bịa số điện thoại hay giờ làm việc.
+- Human Decision: **Accepted** (người dùng xác nhận hoàn thành). Danh sách điểm tiếp nhận là nội dung minh họa, cần nhóm xác nhận lại tên và ghi chú nếu dùng thật.
+- Verification: 8 test Playwright (thứ tự nút header, luồng đăng nhập ↔ đăng ký ↔ quên mật khẩu, "Đăng tin" khi chưa đăng nhập, Trợ giúp ẩn/hiện khi cuộn, footer) cùng test edge case cập nhật, 20/20 E2E lúc đó pass; đối chiếu thủ công nội dung trợ giúp với mã nguồn. Chưa dùng Playwright MCP (không có trong phiên), thay bằng ảnh chụp từ script Playwright.
+
+### AI-LOG-010 — Ảnh minh chứng riêng tư cho yêu cầu nhận lại
+
+- Nguồn: giai đoạn hoàn thiện luồng nhận đồ.
+- AI Tool: Claude Code (Sonnet 5.5), ponytail, Supabase MCP (chỉ đọc), Drizzle migration.
+- Task: Cho người mất đồ đính kèm ảnh minh chứng khi gửi yêu cầu nhận; thiết kế nơi lưu và cách cấp quyền đọc.
+- Input / Context: Form yêu cầu, `ImagePicker`, `checkImages`, migration bucket ảnh tin, truy vấn yêu cầu.
+- AI Output: Ảnh minh chứng có thể lộ chi tiết giúp người khác mạo nhận nên AI đề xuất bucket riêng tư `claim-images` (không dùng bucket công khai của ảnh tin) và bảng `claim_images`. Vì người nhặt không phải chủ thư mục ảnh nên policy Storage gọi hàm `security definer public.can_read_claim_image`; server tạo signed URL 1 giờ bằng session của người xem, không cần service-role key. Tái dùng `ImagePicker` và `checkImages` bằng cách thêm tham số (bucket, số ảnh, nhãn) thay vì sao chép code.
+- Human Decision: **Accepted** (người dùng duyệt kế hoạch gồm bucket riêng tư và xác nhận hoàn thành).
+- Verification: E2E: người nhặt thấy ảnh và ảnh tải được, URL công khai của ảnh không mở được, người thứ ba mở trang yêu cầu nhận 404 và chi tiết tin công khai không chứa đường dẫn `claim-images`; unit test Zod và `checkImages` (ảnh trùng, đường dẫn của người khác, đường dẫn sai dạng bị từ chối); Supabase MCP (chỉ đọc) xác nhận bucket không công khai, có 2 policy và RLS bật. Advisor Supabase cảnh báo hàm này gọi được qua RPC bởi người đã đăng nhập; chấp nhận có chủ ý vì hàm chỉ trả boolean theo `auth.uid()` của người gọi, cùng kiểu với `is_admin()` đã có. Chưa có test tự động cho nhánh "ảnh chưa tải lên Storage" (chỉ xác nhận bằng đọc code).
 
 ## 3. Quyết định quan trọng có AI hỗ trợ
 
@@ -134,6 +136,13 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 - Giải thích: Giữ ít trạng thái, và việc xác minh đồ thuộc về người nhặt nên admin không nên thay mặt.
 - Quyết định cuối: Giữ theo đề xuất; có partial unique index làm lớp chặn cuối ở database.
 - Kiểm soát: TC-09 → TC-12 (xem `05_testing_deployment.md`).
+
+### Lưu ảnh minh chứng ở bucket riêng tư
+
+- Đề xuất của AI: Không dùng bucket công khai như ảnh tin; dùng bucket riêng tư và signed URL ngắn hạn, cấp quyền đọc cho người nhặt qua hàm kiểm tra trong database (xem AI-LOG-010).
+- Giải thích: Ảnh minh chứng có thể chứa chi tiết dùng để chứng minh sở hữu; nếu công khai thì người khác có thể xem rồi mạo nhận.
+- Quyết định cuối: Người dùng duyệt kế hoạch theo đề xuất; chỉ người nhặt và người gửi xem được, admin được phép đọc ở tầng Storage nhưng giao diện chưa có đường vào.
+- Kiểm soát: E2E kiểm URL công khai bị chặn và người thứ ba nhận 404; Supabase MCP xác nhận bucket riêng tư và RLS.
 
 ### Giữ bật xác nhận email của Supabase
 

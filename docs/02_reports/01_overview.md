@@ -40,8 +40,8 @@ UniFound tập trung Lost/Found Report về một nơi, gợi ý các cặp có 
 | Đăng tin mất/nhặt đồ kèm 1–5 ảnh | Ứng dụng di động riêng (native) |
 | Tìm kiếm từ khóa, lọc, xem chi tiết | Nhắn tin trực tiếp trong app |
 | Gợi ý tin phù hợp tự động (rule-based) | Nhận diện đồ vật bằng AI/computer vision qua ảnh, ML/LLM matching |
-| Yêu cầu nhận đồ, xác minh, hẹn bàn giao | Thưởng, thanh toán, vận chuyển đồ |
-| Thông báo trong web, báo cáo vi phạm, trang quản trị | Thông báo qua email (thêm sau, ví dụ dịch vụ Resend) |
+| Yêu cầu nhận đồ, xác minh (kèm ảnh minh chứng tùy chọn), hẹn bàn giao | Thưởng, thanh toán, vận chuyển đồ |
+| Thông báo trong web, báo cáo vi phạm, trang quản trị, trợ giúp trong web | Thông báo qua email (thêm sau, ví dụ dịch vụ Resend) |
 | Đăng nhập giới hạn theo email sinh viên hợp lệ | Liên thông với hệ thống của nhà trường, bản đồ/GPS |
 
 **Các quyết định thiết kế chính**
@@ -49,6 +49,8 @@ UniFound tập trung Lost/Found Report về một nơi, gợi ý các cặp có 
 - **Đăng nhập bằng email sinh viên** để chỉ sinh viên thật mới dùng được. Supabase Auth không tự giới hạn tên miền nên server kiểm tra danh sách tên miền hợp lệ sau khi đăng ký/đăng nhập.
 - **Người nhặt tự đặt một câu hỏi xác minh** (ví dụ "Trong ví có thẻ gì?") và giữ kín đáp án. Chỉ người trả lời đúng mới được xét duyệt.
 - **Thông tin liên hệ chỉ hiện sau khi người nhặt chấp nhận yêu cầu**, để tránh bị làm phiền hoặc mạo nhận.
+- **Ảnh minh chứng khi gửi yêu cầu nhận là tùy chọn và riêng tư**: người mất đồ có thể đính kèm tối đa 3 ảnh (ảnh chụp trước đây, hóa đơn, hộp đựng…); chỉ người nhặt và chính người gửi xem được, không hiện trên bảng tin, chi tiết tin, gợi ý hay thông báo. Ảnh chỉ để người nhặt đối chiếu, không tự duyệt hay loại yêu cầu.
+- **Giao diện chỉ có chế độ sáng** trong MVP (không có dark mode).
 - **Kiểm duyệt sau khi đăng:** tin lên ngay, quản trị viên xử lý khi có báo cáo vi phạm.
 - **Hết hạn không dùng tác vụ nền:** tin hết hạn sau 60 ngày, yêu cầu hết hạn sau 7 ngày; khi truy vấn, so `expires_at` với thời điểm hiện tại để coi là hết hạn.
 
@@ -59,10 +61,10 @@ UniFound tập trung Lost/Found Report về một nơi, gợi ý các cặp có 
 | US01 | Sinh viên | đăng nhập bằng email trường | hệ thống biết tôi là sinh viên thật và tôi tự đặt lại mật khẩu được khi quên | Cao |
 | US02 | Người mất đồ | đăng tin kèm ảnh, mô tả, nơi và thời điểm làm mất | mọi người dễ nhận ra món đồ của tôi | Cao |
 | US03 | Người nhặt đồ | đăng tin nhặt được, ghi nơi đang giữ và đặt câu hỏi xác minh | đồ được trả đúng chủ | Cao |
-| US04 | Mọi người dùng | xem bảng tin và lọc theo loại tin, danh mục, trường, thời gian | nhanh chóng thu hẹp danh sách | Cao |
-| US05 | Mọi người dùng | tìm kiếm bằng từ khóa | tìm đúng món đồ như "ví da đen", "thẻ sinh viên" | Cao |
+| US04 | Mọi người dùng | xem bảng tin và lọc theo loại tin, danh mục, trường/khu vực, thời gian | nhanh chóng thu hẹp danh sách | Cao |
+| US05 | Mọi người dùng | tìm kiếm bằng từ khóa, kể cả gõ không dấu | tìm đúng món đồ như "ví da đen", "thẻ sinh viên" dù gõ "vi da den" | Cao |
 | US06 | Người mất đồ | nhận gợi ý các tin nhặt được có thể là đồ của mình | không phải tự lục từng tin | Cao |
-| US07 | Người mất đồ | gửi yêu cầu nhận và trả lời câu hỏi xác minh | chứng minh đó là đồ của tôi | Cao |
+| US07 | Người mất đồ | gửi yêu cầu nhận, trả lời câu hỏi xác minh và đính kèm ảnh minh chứng nếu có | chứng minh đó là đồ của tôi | Cao |
 | US08 | Người nhặt đồ | xem câu trả lời và chấp nhận hoặc từ chối yêu cầu | tránh trả nhầm người | Cao |
 | US09 | Hai bên | chọn điểm hẹn và giờ gặp (bàn bảo vệ, thư viện, căng tin…) | bàn giao an toàn, thuận tiện | Trung bình |
 | US10 | Hai bên | xác nhận đã trả và đã nhận | tin được đóng đúng, tránh người khác tiếp tục hỏi | Cao |
