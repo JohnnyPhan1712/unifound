@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { isAllowedEmail, parseDomains } from "./email";
-import { credentialsSchema, profileSchema } from "./schemas";
+import { credentialsSchema, newPasswordSchema, profileSchema } from "./schemas";
 
 const domains = parseDomains(" gm.uit.edu.vn, UIT.edu.vn ,,");
 
@@ -41,5 +41,34 @@ describe("TC-014-02 Zod hồ sơ và đăng nhập", () => {
   it("đăng nhập: email sai và mật khẩu ngắn bị từ chối", () => {
     expect(credentialsSchema.safeParse({ email: "abc", password: "1234567" }).success).toBe(false);
     expect(credentialsSchema.parse({ email: " A@GM.UIT.EDU.VN ", password: "12345678" }).email).toBe("a@gm.uit.edu.vn");
+  });
+});
+
+describe("TC-024-01 tên miền các trường ĐHQG-HCM", () => {
+  const domains = parseDomains(
+    "gm.uit.edu.vn,uit.edu.vn,hcmut.edu.vn,student.hcmus.edu.vn,hcmussh.edu.vn,student.hcmiu.edu.vn,st.uel.edu.vn"
+  );
+  it("nhận email của 5 trường mới", () => {
+    for (const email of ["a@hcmut.edu.vn", "a@student.hcmus.edu.vn", "a@hcmussh.edu.vn", "a@student.hcmiu.edu.vn", "a@st.uel.edu.vn"]) {
+      expect(isAllowedEmail(email, domains)).toBe(true);
+    }
+  });
+  it("từ chối đuôi giả và tên miền gần giống", () => {
+    for (const email of ["a@hcmut.edu.vn.evil.com", "a@evil-hcmut.edu.vn", "a@mail.hcmut.edu.vn", "a@hcmus.edu.vn", "a@uel.edu.vn"]) {
+      expect(isAllowedEmail(email, domains)).toBe(false);
+    }
+  });
+});
+
+describe("TC-024-02 Zod mật khẩu mới", () => {
+  it("chấp nhận mật khẩu hợp lệ và khớp", () => {
+    expect(newPasswordSchema.safeParse({ password: "12345678", confirmPassword: "12345678" }).success).toBe(true);
+  });
+  it("từ chối quá ngắn, quá dài hoặc không khớp", () => {
+    expect(newPasswordSchema.safeParse({ password: "1234567", confirmPassword: "1234567" }).success).toBe(false);
+    expect(newPasswordSchema.safeParse({ password: "a".repeat(73), confirmPassword: "a".repeat(73) }).success).toBe(false);
+    const r = newPasswordSchema.safeParse({ password: "12345678", confirmPassword: "87654321" });
+    expect(r.success).toBe(false);
+    if (!r.success) expect(r.error.issues[0].path).toEqual(["confirmPassword"]);
   });
 });

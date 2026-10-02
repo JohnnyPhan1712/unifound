@@ -5,6 +5,13 @@ export const credentialsSchema = z.object({
   password: z.string().min(8, "Mật khẩu tối thiểu 8 ký tự.").max(72, "Mật khẩu tối đa 72 ký tự."),
 });
 
+export const emailSchema = credentialsSchema.pick({ email: true });
+
+export const newPasswordSchema = credentialsSchema
+  .pick({ password: true })
+  .extend({ confirmPassword: z.string() })
+  .refine((v) => v.password === v.confirmPassword, { path: ["confirmPassword"], message: "Mật khẩu nhập lại không khớp." });
+
 const optionalText = (max: number, message: string) =>
   z
     .string()

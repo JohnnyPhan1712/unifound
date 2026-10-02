@@ -228,7 +228,7 @@ Bo góc 4 / 8 / 14 / 20 / 32 / pill. Nút và ô nhập 8px, thẻ/panel/rail 14
 - Tab dạng viên thuốc cho "Tin và yêu cầu của tôi" kèm bộ đếm.
 
 ### Notices
-- Ba biến thể: info (xanh nhạt), cảnh báo (vàng nhạt), lỗi (đỏ nhạt), thành công (xanh lục nhạt); bo 14px, có icon.
+- Bốn biến thể: info (xanh nhạt), cảnh báo (vàng nhạt), lỗi (đỏ nhạt), thành công (xanh lục nhạt); bo 14px, có icon.
 
 ## Do's and Don'ts
 

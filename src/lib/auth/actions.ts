@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
@@ -7,8 +8,8 @@ import { db, schools, users } from "@/db";
 import { createClient } from "@/utils/supabase/server";
 import { formValues, invalid, type ActionState } from "@/lib/action-state";
 import { allowedDomains, isAllowedEmail } from "./email";
-import { credentialsSchema, profileSchema } from "./schemas";
-import { ensureUserRow, requireUser } from "./session";
+import { credentialsSchema, emailSchema, newPasswordSchema, profileSchema } from "./schemas";
+import { ensureUserRow, getSessionUser, requireUser } from "./session";
 
 const domainError = (): ActionState => ({
   fieldErrors: {
@@ -80,6 +81,55 @@ export async function register(_prev: ActionState, formData: FormData): Promise<
 
   revalidatePath("/", "layout");
   redirect("/profile?welcome=1");
+}
+
+export async function requestPasswordReset(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const values = formValues(formData);
+  const parsed = emailSchema.safeParse(values);
+  if (!parsed.success) return invalid(parsed.error, { email: values.email ?? "" });
+  const { email } = parsed.data;
+  if (!isAllowedEmail(email, allowedDomains())) return { ...domainError(), values: { email } };
+
+  const h = await headers();
+  const origin = h.get("origin") ?? `${h.get("x-forwarded-proto") ?? "http"}://${h.get("host")}`;
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${origin}/auth/callback` });
+  if (error) {
+    const message =
+      error.code === "over_email_send_rate_limit"
+        ? "Bạn yêu cầu quá nhiều lần. Hãy thử lại sau ít phút."
+        : "Không thể gửi email lúc này, vui lòng thử lại.";
+    return { message, values: { email } };
+  }
+  // Cùng một thông báo dù email có tài khoản hay không, để không lộ email nào đã đăng ký.
+  return {
+    ok: true,
+    message: "Nếu email này đã có tài khoản, chúng tôi đã gửi hướng dẫn đặt lại mật khẩu. Kiểm tra hộp thư (cả thư rác).",
+    values: { email },
+  };
+}
+
+export async function updatePassword(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const parsed = newPasswordSchema.safeParse(formValues(formData));
+  if (!parsed.success) return invalid(parsed.error);
+
+  // Phiên tạm có được khi bấm liên kết trong mail (route /auth/callback).
+  const user = await getSessionUser();
+  if (!user) return { message: "Liên kết đã hết hạn hoặc đã dùng. Hãy yêu cầu liên kết mới." };
+
+  const supabase = await createClient();
+  if (user.status === "locked") {
+    await supabase.auth.signOut();
+    redirect("/login?error=locked");
+  }
+  const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
+  if (error) {
+    return {
+      message: error.code === "same_password" ? "Mật khẩu mới phải khác mật khẩu cũ." : "Không thể đổi mật khẩu lúc này, vui lòng thử lại.",
+    };
+  }
+  await supabase.auth.signOut();
+  redirect("/login?reset=1");
 }
 
 export async function logout() {

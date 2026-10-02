@@ -32,7 +32,7 @@ Người mất đồ mở tin Nhặt được, trả lời câu hỏi xác minh 
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/02_requirements_design.md` (FR09, FR10, quy tắc nghiệp vụ, S05, S07, S08, mục 10a)
 - `docs/02_reports/03_development.md` (mục 6 ràng buộc toàn vẹn)
 
@@ -82,7 +82,7 @@ Người mất đồ mở tin Nhặt được, trả lời câu hỏi xác minh 
 - Kết quả AI (AI Output):
   - Logic: `src/lib/claims/rules.ts`, `actions.ts`, `query.ts`.
   - Trang: `/reports/[id]/claim`, `/claims/[id]`, các tab ở `/my`.
-- Quyết định của nhóm (Human Decision): chờ xác nhận. Hai điểm là đề xuất của AI: claim "đóng" dùng trạng thái `REJECTED`, và ADMIN không duyệt thay chủ tin.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02, theo ủy quyền). Hai điểm là đề xuất của AI đã được giữ:  claim "đóng" dùng trạng thái `REJECTED`, và ADMIN không duyệt thay chủ tin.
 - Kiểm tra / Xác minh (Verification):
   - Vitest TC-019-01/02/03/08.
   - Playwright 4 tài khoản, có ca hai trình duyệt bấm "Chấp nhận" cùng lúc cho hai yêu cầu của cùng một tin.

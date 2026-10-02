@@ -30,7 +30,7 @@ Sau khi yêu cầu được chấp nhận, hai bên thấy thông tin liên hệ
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/02_requirements_design.md` (FR11, FR12, S08, mục 9 ghi chú Claim, mục 10a)
 
 ## Acceptance criteria
@@ -66,7 +66,7 @@ Sau khi yêu cầu được chấp nhận, hai bên thấy thông tin liên hệ
 - Kết quả AI (AI Output):
   - Logic: `handover.ts`, `handover-actions.ts`, `getHandoverContacts`.
   - Giao diện: component `MeetingForm`/`ConfirmHandoverButton`, mục "Bàn giao đồ" trên `/claims/[id]`.
-- Quyết định của nhóm (Human Decision): chờ xác nhận. Hai điểm là đề xuất của AI: hiện thêm email trường cạnh `contact_info`, và ẩn liên hệ sau khi `COMPLETED`.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02, theo ủy quyền). Hai điểm là đề xuất của AI đã được giữ: hiện thêm email trường cạnh `contact_info`, và ẩn liên hệ sau khi `COMPLETED`.
 - Kiểm tra / Xác minh (Verification):
   - Vitest TC-020-01/02/03.
   - Playwright 4 tài khoản. Để kiểm tra sai actor, chụp request "Đã nhận đồ" của B (hủy, không gửi) rồi phát lại bằng cookie của C → 403.

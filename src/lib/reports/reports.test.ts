@@ -47,7 +47,8 @@ describe("TC-015-01 Zod tạo tin", () => {
     expect(errorsOf({ ...base, eventTime: "30/09/2026" })).toHaveProperty("eventTime");
   });
   it("schema sửa tin không yêu cầu ảnh", () => {
-    const { images: _omit, ...noImages } = base;
+    const noImages: Partial<typeof base> = { ...base };
+    delete noImages.images;
     expect(updateReportSchema.safeParse(noImages).success).toBe(true);
   });
   it("ảnh phải nằm trong thư mục của chính user", () => {

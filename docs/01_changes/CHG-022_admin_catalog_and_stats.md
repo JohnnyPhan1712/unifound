@@ -28,7 +28,7 @@ Quản trị viên thêm, sửa, ẩn danh mục đồ vật và địa điểm 
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/02_requirements_design.md` (FR15, FR16, S11, S13, ghi chú Category/Location)
 
 ## Acceptance criteria
@@ -77,7 +77,7 @@ Quản trị viên thêm, sửa, ẩn danh mục đồ vật và địa điểm 
   - Logic: `src/lib/admin/{catalog,catalog-schemas,stats}.ts`.
   - Trang: `src/app/admin/page.tsx`, `src/app/admin/catalog/page.tsx`.
   - Migration 0005.
-- Quyết định của nhóm (Human Decision): chờ xác nhận. Cách tính "tỉ lệ đã trả" trên số tin Nhặt được là đề xuất của AI.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02, theo ủy quyền). Cách tính "tỉ lệ đã trả" trên số tin Nhặt được là đề xuất của AI.
 - Kiểm tra / Xác minh (Verification):
   - Vitest TC-022-01/02.
   - Số liệu dashboard so với truy vấn SQL viết tay qua Supabase MCP → khớp toàn bộ.

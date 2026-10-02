@@ -33,7 +33,7 @@ Người dùng thấy giao diện UniFound đúng `DESIGN.md` (header, nav, icon
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/02_requirements_design.md` (mục 1, 2 FR01–FR02, 7 S02/S10)
 - `docs/02_reports/03_development.md` (mục 4 biến môi trường)
 - `node_modules/next/dist/docs/` (Next.js bản này có breaking changes)
@@ -81,7 +81,7 @@ Người dùng thấy giao diện UniFound đúng `DESIGN.md` (header, nav, icon
 - Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5), Supabase MCP (đọc cấu trúc DB, `search_docs` cho mẫu SSR/proxy), plugin ponytail.
 - Đầu vào / Ngữ cảnh (Input/Context): CHG-014, ERD mục 9, `03_development.md` mục 4/6, docs Next.js 16 trong `node_modules/next/dist/docs` (proxy, PageProps).
 - Kết quả AI (AI Output): 10 bảng + enum chữ hoa, migration drop schema cũ, `src/proxy.ts`, `src/lib/auth/*`, form có lỗi theo field.
-- Quyết định của nhóm (Human Decision): chờ xác nhận. Chủ dự án đã chọn: cho phép drop dữ liệu cũ; giữ bật xác nhận email; domain `gm.uit.edu.vn,uit.edu.vn`; không commit.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02: chủ dự án ủy quyền AI khảo sát và xác nhận; đã đối chiếu `02_requirements_design.md`, code và test hiện có). Chủ dự án đã chọn: cho phép drop dữ liệu cũ; giữ bật xác nhận email; domain `gm.uit.edu.vn,uit.edu.vn`; không commit.
 - Kiểm tra / Xác minh (Verification): `npm run db:migrate` thành công; Supabase MCP xác nhận 10 bảng đều bật RLS; Vitest TC-014-01/02; Playwright kiểm tra luồng thật (bảng Test case).
 - Ứng viên đưa vào báo cáo: có
 
@@ -91,7 +91,7 @@ Người dùng thấy giao diện UniFound đúng `DESIGN.md` (header, nav, icon
 - Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5 và Sonnet 5.5), skill impeccable (`detect`), Playwright.
 - Đầu vào / Ngữ cảnh (Input/Context): `docs/02_reports/assets/claude_ui_mockups/` (HTML, `uf.css`, ảnh chụp), `07_brand_identity.md`. Chủ dự án chỉ ra giao diện chưa giống mockup; AI đối chiếu và nêu mâu thuẫn giữa `DESIGN.md` và mockup; chủ dự án chọn theo mockup, phạm vi toàn bộ màn hình.
 - Kết quả AI (AI Output): `globals.css`, header/menu/tab, bảng tin (ô tìm kiếm pill, hàng danh mục, thẻ), chi tiết tin (cột hành động bên phải, bước tiến độ, thanh hành động trên điện thoại), gợi ý (điểm lớn, lý do kèm điểm, bảng cách tính), Tin của tôi (hàng, 4 bước tiến độ), form đăng tin (ô chọn loại tin và danh mục, thanh nút cố định), đăng nhập; cập nhật `DESIGN.md`.
-- Quyết định của nhóm (Human Decision): Accepted phần chọn hướng (theo mockup, xanh dương, toàn bộ); phần kết quả chờ xác nhận.
+- Quyết định của nhóm (Human Decision): Accepted phần chọn hướng (theo mockup, xanh dương, toàn bộ); phần kết quả Accepted (2026-10-02: chủ dự án ủy quyền AI khảo sát và xác nhận; đã đối chiếu `02_requirements_design.md`, code và test hiện có).
 - Kiểm tra / Xác minh (Verification): Ảnh chụp desktop 1440px và iPhone 13 so với ảnh chụp trong mockup; `impeccable detect` còn 0 cảnh báo; E2E 4/4 trên bản build; quét 17 màn hình mobile (xem CHG-023).
 - Ứng viên đưa vào báo cáo: có (ví dụ AI phát hiện hai nguồn thiết kế mâu thuẫn và để chủ dự án quyết định)
 
@@ -101,7 +101,7 @@ Người dùng thấy giao diện UniFound đúng `DESIGN.md` (header, nav, icon
 - Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5), skill impeccable (đọc PRODUCT.md/DESIGN.md, craft floor).
 - Đầu vào / Ngữ cảnh (Input/Context): `DESIGN.md` (nguồn chuẩn), không dùng mockup CHG-012 làm hướng dẫn.
 - Kết quả AI (AI Output): `src/app/globals.css` (`@theme` Tailwind v4 + lớp `.btn/.panel/.control/.badge/.segmented`), `src/components/ui/*`, `src/components/layout/*`; menu điện thoại dùng `<details>` (không cần JS).
-- Quyết định của nhóm (Human Decision): chờ xác nhận.
+- Quyết định của nhóm (Human Decision): Modified (2026-10-02): bản đầu đã được thay bằng AI-3 theo mockup.
 - Kiểm tra / Xác minh (Verification): ảnh chụp Playwright desktop 1280px và iPhone 13; không tràn ngang; thứ tự Tab hợp lý trên form hồ sơ. Ghi chú: `PRODUCT.md` (file chưa commit) còn ghi quyết định cũ (status chữ thường, danh mục cố định), lệch với CHG; đã theo CHG/`02_requirements_design.md`.
 - Ứng viên đưa vào báo cáo: có
 

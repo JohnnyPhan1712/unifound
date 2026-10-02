@@ -104,6 +104,8 @@ Chỉ force push (`--force-with-lease`) trên branch công việc của chính m
 
 **Tại sao rebase? Giữ lịch sử Git gọn hơn merge, dễ review hơn trong PR.**
 
+> Tài liệu này viết cho người. AI agent không được chạy `git reset --hard`, `git checkout -- .` hoặc force push (xem `AGENTS.md`).
+
 ## Lệnh hữu ích
 
 | Lệnh | Ý nghĩa |

@@ -29,7 +29,7 @@ Sinh viên vào "Tin của tôi" xem các tin đã đăng, sửa, đóng hoặc 
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/02_requirements_design.md` (FR05, S07, acceptance criteria FR05/FR14)
 
 ## Acceptance criteria
@@ -65,7 +65,7 @@ Sinh viên vào "Tin của tôi" xem các tin đã đăng, sửa, đóng hoặc 
   - `canManageReport`, `statusAllows`.
   - Action `updateReport`/`closeReport`/`deleteReport`.
   - Component `ManageActions`, trang `/my`, `/reports/[id]/edit`.
-- Quyết định của nhóm (Human Decision): chờ xác nhận. Quy ước trạng thái được phép là đề xuất của AI, cần nhóm xác nhận.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02: chủ dự án ủy quyền AI khảo sát và xác nhận; đã đối chiếu `02_requirements_design.md`, code và test hiện có). Quy ước trạng thái (chỉ sửa/đóng tin `OPEN`; không xóa tin `IN_PROGRESS`/`RETURNED`) được giữ vì bảo toàn dữ liệu bàn giao.
 - Kiểm tra / Xác minh (Verification):
   - Vitest TC-017-01/02.
   - Playwright với 3 tài khoản. Tài khoản B tự sửa giá trị `id` ẩn trong form của mình thành tin của A rồi gửi, để gọi action trực tiếp.

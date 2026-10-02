@@ -40,7 +40,7 @@ Repo chỉ còn skeleton Next.js sạch và cấu hình nền, không còn code 
 ## File/tài liệu cần đọc trước khi thực hiện
 
 - `docs/01_changes/README.md` (CHG-007 → CHG-011 `rejected`)
-- `docs/00_guides/code_conventions.md`, `docs/00_guides/git_workflow.md`
+- `docs/00_guides/conventions.md`, `docs/00_guides/git_workflow.md`
 - `git ls-files src tests drizzle` để lập danh sách xóa thật, không dựa vào danh sách trong CHG này
 
 ## Acceptance criteria
@@ -62,6 +62,7 @@ Repo chỉ còn skeleton Next.js sạch và cấu hình nền, không còn code 
 - Kết quả AI (AI Output): `git rm` theo 7 nhóm (người dùng duyệt từng nhóm), viết lại `layout.tsx`/`page.tsx`/`globals.css`, thêm `src/smoke.test.ts`.
 - Quyết định của nhóm (Human Decision): chờ xác nhận (người dùng đã duyệt từng nhóm xóa trong phiên)
 - Kiểm tra / Xác minh (Verification): TC-013-01 → 06; `npm run typecheck`, `npm test`, `npm run build` pass.
+- Cập nhật 2026-10-02: file `code_conventions.md` đã được đổi tên thành `conventions.md`; tên cũ ở ô "Đầu vào / Ngữ cảnh" giữ nguyên vì đúng với thời điểm ghi log.
 - Ứng viên đưa vào báo cáo: không
 
 ### AI-2 — Xử lý lỗi môi trường khi typecheck/build

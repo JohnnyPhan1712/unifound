@@ -2,8 +2,9 @@
 
 ## Nguyên tắc chung
 
-- Quy ước formatter/linter trong project sẽ ưu tiên hơn tài liệu này.
-- Tên kỹ thuật dùng tiếng Anh không dấu; nội dung tài liệu và giao diệu dùng tiếng Việt.
+- Quy ước linter trong project (`eslint.config.mjs`) ưu tiên hơn tài liệu này.
+- Giữ code tối giản theo ponytail (xem `AGENTS.md`), bao gồm việc không thêm dependency khi nền tảng hoặc dependency sẵn có đã đủ.
+- Tên kỹ thuật dùng tiếng Anh không dấu; nội dung tài liệu và giao diện dùng tiếng Việt.
 - Không dùng `new`, `latest`, `final`, `temp` hoặc tên cá nhân để quản lý phiên bản.
 - Giữ tên trạng thái và field giống nhau giữa UI, API, backend và database.
 
@@ -13,7 +14,6 @@
 - Validate dữ liệu ở ranh giới nhận input; không tin dữ liệu từ client.
 - Xử lý trạng thái loading, empty, lỗi và thao tác bất đồng bộ trên UI.
 - Không hard-code secret, credential hoặc dữ liệu cá nhân thật.
-- Không thêm dependency nếu nền tảng hoặc dependency sẵn có đã giải quyết được.
 - Comment giải thích lý do hoặc giới hạn, không diễn giải lại code.
 - Một thay đổi logic không hiển nhiên phải có kiểm tra nhỏ nhất chứng minh hành vi chính.
 
@@ -22,7 +22,7 @@
 ### Thư mục và tài liệu
 
 - Thư mục: `NN_lower_snake_case` (ví dụ: `00_guides`, `01_changes`)
-- Tài liệu: `lower_snake_case.md` (ví dụ: `git_workflow.md`, `code_conventions.md`)
+- Tài liệu: `lower_snake_case.md` (ví dụ: `git_workflow.md`, `conventions.md`)
 - Tài liệu thay đổi (CHG): `CHG-NNN_lower_snake_case.md` (ví dụ: `CHG-011_claim_and_return_flow.md`)
 
 ### Branch và commit
@@ -44,6 +44,7 @@ Sử dụng tiền tố chuẩn:
 | `CHG` | Change/Task |
 | `BUG` | Bug Report |
 | `TC` | Test Case |
+| `DEC` | Decision (quyết định) |
 
 Ví dụ: `US-01`, `DEC-001`, `CHG-011`, `BUG-042`
 
@@ -61,7 +62,7 @@ Nguồn duy nhất là `src/db/schema.ts` (enum `report_status`, `claim_status`,
 
 ## Trước khi hoàn thành công việc
 
-- Chạy formatter/linter/test/build có trong project.
+- Chạy `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`; với thay đổi code, chạy `/ponytail-review` để rà over-engineering.
 - Xem lại diff và loại file sinh tự động không cần commit.
 - Cập nhật CHG/report liên quan theo kết quả thật.
 - Không commit secret, file tạm, build output hoặc thay đổi không liên quan.

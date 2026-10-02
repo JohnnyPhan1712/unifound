@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/field";
 import { ActionMessage } from "@/components/ui/notice";
 import { SubmitButton } from "@/components/ui/submit-button";
 
-function PasswordField({ label, name, autoComplete, error, hint }: { label: string; name: string; autoComplete: string; error?: string[]; hint?: string }) {
+export function PasswordField({ label, name, autoComplete, error, hint }: { label: string; name: string; autoComplete: string; error?: string[]; hint?: string }) {
   const [shown, setShown] = useState(false);
   const id = `f-${name}`;
   return (
@@ -60,7 +60,7 @@ function PasswordField({ label, name, autoComplete, error, hint }: { label: stri
 export function AuthForm({ mode, next, domains }: { mode: "login" | "register"; next?: string; domains: string[] }) {
   const [state, action] = useActionState(mode === "login" ? login : register, idle);
   const errors = state.fieldErrors ?? {};
-  const domainHint = `Dùng email trường: ${domains.map((d) => "@" + d).join(" hoặc ")}`;
+  const domainHint = "Dùng email do trường cấp (các trường thuộc ĐHQG-HCM khu vực Thủ Đức).";
 
   return (
     <form action={action} className="grid gap-5" noValidate>
@@ -80,6 +80,11 @@ export function AuthForm({ mode, next, domains }: { mode: "login" | "register"; 
       />
       <PasswordField label="Mật khẩu" name="password" autoComplete={mode === "login" ? "current-password" : "new-password"} error={errors.password} hint={mode === "register" ? "Tối thiểu 8 ký tự." : undefined} />
       {mode === "register" && <PasswordField label="Nhập lại mật khẩu" name="confirmPassword" autoComplete="new-password" error={errors.confirmPassword} />}
+      {mode === "login" && (
+        <Link href="/forgot-password" className="-mt-2 justify-self-start text-[0.875rem] font-semibold text-ink">
+          Quên mật khẩu?
+        </Link>
+      )}
       <SubmitButton className="btn btn-primary btn-block" pendingText={mode === "login" ? "Đang đăng nhập…" : "Đang tạo tài khoản…"}>
         {mode === "login" ? "Đăng nhập" : "Tạo tài khoản"}
       </SubmitButton>

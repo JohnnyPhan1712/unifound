@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Check, Info, ShieldCheck, Sparkles } from "lucide-react";
+import { Check, ShieldCheck, Sparkles } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
 import { TypeBadge } from "@/components/ui/badges";
 import { DismissButton } from "@/components/matching/dismiss-button";

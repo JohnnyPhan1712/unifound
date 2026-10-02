@@ -33,7 +33,7 @@ Có dữ liệu mẫu (trường, danh mục, địa điểm, vài tin). Sinh vi
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/02_requirements_design.md` (FR03, FR04, S03, mục 9 ERD)
 - `docs/02_reports/03_development.md` (mục 6 Database workflow)
 - Skill Supabase (Storage)
@@ -73,7 +73,7 @@ Có dữ liệu mẫu (trường, danh mục, địa điểm, vài tin). Sinh vi
 - Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5), Supabase MCP (đọc cấu trúc `auth`/`storage`), plugin ponytail.
 - Đầu vào / Ngữ cảnh (Input/Context): FR03/FR04, giới hạn body server action/Vercel, yêu cầu "Zod server-side: số ảnh 1–5, giới hạn dung lượng/định dạng".
 - Kết quả AI (AI Output): Bucket có `file_size_limit`/`allowed_mime_types` + policy theo thư mục user + server đối chiếu `storage.objects`; Zod `discriminatedUnion` LOST/FOUND.
-- Quyết định của nhóm (Human Decision): chờ xác nhận.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02: chủ dự án ủy quyền AI khảo sát và xác nhận; đã đối chiếu `02_requirements_design.md`, code và test hiện có).
 - Kiểm tra / Xác minh (Verification): Gọi Storage API trực tiếp bằng tài khoản demo (bỏ qua kiểm tra phía client), cả ba trường hợp đều bị server từ chối:
   - Ảnh GIF → "mime type image/gif is not supported".
   - Ảnh 6 MB → "The object exceeded the maximum allowed size".

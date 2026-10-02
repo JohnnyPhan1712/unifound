@@ -240,6 +240,7 @@ Project Supabase đã được tạo và các công nghệ trong stack đã đư
 | Run development | `npm run dev` |
 | Unit Test | `npm test` |
 | End-to-End Test | `npm run test:e2e` |
+| Lint | `npm run lint` |
 | Typecheck | `npm run typecheck` |
 | Build | `npm run build` |
 | Sinh migration | `npm run db:generate` |
