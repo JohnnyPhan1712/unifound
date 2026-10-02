@@ -56,7 +56,7 @@ UniFound tập trung Lost/Found Report về một nơi, gợi ý các cặp có 
 
 | ID | Vai trò | Tôi muốn… | Để… | Ưu tiên |
 |---|---|---|---|---|
-| US01 | Sinh viên | đăng nhập bằng email trường | không phải nhớ thêm mật khẩu và hệ thống biết tôi là sinh viên thật | Cao |
+| US01 | Sinh viên | đăng nhập bằng email trường | hệ thống biết tôi là sinh viên thật và tôi tự đặt lại mật khẩu được khi quên | Cao |
 | US02 | Người mất đồ | đăng tin kèm ảnh, mô tả, nơi và thời điểm làm mất | mọi người dễ nhận ra món đồ của tôi | Cao |
 | US03 | Người nhặt đồ | đăng tin nhặt được, ghi nơi đang giữ và đặt câu hỏi xác minh | đồ được trả đúng chủ | Cao |
 | US04 | Mọi người dùng | xem bảng tin và lọc theo loại tin, danh mục, trường, thời gian | nhanh chóng thu hẹp danh sách | Cao |

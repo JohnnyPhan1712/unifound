@@ -280,7 +280,7 @@ PostgreSQL trên Supabase
 - Target: Vercel.
 - Cấu hình environment variables trên môi trường deploy bằng đúng tên ở mục 4; không commit giá trị thật.
 - Build command và cấu hình runtime: `npm run build`.
-- Production/demo URL: `TBD`; không tạo URL giả.
+- Production/demo URL: https://unifound-blue.vercel.app/ (do nhóm trưởng deploy 2026-10-02; kiểm thử trên URL này xem `05_testing_deployment.md`).
 
 ## 9. Cấu trúc thư mục dự kiến
 

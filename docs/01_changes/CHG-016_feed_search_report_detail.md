@@ -1,7 +1,7 @@
 # CHG-016: Bảng tin, tìm kiếm và chi tiết tin
 
 - ID: `CHG-016`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-015`
