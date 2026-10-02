@@ -3,7 +3,7 @@
 - ID: `CHG-023`
 - Trạng thái: `waiting_for_integration`
 - Ngày tạo: `2026-09-30`
-- Người phụ trách: `Trần Minh Chiến`
+- Người phụ trách: `Dương Đăng Khang`
 - Dependency: `CHG-014` → `CHG-022`
 - File/module dự kiến sửa/tạo: `tests/e2e/*.spec.ts`, `playwright.config.ts`, `README.md`, các component UI cần polish, cấu hình Vercel/env (không commit giá trị thật)
 - Branch: `không tạo branch` (một người thực hiện CHG-014 → CHG-023, push thẳng vào `main`)
