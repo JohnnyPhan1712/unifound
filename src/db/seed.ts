@@ -14,7 +14,11 @@ const { schools, categories, locations, users, reports } = schema;
 
 const SCHOOLS = [
   { code: "UIT", name: "Trường ĐH Công nghệ Thông tin", emailDomain: "gm.uit.edu.vn" },
-  { code: "HCMUS", name: "Trường ĐH Khoa học Tự nhiên", emailDomain: null },
+  { code: "HCMUS", name: "Trường ĐH Khoa học Tự nhiên", emailDomain: "student.hcmus.edu.vn" },
+  { code: "HCMUT", name: "Trường ĐH Bách khoa", emailDomain: "hcmut.edu.vn" },
+  { code: "USSH", name: "Trường ĐH Khoa học Xã hội và Nhân văn", emailDomain: "hcmussh.edu.vn" },
+  { code: "IU", name: "Trường ĐH Quốc tế", emailDomain: "student.hcmiu.edu.vn" },
+  { code: "UEL", name: "Trường ĐH Kinh tế - Luật", emailDomain: "st.uel.edu.vn" },
 ];
 
 const CATEGORIES = [

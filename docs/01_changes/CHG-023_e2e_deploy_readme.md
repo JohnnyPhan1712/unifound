@@ -32,7 +32,7 @@ Luồng chính chạy trọn vẹn và có test tự động: đăng nhập → 
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/01_overview.md` (mục 6, 7), `docs/02_reports/03_development.md` (mục 7, 8)
 - Các CHG-014 → CHG-022 (acceptance criteria, bug ghi nhận)
 
@@ -97,7 +97,7 @@ Luồng chính chạy trọn vẹn và có test tự động: đăng nhập → 
 - Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5), Playwright (thư viện; phiên này không có Playwright MCP).
 - Đầu vào / Ngữ cảnh (Input/Context): `03_development.md` mục 7, `01_overview.md` mục 6–7, acceptance criteria CHG-014 → CHG-022.
 - Kết quả AI (AI Output): `tests/e2e/{helpers,golden-path.spec,edge-cases.spec}.ts`, `playwright.config.ts`.
-- Quyết định của nhóm (Human Decision): chờ xác nhận.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02: chủ dự án ủy quyền AI khảo sát và xác nhận; đã đối chiếu `02_requirements_design.md`, code và test hiện có).
 - Kiểm tra / Xác minh (Verification):
   - Lần chạy đầu: 3/4 pass. Ca đăng ký fail do selector `getByLabel("Mật khẩu", { exact: true })` không khớp nhãn có dấu `*`; lỗi nằm ở test, không phải app.
   - Đã đổi sang regex → 4/4 pass (1,6 phút).
@@ -109,9 +109,19 @@ Luồng chính chạy trọn vẹn và có test tự động: đăng nhập → 
 - Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5), skill impeccable (`detect`), Playwright.
 - Đầu vào / Ngữ cảnh (Input/Context): DESIGN.md, các màn S01–S13.
 - Kết quả AI (AI Output): Detector báo 5 cảnh báo advisory, đã sửa 3. Quét mobile tìm ra 2 lỗi bố cục (BUG-1, BUG-2).
-- Quyết định của nhóm (Human Decision): chờ xác nhận.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02: chủ dự án ủy quyền AI khảo sát và xác nhận; đã đối chiếu `02_requirements_design.md`, code và test hiện có).
 - Kiểm tra / Xác minh (Verification): Chạy lại detector còn 2 cảnh báo có chủ ý; quét lại 17 màn hình đều đạt.
 - Ứng viên đưa vào báo cáo: có
+
+### AI-3 — Dọn dữ liệu test trên DB dev/demo
+
+- Nhiệm vụ (Task): Xóa dữ liệu do test E2E và test tay tạo ra, giữ nguyên dữ liệu seed.
+- Công cụ AI (AI Tool): Claude Code (Sonnet 5.5), Supabase MCP (`execute_sql`), Storage API qua `@supabase/supabase-js`.
+- Đầu vào / Ngữ cảnh (Input/Context): Chủ dự án chọn phương án "xóa tin E2E, tin tay, tài khoản test"; liệt kê (SELECT) trước, chủ dự án duyệt danh sách rồi mới xóa.
+- Kết quả AI (AI Output): Xóa 25 file ảnh qua Storage API (đăng nhập bằng từng tài khoản demo sở hữu thư mục); chủ dự án tự chạy SQL xóa 55 thông báo, báo cáo vi phạm trên tin seed, 18 tin (8 E2E + 10 tin tay) kèm 12 yêu cầu nhận, 9 gợi ý, và 2 tài khoản chưa xác nhận email; đặt lại tin seed "Quên bình nước giữ nhiệt" về `OPEN`.
+- Quyết định của nhóm (Human Decision): Accepted (chủ dự án duyệt danh sách xóa ngày 2026-10-02).
+- Kiểm tra / Xác minh (Verification): Đếm lại bằng SELECT: 8 tin (đều là seed), 0 claim/match/notification/flag/ảnh, `storage.objects` = 0; `npm run db:seed` chạy lại không tạo trùng (8 tin). Lưu ý: lệnh SQL xóa trong DB bị hệ thống phân quyền của Claude Code chặn nên do chủ dự án chạy. Còn 2 hồ sơ mồ côi trong `public.users` (của hai tài khoản test đã xóa, bảng không có khóa ngoại sang `auth.users`); lệnh xóa bị từ chối, chờ chủ dự án xử lý.
+- Ứng viên đưa vào báo cáo: không
 
 ## Bug
 
@@ -144,7 +154,7 @@ Luồng chính chạy trọn vẹn và có test tự động: đăng nhập → 
 | TC-023-03 | Duyệt UI mobile toàn bộ màn hình chính (Playwright MCP) | Không vỡ layout | 17 màn hình (khách/sinh viên/admin) trên iPhone 13: không tràn ngang, đủ nhãn form, không lỗi JS; đã sửa BUG-1/2 | Passed | ảnh `023_m_*.png` (thư viện Playwright, không có Playwright MCP trong phiên) |
 | TC-023-04 | Kiểm tra đáp án/liên hệ không lộ trên feed và chi tiết | Không lộ | Golden path kiểm HTML chi tiết không có đáp án; edge case kiểm người thứ ba không thấy câu trả lời; kết quả tương ứng ở TC-016-06, TC-019-08, TC-020-07 | Passed | E2E + CHG-016/019/020 |
 | TC-023-05 | Chạy golden path trên URL Vercel | Thành công | Chưa deploy (Vercel CLI chưa đăng nhập, cần chủ dự án) | Pending | |
-| TC-023-06 | Làm theo README trên máy sạch | Cài và chạy được | Chưa thử trên máy sạch. Trên máy hiện tại: `npm ci`, `db:migrate`, `db:seed` (chạy lặp lại), `typecheck`, `test`, `build`, `test:e2e` đều chạy được | Pending | |
+| TC-023-06 | Làm theo README trên máy sạch | Cài và chạy được | Mô phỏng máy sạch (2026-10-02): `git clone` bản commit `1250428` vào thư mục trống, Node 24.20.0 / npm 11.19.0, `npm ci`, chép `.env.local` (thay cho bước điền `.env.example`), `db:migrate` (chỉ có NOTICE "already exists, skipping"), `db:seed` (chạy lại không trùng), `typecheck`, `test` 68/68, `build`, `next start` → `/` và `/login` trả 200. Chưa chạy lại E2E (tránh thêm tin thử); chưa thử trên máy vật lý khác | Passed (mô phỏng) | log lệnh phiên 2026-10-02 |
 | TC-023-07 | NFR: tải feed < 3 giây | < 3 giây | Bản build: 0,56–0,6 s (xem TC-016-07) | Passed | CHG-016 |
 | TC-023-08 | Vitest + typecheck + build | Pass | 66/66 unit test, typecheck pass, build pass (17 route) | Passed | log lệnh |
 

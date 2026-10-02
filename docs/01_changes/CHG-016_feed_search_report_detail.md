@@ -31,7 +31,7 @@ Mọi người (kể cả khách) xem bảng tin hai tab Mất đồ / Nhặt đ
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/02_requirements_design.md` (FR06, FR07, S01, S04, quy tắc nghiệp vụ)
 - `docs/02_reports/03_development.md` (mục 6 Tìm kiếm, Hết hạn)
 
@@ -69,7 +69,7 @@ Mọi người (kể cả khách) xem bảng tin hai tab Mất đồ / Nhặt đ
 - Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5), Supabase MCP (kiểm tra `search_vector` bằng select), plugin ponytail.
 - Đầu vào / Ngữ cảnh (Input/Context): FR06, FR07, S01, S04, `03_development.md` mục 6.
 - Kết quả AI (AI Output): `src/lib/reports/query.ts` (`parseFeedParams`, `feedConditions`, `getFeed`, `getReport`), migration 0004, `src/app/page.tsx`, `src/app/reports/[id]/page.tsx`.
-- Quyết định của nhóm (Human Decision): chờ xác nhận.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02: chủ dự án ủy quyền AI khảo sát và xác nhận; đã đối chiếu `02_requirements_design.md`, code và test hiện có).
 - Kiểm tra / Xác minh (Verification): Vitest dịch điều kiện sang SQL bằng `PgDialect` và kiểm tra từng mệnh đề/tham số; Playwright trên dữ liệu seed; đo thời gian tải trên bản build production.
 - Ứng viên đưa vào báo cáo: có
 
@@ -93,7 +93,7 @@ Mọi người (kể cả khách) xem bảng tin hai tab Mất đồ / Nhặt đ
 | TC-016-02 | Vitest: kiểm tra hết hạn / HIDDEN | Loại bỏ đúng | Feed luôn có `expires_at > now` và `status in (OPEN, IN_PROGRESS, RETURNED)`; `HIDDEN` không công khai; cột công khai không có `verifyAnswer` | Passed | `src/lib/reports/query.test.ts`, `reports.test.ts` (ranh giới hết hạn) |
 | TC-016-03 | Tìm "ví" / "thẻ sinh viên" trên dữ liệu seed | Ra tin liên quan | "ví" (Mất đồ) → 2 tin ví; "thẻ sinh viên" (Nhặt được) → "Nhặt được thẻ sinh viên" | Passed | Playwright, `016_search.png` |
 | TC-016-04 | Kết hợp lọc + tìm kiếm + đổi trang | Kết quả nhất quán | Danh mục + trường → 1 tin; thêm từ khóa giữ nguyên bộ lọc trong URL, curl xác nhận ra đúng tin. Phân trang: dữ liệu seed chưa đủ 12 tin/tab nên chưa thấy trang 2 trên UI; link phân trang giữ tham số lọc (`feedHref`) | Passed (phân trang kiểm lại khi đủ dữ liệu ở CHG-023) | Playwright + curl |
-| TC-016-05 | Tin hết hạn/ẩn (sửa dữ liệu test) | Không hiện trong feed | Chưa sửa dữ liệu trực tiếp (cần chủ dự án cho phép ghi DB). Điều kiện SQL đã được kiểm ở TC-016-02. Tin `CLOSED` đã kiểm trên luồng thật ở CHG-017 (TC-017-04: đóng tin → biến khỏi feed); tin `HIDDEN` đã kiểm ở CHG-021 (TC-021-04: ẩn → biến khỏi feed, khách mở chi tiết 404); tin hết hạn chưa kiểm trên UI | Pending (còn tin hết hạn) | TC-017-04, TC-021-04 |
+| TC-016-05 | Tin hết hạn/ẩn (sửa dữ liệu test) | Không hiện trong feed | Đã kiểm trên giao diện thật (2026-10-02, chủ dự án cho phép ghi DB): đặt `expires_at` của một tin E2E về quá khứ → khách tìm theo tiêu đề không thấy tin trong feed (0 liên kết); mở chi tiết vẫn 200 nhưng hiện nhãn "Đã hết hạn", không nhận yêu cầu. Khôi phục đúng `expires_at` cũ → tin hiện lại trong feed (đối chứng). Tin `CLOSED` ở TC-017-04, `HIDDEN` ở TC-021-04 | Passed | Playwright (script tạm), Supabase MCP `execute_sql`; dữ liệu đã khôi phục |
 | TC-016-06 | Mở chi tiết FOUND, xem response/HTML | Không có đáp án xác minh, không có liên hệ | HTML chi tiết tin FOUND không chứa đáp án, câu hỏi xác minh hay số liên hệ | Passed | Playwright (`page.content()`), `016_detail_desktop.png` |
 | TC-016-07 | Đo tải feed (Playwright MCP) | < 3 giây | Bản build (`next start`): `loadEventEnd` 564–598 ms, curl 0,56 s khi đã chạy, 2,5 s lần đầu (khởi động lạnh). Dev mode 8–11 s do biên dịch, không dùng làm kết quả | Passed | Playwright `performance` navigation timing (thư viện Playwright, không có Playwright MCP trong phiên) |
 | TC-016-08 | Feed ở mobile và empty state | Không vỡ layout | iPhone 13: feed và chi tiết không tràn ngang; từ khóa không có kết quả → empty state "Không có tin khớp bộ lọc" + nút xóa bộ lọc | Passed | `016_feed_mobile.png`, `016_detail_mobile.png`, `016_empty.png` |

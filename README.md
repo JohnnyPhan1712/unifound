@@ -6,7 +6,7 @@ URL demo: `TBD` (chưa deploy, xem [CHG-023](docs/01_changes/CHG-023_e2e_deploy_
 
 ## Tính năng
 
-- **Tài khoản:** đăng ký/đăng nhập bằng email trường (`ALLOWED_EMAIL_DOMAINS`), xác nhận email qua Supabase Auth, hồ sơ (họ tên, MSSV, trường, liên hệ riêng tư).
+- **Tài khoản:** đăng ký/đăng nhập bằng email trường (`ALLOWED_EMAIL_DOMAINS`), xác nhận email qua Supabase Auth, quên/đặt lại mật khẩu qua email, hồ sơ (họ tên, MSSV, trường, liên hệ riêng tư).
 - **Tin đăng:** 1–5 ảnh (Supabase Storage), tin Nhặt được có nơi giữ đồ + câu hỏi/đáp án xác minh, tự hết hạn sau 60 ngày; sửa/đóng/xóa tin của mình.
 - **Bảng tin:** hai tab, tìm kiếm full-text PostgreSQL, lọc theo danh mục/trường/địa điểm/khoảng ngày, phân trang.
 - **Gợi ý phù hợp:** chấm điểm deterministic (địa điểm, trường, thời gian, từ khóa; lưu từ 50 điểm), luôn kèm lý do, nút "Không phải".
@@ -41,7 +41,7 @@ Mở bằng `http://localhost:3000` (Next.js 16 chặn tài nguyên dev khi mở
 | `NEXT_PUBLIC_SUPABASE_URL` | client + server | URL project Supabase |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | client + server | Publishable (anon) key |
 | `DATABASE_URL` | server | Kết nối Postgres cho Drizzle (transaction pooler) |
-| `ALLOWED_EMAIL_DOMAINS` | server | Tên miền email hợp lệ, phân tách bằng dấu phẩy, ví dụ `gm.uit.edu.vn,uit.edu.vn` |
+| `ALLOWED_EMAIL_DOMAINS` | server | Tên miền email hợp lệ, phân tách bằng dấu phẩy, hiện gồm `gm.uit.edu.vn,uit.edu.vn,hcmut.edu.vn,student.hcmus.edu.vn,hcmussh.edu.vn,student.hcmiu.edu.vn,st.uel.edu.vn`; đặt cùng giá trị trên Vercel |
 | `SEED_DEMO_PASSWORD` | chỉ seed/E2E | Mật khẩu chung của tài khoản demo do seed tạo (≥ 8 ký tự) |
 
 Supabase Auth đang bật "Confirm email": đăng ký thật cần bấm link trong mail. Khi dùng với sinh viên thật nên cấu hình Custom SMTP trong Supabase vì dịch vụ mail mặc định giới hạn rất thấp.

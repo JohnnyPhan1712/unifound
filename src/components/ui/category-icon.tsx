@@ -10,6 +10,7 @@ import {
   Smartphone,
   Wallet,
   type LucideIcon,
+  type LucideProps,
 } from "lucide-react";
 
 const RULES: [RegExp, LucideIcon][] = [
@@ -24,13 +25,15 @@ const RULES: [RegExp, LucideIcon][] = [
   [/quần|áo|phụ kiện/i, Shirt],
 ];
 
-/** Icon theo tên danh mục (danh mục do admin tự thêm nên dò theo từ khóa, mặc định là dấu ba chấm). */
-export function categoryIcon(name?: string | null): LucideIcon {
-  if (!name) return CircleEllipsis;
-  return RULES.find(([re]) => re.test(name))?.[1] ?? CircleEllipsis;
+/**
+ * Icon theo tên danh mục (danh mục do admin tự thêm nên dò theo từ khóa, mặc định là dấu ba chấm).
+ * Trả về element thay vì component để không tạo component trong lúc render.
+ */
+export function categoryIcon(name: string | null | undefined, props: LucideProps) {
+  const Icon: LucideIcon = (name && RULES.find(([re]) => re.test(name))?.[1]) || CircleEllipsis;
+  return <Icon {...props} />;
 }
 
 export function CategoryIcon({ name, className = "size-6" }: { name?: string | null; className?: string }) {
-  const Icon = categoryIcon(name);
-  return <Icon className={className} aria-hidden />;
+  return categoryIcon(name, { className, "aria-hidden": true });
 }

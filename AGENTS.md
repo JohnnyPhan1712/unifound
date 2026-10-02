@@ -16,13 +16,13 @@ UniFound (Smart Lost & Found) là Mini Project web: Next.js, TypeScript, Supabas
 
 | Cần gì | Đọc |
 |---|---|
-| **Bắt buộc đọc trước khi viết code/commit** (git, đặt tên, viết mã) | `docs/00_guides/code_conventions.md` |
+| **Bắt buộc đọc trước khi viết code/commit** (git, đặt tên, viết mã) | `docs/00_guides/conventions.md` |
 | Tạo và thực hiện task/CHG, ghi log | `docs/00_guides/changes_workflow.md` |
 | Lệnh git thực tế | `docs/00_guides/git_workflow.md` |
 | Danh sách CHG và số CHG tiếp theo | `docs/01_changes/README.md` |
 | Tra cứu báo cáo mà không đọc hết | `docs/02_reports/README.md` (mục lục) |
 | Lệnh chạy, test, biến môi trường | `docs/02_reports/03_development.md` |
-| Thiết kế UI/UX (nền Airbnb, chỉ đổi branding cho UniFound) | DESIGN.md |
+| Thiết kế UI/UX (nền Airbnb, chỉ đổi branding cho UniFound) | `DESIGN.md` |
 | Tham khảo nghiệp vụ | [iLost](https://ilost.co/) |
 
 ## Công cụ UI (skill/MCP đã cài)
@@ -71,11 +71,12 @@ Quy tắc:
 
 ## Khi được giao thực hiện một task
 
-1. Nếu người dùng chưa tạo CHG (hoặc chỉ đưa prompt yêu cầu làm luôn): tự tạo CHG trước khi code, theo template trong `changes_workflow.md`, số lấy từ `docs/01_changes/README.md`, rồi thêm dòng vào bảng ở README đó.
-2. Chỉ làm trong phạm vi CHG; xử lý dependency theo `changes_workflow.md`.
-3. Ghi AI Log, Bug, Test case vào CHG ngay khi phát sinh (mẫu ở template CHG).
-4. Trước khi báo xong: chạy `npm run typecheck`, `npm test`, `npm run build`; cập nhật acceptance criteria và evidence trong CHG. Nếu có thay đổi UI, kiểm tra bằng Playwright MCP.
-5. Không tự chuyển CHG sang `done`.
+1. Nếu người dùng chưa tạo CHG và nhờ sửa file project (tech stack): tự tạo CHG làm plan để người dùng xem trước, theo template trong `changes_workflow.md`, số lấy từ `docs/01_changes/README.md`, rồi thêm dòng vào bảng ở README đó. Khi tạo plan không hỏi lại và không sửa docs khác.
+2. Khi người dùng bảo bắt đầu: tự làm luôn, tự cập nhật trạng thái CHG (`approved` → `in_progress`), xong thì chuyển `in_review`. Nếu người dùng (nhóm trưởng) tự tạo CHG để giao cho nhóm thì để `proposed`, chỉ chuyển `approved` khi được nhờ.
+3. Chỉ làm trong phạm vi CHG; xử lý dependency theo `changes_workflow.md`.
+4. Ghi AI Log, Bug, Test case vào CHG ngay khi phát sinh (mẫu ở template CHG).
+5. Trước khi báo xong: chạy `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`, và `/ponytail-review`; cập nhật acceptance criteria và evidence trong CHG. Nếu có thay đổi UI, kiểm tra bằng Playwright MCP.
+6. Không tự chuyển CHG sang `done`.
 
 ## Ghi log trung thực
 
@@ -91,7 +92,8 @@ Quy tắc:
 
 - Trạng thái trong docs/CHG có thể lạc hậu (người dùng tự kiểm tra lại): không dựa vào đó để kết luận việc đã xong; kiểm tra code thật.
 - Không sửa `docs/00_guides/` và `docs/02_reports/` trừ khi được yêu cầu (ngoại lệ duy nhất: 04 và 05 khi được yêu cầu tổng hợp log).
-- Không commit, push hoặc tạo PR trừ khi được yêu cầu. Không force push lên `main`, không `git reset --hard`. Branch và commit theo `code_conventions.md`.
+- Không commit, push hoặc tạo PR trừ khi được yêu cầu. Không force push lên `main`, không `git reset --hard`. Branch và commit theo `conventions.md`.
 - Không đưa secret, file `.env` hoặc dữ liệu cá nhân thật vào code, prompt hay log.
-- Không tự ý sử dụng thư mục docs\02_reports\assets làm hướng dẫn thực hiện, trừ khi được yêu cầu tham khảo làm ngữ cảnh hoặc tài liệu hướng dẫn.
+- Cấm sử dụng mọi thứ trong `docs/02_reports/assets/`, trừ `docs/02_reports/assets/use_case_diagram.puml` và `docs/02_reports/assets/claude_ui_mockups/`.
+- Ngoại lệ branch: CHG-014 → CHG-023 do một người làm liên tiếp nên được push thẳng `main` (xem `changes_workflow.md`); các CHG khác vẫn dùng branch riêng và vẫn chỉ commit/push khi được yêu cầu.
 - Các CHG sau khi thực hiện xong cần kiểm tra lại phần `Test case` và `Hướng dẫn tự chạy` đã đầy đủ chưa vì cái này được tạo sẵn từ ban đầu lúc tạo CHG.

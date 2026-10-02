@@ -34,10 +34,10 @@ export function ReportVisual({
       </div>
     );
   }
-  const Icon = category ? categoryIcon(category) : type === "LOST" ? Search : Package;
+  const iconProps = { className: `plate-ico ${iconClassName} ${dim ? "opacity-45" : ""}`, strokeWidth: 1.25 };
   return (
     <div className={`plate ${tone} ${className}`} aria-hidden>
-      <Icon className={`plate-ico ${iconClassName} ${dim ? "opacity-45" : ""}`} strokeWidth={1.25} />
+      {category ? categoryIcon(category, iconProps) : type === "LOST" ? <Search {...iconProps} /> : <Package {...iconProps} />}
     </div>
   );
 }

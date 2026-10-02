@@ -33,7 +33,7 @@ Sau khi đăng tin, hệ thống tự tìm tin đối ứng và lưu gợi ý k�
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/02_requirements_design.md` (FR08, FR13, S06, S09, mục 10b, mục 11)
 
 ## Acceptance criteria
@@ -73,7 +73,7 @@ Sau khi đăng tin, hệ thống tự tìm tin đối ứng và lưu gợi ý k�
 - Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5), plugin ponytail.
 - Đầu vào / Ngữ cảnh (Input/Context): FR08, mục 10b, mục 11, CHG-018.
 - Kết quả AI (AI Output): `isCandidate`, `keywords`, `scorePair`, `shouldSuggest` và 16 test case.
-- Quyết định của nhóm (Human Decision): chờ xác nhận. Hai bổ sung "không gợi ý tin của chính mình" và "danh sách từ dừng" là đề xuất của AI.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02, theo ủy quyền). Hai bổ sung "không gợi ý tin của chính mình" và "danh sách từ dừng" là đề xuất của AI.
 - Kiểm tra / Xác minh (Verification):
   - Lần chạy đầu có 5 test fail. Nguyên nhân là fixture test sai: hai tin cùng tiêu đề "Ví" nên tự cộng +5 từ khóa, và cùng `locationId` nên tự cộng +40. Hàm chấm điểm không sai.
   - Đã sửa fixture (tách địa điểm, đổi tiêu đề) → 42/42 test pass.
@@ -88,7 +88,7 @@ Sau khi đăng tin, hệ thống tự tìm tin đối ứng và lưu gợi ý k�
 - Kết quả AI (AI Output):
   - `src/lib/matching/run.ts`, `query.ts`, `actions.ts`.
   - `src/lib/notifications/*`, `/matches`, `/notifications`, chuông ở header.
-- Quyết định của nhóm (Human Decision): chờ xác nhận.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02: chủ dự án ủy quyền AI khảo sát và xác nhận; đã đối chiếu `02_requirements_design.md`, code và test hiện có).
 - Kiểm tra / Xác minh (Verification): Playwright với 3 tài khoản (bảng dưới); Supabase MCP xác nhận đúng 1 cặp được lưu, 2 thông báo `MATCH`, trạng thái `DISMISSED` sau khi bấm "Không phải".
 - Ứng viên đưa vào báo cáo: có
 

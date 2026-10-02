@@ -31,7 +31,7 @@ Sinh viên báo cáo tin spam/sai sự thật kèm lý do. Quản trị viên v�
 
 ## File/tài liệu cần đọc trước khi thực hiện
 
-- `AGENTS.md`, `docs/00_guides/code_conventions.md`, `DESIGN.md`
+- `AGENTS.md`, `docs/00_guides/conventions.md`, `DESIGN.md`
 - `docs/02_reports/02_requirements_design.md` (FR14, FR15, S12, mục 1 vai trò)
 
 ## Acceptance criteria
@@ -73,7 +73,7 @@ Sinh viên báo cáo tin spam/sai sự thật kèm lý do. Quản trị viên v�
   - Logic: `src/lib/flags/*`, `src/lib/admin/{guard,actions,queries}.ts`.
   - Trang: `src/app/admin/{layout,moderation,users}`.
   - Component: `flag-button.tsx`, `admin/action-form.tsx`.
-- Quyết định của nhóm (Human Decision): chờ xác nhận. Ba điểm là đề xuất của AI:
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02, theo ủy quyền). Ba điểm là đề xuất của AI đã được giữ:
   - không cho báo cáo tin của chính mình;
   - "Ẩn tin" đóng luôn mọi flag `NEW` của tin;
   - không khóa được ADMIN.

@@ -10,15 +10,17 @@ type Props = { user: { initial: string; name: string; isAdmin: boolean } | null;
 
 /** Menu tài khoản dạng popover: đóng khi chọn mục, bấm ra ngoài hoặc nhấn Esc. */
 export function AccountMenu({ user, unread }: Props) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  // Lưu đường dẫn lúc mở: đổi trang thì menu tự đóng mà không cần setState trong effect.
+  const [openAt, setOpenAt] = useState<string | null>(null);
+  const open = openAt === pathname;
+  const setOpen = (v: boolean) => setOpenAt(v ? pathname : null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     if (!open) return;
-    const onDown = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpen(false);
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onDown = (e: MouseEvent) => !ref.current?.contains(e.target as Node) && setOpenAt(null);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpenAt(null);
     document.addEventListener("mousedown", onDown);
     document.addEventListener("keydown", onKey);
     return () => {
@@ -33,7 +35,7 @@ export function AccountMenu({ user, unread }: Props) {
     <div ref={ref} className="relative">
       <button
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={() => setOpen(!open)}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label={user ? `Menu tài khoản của ${user.name}` : "Mở menu tài khoản"}

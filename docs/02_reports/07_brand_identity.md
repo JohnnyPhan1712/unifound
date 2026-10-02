@@ -106,7 +106,7 @@ Trạng thái dùng **hình dạng khác nhãn loại tin**: pill viền hairlin
 | Bị từ chối | `error` | Chỉ cho claim |
 | Đã đóng | `muted-soft` | Chữ `muted` |
 
-Giá trị enum thật lấy từ `src/db/schema.ts` (`report_status`, `claim_status`), theo quy ước ở `code_conventions.md`. Bảng trên chỉ quy định màu cho từng nhóm nghĩa, không thay nguồn enum.
+Giá trị enum thật lấy từ `src/db/schema.ts` (`report_status`, `claim_status`), theo quy ước ở `conventions.md`. Bảng trên chỉ quy định màu cho từng nhóm nghĩa, không thay nguồn enum.
 
 ### Neutral (giữ nguyên DESIGN.md)
 

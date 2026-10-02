@@ -1,6 +1,6 @@
 # Quy trình quản lý thay đổi
 
-CHG ghi lại lý do, phạm vi, quyết định và việc kiểm tra của một công việc đáng kể. **Một CHG tương ứng một Task, không tương ứng máy móc với từng file hoặc từng commit.
+CHG ghi lại lý do, phạm vi, quyết định và việc kiểm tra của một công việc đáng kể. **Một CHG tương ứng một Task**, không tương ứng máy móc với từng file hoặc từng commit.
 
 Một CHG có thể có nhiều commit, nhưng chỉ có một người phụ trách cuối cùng. CHG đồng thời là **nhật ký bằng chứng của Task** — nơi ghi AI Development Log, bug discovery và test case của người làm.
 
@@ -16,13 +16,24 @@ Tạo CHG cho tài liệu nền tảng, quyết định kỹ thuật, kiến tr�
 
 Người tạo CHG ghi rõ **Người phụ trách** (người làm) sau khi thống nhất.
 
+> Các CHG-001 → CHG-011 theo quy trình cũ, không còn áp dụng; không dùng chúng làm mẫu.
+
+### Hai cách tạo CHG
+
+- **Nhóm trưởng tạo để giao việc:** CHG ở `proposed`. Nhóm trưởng xem từng CHG, chỉnh nếu cần rồi tự chuyển `approved` hoặc nhờ agent chuyển hàng loạt. Người phụ trách làm theo checklist "Trước khi làm" bên dưới.
+- **Agent tạo khi được nhờ sửa file project (liên quan tech stack):** CHG đóng vai trò plan để người dùng xem trước. Sau khi người dùng bảo bắt đầu, agent tự làm luôn, tự cập nhật trạng thái (`approved` → `in_progress`) và khi xong chuyển `in_review`, không tự chuyển `done`. Trong lúc tạo CHG dạng plan, agent không hỏi lại và không sửa docs ngoài CHG và README của CHG.
+
+### Ngoại lệ: một người làm chuỗi CHG liên tiếp
+
+Khi nhóm trưởng giao một chuỗi CHG liên tiếp cho đúng một người (hiện là CHG-014 → CHG-023), được phép không tạo branch riêng mà commit/push thẳng vào `main`. Ngoại lệ này phải được ghi ở trường `Branch` của từng CHG và không áp dụng cho CHG khác nếu nhóm trưởng chưa cho phép. Vẫn không force push lên `main`.
+
 ## Trước khi làm (Definition of Ready)
 
 Checklist cho người phụ trách trước khi chuyển `in_progress`:
 
 - [ ] Đã đọc `File/tài liệu cần đọc trước khi thực hiện` và guide liên quan.
 - [ ] Người tạo CHG tự xác nhận status thành `approved`.
-- [ ] Đã tạo branch từ `main` theo tên `<loại>/<CHG>-<slug>` (vd: `feat/CHG-011-claim-flow`) 
+- [ ] Đã tạo branch từ `main` theo tên `<loại>/<CHG>-<slug>` (vd: `feat/CHG-011-claim-flow`), trừ ngoại lệ ở mục "Tạo Task mới".
 - [ ] Đã cập nhật trạng thái CHG thành `in_progress` và ghi Branch, ngày bắt đầu.
 
 ## Định danh và trạng thái
@@ -36,7 +47,7 @@ Checklist cho người phụ trách trước khi chuyển `in_progress`:
 - Mỗi Task/CHG có một `Owner` chịu trách nhiệm về phạm vi, review và đóng công việc. 
 - Trước khi chuyển sang `in_progress`, phải khai báo các file/module dự kiến sửa, reviewer, dependency và các Task có thể chạm cùng khu vực.
 - Không để hai Task đồng thời sửa cùng migration, schema, cấu hình hoặc cùng một vùng tài liệu trung tâm nếu chưa thống nhất thứ tự thực hiện.
-- Nếu hai Task bắt buộc dùng chung file, chia rõ vùng sở hữu hoặc tạo một Task tích hợp; dependency phải được ghi trong Notion và CHG.
+- Nếu hai Task bắt buộc dùng chung file, chia rõ vùng sở hữu hoặc tạo một Task tích hợp; dependency phải được ghi trong CHG.
 - Không format, đổi tên hoặc refactor ngoài phạm vi vì việc đó làm tăng diện tích conflict và khó review.
 
 ## Trong khi làm — Ghi log
@@ -93,8 +104,8 @@ Checklist cho reviewer/người tạo CHG trước khi chuyển `done`:
 3. **Thực hiện**: làm theo phạm vi CHG, ghi log ngay khi phát sinh (mục "Trong khi làm" ở trên).
 4. **Nếu có dependency**: làm phần độc lập trước, ghi rõ phần chờ, dùng `waiting_for_integration` hoặc `blocked` thay vì mở rộng sang CHG khác.
 5. **Chạy kiểm tra**: test, sửa bug nếu cần, ghi bằng chứng trong CHG.
-7. **Reviewer duyệt**: reviewer kiểm tra log/test/bug/acceptance criteria, cấp xác nhận, merge PR.
-8. **Hoàn tất**: checklist "Definition of Done" ở trên, chuyển CHG sang `done`. 
+6. **Reviewer duyệt**: reviewer kiểm tra log/test/bug/acceptance criteria, cấp xác nhận, merge PR.
+7. **Hoàn tất**: checklist "Definition of Done" ở trên, chuyển CHG sang `done`. 
 
 ## Hỗ trợ người quản lý docs chọn log để báo cáo
 
