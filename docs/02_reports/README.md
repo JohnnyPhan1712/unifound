@@ -4,7 +4,8 @@
 
 - Tên: **UniFound — Smart Lost & Found**.
 - Loại: Mini Project AI-assisted Web Development.
-- Repository / Project Hub / Live Demo: `TBD`.
+- Repository: https://github.com/JohnnyPhan1712/unifound
+- Live Demo: https://unifound-blue.vercel.app/
 
 ## Thông tin nhóm
 
@@ -22,10 +23,10 @@
 1. [`01_overview.md`](01_overview.md): problem, persona, scope, user stories và luồng chính.
 2. [`02_requirements_design.md`](02_requirements_design.md): yêu cầu, UI/UX, kiến trúc và data model dự kiến.
 3. [`03_development.md`](03_development.md): stack, implementation và quyết định kỹ thuật thực tế.
-4. [`04_ai_development.md`](04_ai_development.md): 5–10 AI logs chọn lọc, human decision, verification và so sánh hai AI.
+4. [`04_ai_development.md`](04_ai_development.md): công cụ AI và skill/MCP, 10 AI logs chọn lọc, human decision, verification và so sánh Claude với Stitch.
 5. [`05_testing_deployment.md`](05_testing_deployment.md): test case, bug evidence, deployment và demo.
 6. [`06_results.md`](06_results.md): kết quả, contribution, hạn chế và bài học.
-7. [`07_brand_identity.md`](07_brand_identity.md): nhận diện thương hiệu (màu, palette, logo, typography) và lý do; mockup ở `assets/ui_mockups/`.
+- Bổ sung: [`brand_identity.md`](brand_identity.md): nhận diện thương hiệu (màu, palette, logo, typography) và lý do; mockup ở `assets/claude_ui_mockups/`.
 
 Asset đặt trong `assets/`. Không ghi secret hoặc dữ liệu cá nhân thật.
 

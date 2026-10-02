@@ -1,7 +1,7 @@
 # CHG-015: Seed dữ liệu và đăng tin Mất đồ / Nhặt được
 
 - ID: `CHG-015`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-014`

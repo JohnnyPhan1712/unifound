@@ -3,8 +3,8 @@
 Tài liệu chốt đề xuất về màu chủ đạo, palette, logo, typography và giọng văn của UniFound. Mỗi quyết định có lý do, dựa trên chương [01](01_overview.md), [02](02_requirements_design.md) và [03](03_development.md).
 
 - Nền giao diện: [`DESIGN.md`](../../DESIGN.md) (phân tích hệ thống Airbnb). Giữ nguyên bố cục, spacing, bo góc, elevation và cách tổ chức component; **chỉ thay phần branding** mô tả dưới đây.
-- Mockup áp dụng nhận diện: [`assets/ui_mockups/index.html`](assets/ui_mockups/index.html).
-- Nguồn: CHG-012. Trạng thái: **đề xuất, chờ nhóm xác nhận**.
+- Mockup áp dụng nhận diện: [`assets/claude_ui_mockups/index.html`](assets/claude_ui_mockups/index.html).
+- Trạng thái: **đã được nhóm trưởng xác nhận** và dùng làm chuẩn giao diện.
 
 ## 1. Định vị và tính cách
 
@@ -27,9 +27,9 @@ Logo mark là chữ **U** (UniFound, University) **ôm một chấm tròn** ở 
 
 | File | Dùng khi |
 |---|---|
-| [`logo_mark.svg`](assets/ui_mockups/assets/logo_mark.svg) | Favicon, avatar ứng dụng, góc trái top nav (nền xanh, U trắng) |
-| [`logo_mark_mono.svg`](assets/ui_mockups/assets/logo_mark_mono.svg) | In đen trắng, watermark, nền màu không phải trắng |
-| [`logo_wordmark.svg`](assets/ui_mockups/assets/logo_wordmark.svg) | Slide, báo cáo, trang giới thiệu |
+| [`logo_mark.svg`](assets/claude_ui_mockups/assets/logo_mark.svg) | Favicon, avatar ứng dụng, góc trái top nav (nền xanh, U trắng) |
+| [`logo_mark_mono.svg`](assets/claude_ui_mockups/assets/logo_mark_mono.svg) | In đen trắng, watermark, nền màu không phải trắng |
+| [`logo_wordmark.svg`](assets/claude_ui_mockups/assets/logo_wordmark.svg) | Slide, báo cáo, trang giới thiệu |
 
 ### Cấu trúc
 
@@ -39,7 +39,7 @@ Logo mark là chữ **U** (UniFound, University) **ôm một chấm tròn** ở 
 
 ### Lý do chọn
 
-- **Nhận ra ở 16px:** chỉ có hai hình (U và chấm), không có chi tiết nhỏ. Đã xem trực tiếp mark ở 16, 32, 64 và 160px bằng Playwright khi kiểm tra mockup (CHG-012).
+- **Nhận ra ở 16px:** chỉ có hai hình (U và chấm), không có chi tiết nhỏ. Đã xem trực tiếp mark ở 16, 32, 64 và 160px bằng Playwright khi kiểm tra mockup.
 - **Không dùng kính lúp hay ghim bản đồ:** kính lúp đã được dùng làm icon cho tin **Mất đồ**, còn ghim bản đồ gợi GPS, mà GPS nằm ngoài phạm vi MVP (chương 01, mục 4). Nếu dùng hai hình này cho logo sẽ nhầm với chức năng.
 - **Một màu brand:** giống quy tắc "single accent" của DESIGN.md.
 
