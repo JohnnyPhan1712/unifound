@@ -10,24 +10,7 @@
 | Live URL và demo data | Đã deploy https://unifound-blue.vercel.app/; có seed hư cấu và tài khoản demo | Kiểm tra trên URL còn chờ xác nhận (TC-21) |
 | AI Development Log có kiểm soát | 10 log, có Modified/Rejected, 4 quyết định có giải thích, so sánh Claude với Stitch | `04_ai_development.md` |
 
-## 2. Deliverable và đóng góp
-
-- Danh sách deliverable: xem [README](README.md#project-requirements).
-- Thành viên và MSSV: xem [Thông tin nhóm](README.md#thông-tin-nhóm).
-- Đóng góp theo phần phụ trách của từng thành viên:
-
-| Thành viên | Phần phụ trách | Ghi chú |
-|---|---|---|
-| Phan Ngọc Đức Huy | Tài liệu nền, use case, MVP, stack, cấu trúc repo, thiết lập môi trường; nhận diện thương hiệu và mockup; dọn code cũ; quên mật khẩu và tên miền trường | Trưởng nhóm; điều phối, giao việc, tổng hợp log |
-| Dương Đăng Khang | Schema và migration bản đầu (3 bảng); E2E, rà soát UI, README, deploy | |
-| Lê Anh Quân | Đăng nhập và phân quyền (bản đầu) | Bị từ chối, làm lại ở giai đoạn sau |
-| Trần Minh Chiến | Đăng và tìm report (bản đầu, bị từ chối); làm lại nền UI và auth, seed và đăng tin, feed, tin của tôi, matching, claim, bàn giao, kiểm duyệt, quản trị | Làm liên tiếp trên `main` |
-| Nguyễn Thế Anh | Gợi ý trùng khớp (bản đầu) | Bị từ chối, làm lại ở giai đoạn sau |
-| Đỗ Hữu Phát | Claim và trả đồ (bản đầu) | Bị từ chối, làm lại ở giai đoạn sau |
-
-- Commit chính: `dd3f456` (thiết lập môi trường), `e8cdd04` (làm lại ứng dụng), `83098d2` (quên mật khẩu và tên miền trường).
-
-## 3. Đánh giá cuối kỳ
+## 2. Đánh giá cuối kỳ
 
 - Điểm mạnh:
   - Luồng Mất đồ → gợi ý → yêu cầu nhận → bàn giao → Đã trả chạy trọn vẹn, có test tự động ở ba lớp (Vitest, kiểm tra trực tiếp trên database, Playwright).
@@ -51,20 +34,20 @@
   - Teamwork: giao việc phải chốt thiết kế và kiểm soát dependency trước; test xanh từng task không chứng minh các task ghép được.
   - AI-assisted development: ghi log ngay khi làm, giữ Human Decision trung thực (phân biệt quyết định của người dùng với ủy quyền cho AI), cho AI đọc tài liệu hướng dẫn (`AGENTS.md`) và cho nó công cụ để tự kiểm.
 
-## 4. Hướng phát triển
+## 3. Hướng phát triển
 
 - Cấu hình Custom SMTP và hoàn tất kiểm thử mail thật (xác nhận, đặt lại mật khẩu).
 - Chạy lại E2E trên URL Vercel; thêm dữ liệu demo để kiểm phân trang.
 - Đăng nhập bằng liên kết email, lưu thành phố của trường, thêm địa điểm cho các trường mới.
 - Ý tưởng ngoài phạm vi hiện tại: bản đồ, matching nâng cao, mobile app.
 
-## 5. Tài liệu tham khảo
+## 4. Tài liệu tham khảo
 
 - UI/UX: [Airbnb](https://www.airbnb.com.vn/)
 - Business process: [iLost](https://ilost.co/)
 - Ứng dụng demo: https://unifound-blue.vercel.app/
 
-## 6. Phụ lục
+## 5. Phụ lục
 
 - Visual assets: `assets/claude_ui_mockups/` (mockup dùng làm chuẩn), `assets/stitch_ui_mockups/` (bản so sánh), `assets/use_case_diagram.puml`.
 - Nhận diện thương hiệu: [`brand_identity.md`](brand_identity.md).
