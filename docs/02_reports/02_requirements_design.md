@@ -21,10 +21,10 @@ Supabase Auth xác định danh tính; server vẫn phải kiểm tra ownership 
 | FR03 | Tin đăng | Tạo tin loại **Mất đồ** (`LOST`) hoặc **Nhặt được** (`FOUND`) với: tiêu đề, danh mục, mô tả, ngày giờ, địa điểm, 1–5 ảnh; validation phía server | US02, US03 |
 | FR04 | Tin đăng | Tin **Nhặt được** có thêm: nơi đang giữ đồ, câu hỏi xác minh và đáp án (đáp án không hiển thị công khai) | US03 |
 | FR05 | Tin đăng | Chủ tin được sửa, đóng hoặc xóa tin; tin tự hết hạn sau 60 ngày | US11 |
-| FR06 | Tìm kiếm | Bảng tin có phân trang; lọc theo loại tin, danh mục, trường/khu vực, khoảng thời gian | US04 |
-| FR07 | Tìm kiếm | Tìm theo từ khóa trong tiêu đề và mô tả | US05 |
+| FR06 | Tìm kiếm | Bảng tin có phân trang; lọc theo loại tin, danh mục, trường → khu vực (chọn trường thì chỉ hiện khu vực của trường đó), khoảng thời gian; bộ lọc nằm trong một thanh tìm kiếm duy nhất, trạng thái lọc nằm trên URL nên chia sẻ được | US04 |
+| FR07 | Tìm kiếm | Tìm theo từ khóa trong tiêu đề và mô tả, hỗ trợ gõ không dấu ("vi" ra "ví", "the" ra "thẻ"); không hiện gợi ý khi đang gõ | US05 |
 | FR08 | Gợi ý | Khi có tin mới, hệ thống tìm tin đối ứng (Mất ↔ Nhặt) còn hạn, gần thời gian và địa điểm, chấm điểm và gợi ý cho cả hai bên | US06 |
-| FR09 | Nhận đồ | Người mất gửi yêu cầu nhận vào tin Nhặt được, kèm câu trả lời xác minh; mỗi người chỉ gửi một yêu cầu cho mỗi tin | US07 |
+| FR09 | Nhận đồ | Người mất gửi yêu cầu nhận vào tin Nhặt được, kèm câu trả lời xác minh và tùy chọn tối đa 3 ảnh minh chứng (JPG/PNG/WEBP, mỗi ảnh ≤ 5 MB); mỗi người chỉ gửi một yêu cầu cho mỗi tin | US07 |
 | FR10 | Nhận đồ | Người nhặt xem yêu cầu, chấp nhận hoặc từ chối; khi chấp nhận, các yêu cầu còn lại tự động bị đóng | US08 |
 | FR11 | Bàn giao | Sau khi chấp nhận, hai bên thấy thông tin liên hệ của nhau; người nhặt đề xuất điểm và giờ hẹn | US09 |
 | FR12 | Bàn giao | Cả hai bên bấm xác nhận thì tin chuyển sang **Đã trả** | US10 |
@@ -41,6 +41,7 @@ Supabase Auth xác định danh tính; server vẫn phải kiểm tra ownership 
 - Một tin Nhặt được có tối đa một yêu cầu `ACCEPTED`.
 - Tin hết hạn sau 60 ngày và yêu cầu không được phản hồi sau 7 ngày được coi là hết hạn. Không có tác vụ nền: khi truy vấn, so `expires_at` với thời điểm hiện tại.
 - Đáp án xác minh và thông tin liên hệ không xuất hiện trên feed hoặc dùng cho public matching.
+- Ảnh minh chứng chỉ người nhặt của tin và chính người gửi yêu cầu xem được; không xuất hiện ở bảng tin, chi tiết tin, gợi ý hay thông báo; không tự động duyệt hoặc loại yêu cầu. Không sửa hoặc thêm ảnh sau khi đã gửi yêu cầu.
 
 **Acceptance criteria**
 
@@ -61,9 +62,9 @@ Supabase Auth xác định danh tính; server vẫn phải kiểm tra ownership 
 
 ## 3. Yêu cầu phi chức năng
 
-- Dùng tốt trên điện thoại (responsive desktop/mobile); giao diện hoàn toàn bằng tiếng Việt.
+- Dùng tốt trên điện thoại (responsive desktop/mobile, kiểm tới màn hình 320px không tràn ngang); giao diện hoàn toàn bằng tiếng Việt, chỉ có chế độ sáng.
 - Trang bảng tin tải dưới 3 giây.
-- Chỉ lưu thông tin cá nhân cần thiết; ảnh giới hạn số lượng (1–5) và dung lượng.
+- Chỉ lưu thông tin cá nhân cần thiết; ảnh giới hạn số lượng (1–5 cho tin, tối đa 3 cho ảnh minh chứng) và dung lượng; ảnh minh chứng lưu ở nơi riêng tư, không có URL công khai.
 - Form có label, thông báo lỗi rõ và thao tác được bằng bàn phím ở mức cơ bản.
 - Không lộ secret, dữ liệu cá nhân thật hoặc thông tin xác minh sở hữu không cần công khai.
 - Match score có thể giải thích, nhất quán và không vượt miền giá trị đã chốt.
@@ -90,21 +91,23 @@ Xem sơ đồ luồng từ lúc mở web đến khi tin chuyển sang Đã trả
 
 | ID | Màn hình | Ai dùng | Nội dung chính |
 |---|---|---|---|
-| S01 | Bảng tin (trang chủ) | Mọi người | Hai tab *Mất đồ / Nhặt được*, ô tìm kiếm, bộ lọc, danh sách thẻ tin (ảnh, tiêu đề, địa điểm, thời gian), nút "Đăng tin" |
-| S02 | Đăng nhập | Khách | Đăng nhập bằng email sinh viên, thông báo lỗi nếu email không hợp lệ |
+| S01 | Bảng tin (trang chủ) | Mọi người | Hai tab *Mất đồ / Nhặt được*; một thanh tìm kiếm 4 phân đoạn (Tìm kiếm / Danh mục / Vị trí gồm Trường → Khu vực / Thời gian), mỗi lần chỉ mở một ô chọn, thanh bám đỉnh khi cuộn; chip bộ lọc đang áp dụng kèm nút xóa từng chip và "Xóa tất cả"; danh sách thẻ tin (ảnh, tiêu đề, địa điểm, thời gian), nút "Đăng tin" |
+| S02 | Đăng nhập / đăng ký / quên mật khẩu | Khách | Một cửa sổ popup ngay trên trang hiện tại với ba chế độ, thông báo lỗi từng trường (giữ lại email khi lỗi) và thông báo khi đã gửi mail; các đường dẫn `/login`, `/register`, `/forgot-password` chỉ chuyển hướng về popup |
 | S03 | Đăng tin | Sinh viên | Chọn loại tin, form nhập thông tin, tải ảnh; tin Nhặt được có thêm ô "Nơi đang giữ" và "Câu hỏi xác minh" |
 | S04 | Chi tiết tin | Mọi người | Ảnh, mô tả, địa điểm, thời gian, trạng thái; nút "Đây là đồ của tôi" (tin Nhặt được) hoặc "Tôi đã thấy đồ này" (tin Mất đồ); nút báo cáo vi phạm; chủ tin/`ADMIN` sửa/xóa |
-| S05 | Gửi yêu cầu nhận đồ | Sinh viên | Hiển thị câu hỏi xác minh, ô trả lời, ô mô tả thêm, nút gửi |
+| S05 | Gửi yêu cầu nhận đồ | Sinh viên | Hiển thị câu hỏi xác minh, ô trả lời, ô mô tả thêm, ô **ảnh minh chứng** (không bắt buộc, tối đa 3 ảnh, có xem trước và xóa từng ảnh; ghi chú chỉ người nhặt thấy), nút gửi |
 | S06 | Gợi ý phù hợp | Sinh viên | Danh sách tin có khả năng khớp kèm mức độ phù hợp, nút "Không phải" hoặc "Xem chi tiết" |
 | S07 | Tin của tôi | Sinh viên | Ba tab: tin đã đăng, yêu cầu tôi đã gửi, yêu cầu tôi nhận được; sửa/đóng tin |
-| S08 | Xử lý yêu cầu & bàn giao | Sinh viên | Xem câu trả lời, nút Chấp nhận/Từ chối, chọn điểm hẹn và giờ, thông tin liên hệ (sau khi chấp nhận), nút xác nhận đã trả/đã nhận |
+| S08 | Xử lý yêu cầu & bàn giao | Sinh viên | Xem câu trả lời và ảnh minh chứng (bấm xem ảnh lớn), nút Chấp nhận/Từ chối, chọn điểm hẹn và giờ, thông tin liên hệ (sau khi chấp nhận), nút xác nhận đã trả/đã nhận |
 | S09 | Thông báo | Sinh viên | Danh sách thông báo, đánh dấu đã đọc |
 | S10 | Hồ sơ cá nhân | Sinh viên | Họ tên, MSSV, trường, thông tin liên hệ |
 | S11 | Quản trị: Tổng quan | Quản trị viên | Thống kê số tin, tỉ lệ đã trả, biểu đồ theo tuần |
 | S12 | Quản trị: Kiểm duyệt | Quản trị viên | Danh sách báo cáo vi phạm, xem tin, ẩn hoặc bỏ qua, khóa tài khoản |
 | S13 | Quản trị: Danh mục & địa điểm | Quản trị viên | Thêm, sửa, ẩn danh mục đồ vật và địa điểm |
+| S14 | Trợ giúp | Mọi người | Nút Trợ giúp nổi ở góc màn hình (tự ẩn khi cuộn, hiện lại ở đầu trang) mở modal hướng dẫn theo hai nhóm "Tôi bị mất đồ" / "Tôi nhặt được đồ", bài viết chi tiết và danh sách điểm tiếp nhận |
+| S15 | Header & chân trang | Mọi người | Header gồm logo, "Đăng tin", chuông thông báo, avatar (khách: mở popup đăng nhập; đã đăng nhập: vào hồ sơ) và nút menu ngoài cùng bên phải (khách: Đăng nhập, Đăng ký, Trợ giúp; đã đăng nhập: Tin và yêu cầu của tôi, Gợi ý trùng khớp, Thông báo, Đăng tin mới, Quản trị nếu là admin, Trợ giúp, Đăng xuất); chân trang 4 cột (giới thiệu, khám phá, khuôn viên liên kết, điểm tiếp nhận trực tiếp) |
 
-Feed và chi tiết tin công khai; thao tác tạo/quản lý tin hoặc yêu cầu cần đăng nhập.
+Feed và chi tiết tin công khai; thao tác tạo/quản lý tin hoặc yêu cầu cần đăng nhập. Nội dung danh sách điểm tiếp nhận trong Trợ giúp và chân trang là nội dung minh họa dựa trên tên địa điểm của dữ liệu mẫu.
 
 ## 8. Kiến trúc mức cao
 
@@ -123,6 +126,8 @@ Các quyết định kiến trúc bổ sung để đáp ứng thiết kế:
 | Nhu cầu | Giải pháp |
 |---|---|
 | Đăng 1–5 ảnh mỗi tin | Supabase Storage (cùng nền tảng, không thêm dịch vụ); bảng `report_images` lưu đường dẫn |
+| Ảnh minh chứng riêng tư (tối đa 3 ảnh mỗi yêu cầu) | Bucket riêng tư `claim-images` (không có URL công khai) tải từ trình duyệt vào thư mục của chính người gửi; bảng `claim_images` lưu đường dẫn; người xem nhận signed URL ngắn hạn tạo ở server. Policy Storage cho người nhặt đọc qua một hàm `security definer` kiểm tra quan hệ với yêu cầu |
+| Đăng nhập/đăng ký/quên mật khẩu/Trợ giúp mở ngay trên trang | Popup dùng thẻ `<dialog>` gốc, trạng thái nằm trên URL (`?auth=`, `?help=1`) nên server chỉ cần chuyển hướng; không thêm thư viện |
 | Chỉ email trường mới đăng nhập được | Server kiểm tra tên miền email với danh sách hợp lệ sau khi đăng ký/đăng nhập |
 | Thông báo | MVP chỉ thông báo trong web (bảng `notifications`). Email để sau (ví dụ Resend) |
 | Tin hết hạn 60 ngày, yêu cầu hết hạn 7 ngày | Không cần tác vụ nền; truy vấn coi bản ghi quá `expires_at` là hết hạn |
@@ -145,6 +150,7 @@ erDiagram
     REPORTS ||--o{ MATCHES : "là tin mất"
     REPORTS ||--o{ MATCHES : "là tin nhặt"
     REPORTS ||--o{ CLAIMS : "nhận yêu cầu"
+    CLAIMS ||--o{ CLAIM_IMAGES : "có ảnh minh chứng"
     USERS ||--o{ CLAIMS : "gửi yêu cầu"
     LOCATIONS ||--o{ CLAIMS : "điểm hẹn"
     USERS ||--o{ NOTIFICATIONS : "nhận"
@@ -198,6 +204,12 @@ erDiagram
         int report_id FK
         string image_url
     }
+    CLAIM_IMAGES {
+        int id PK
+        int claim_id FK
+        string image_path "Đường dẫn trong bucket riêng tư, tối đa 3 ảnh mỗi yêu cầu"
+        int position "Thứ tự ảnh"
+    }
     MATCHES {
         int id PK
         int lost_report_id FK
@@ -239,7 +251,7 @@ erDiagram
 **Ghi chú về dữ liệu**
 
 - **Category/Location** do quản trị viên quản lý (FR15); Location không dùng GPS hoặc tọa độ chính xác.
-- **Claim** chỉ là yêu cầu nhận lại đồ gửi đến tin Nhặt được, không phải bằng chứng sở hữu. Chỉ claimant và chủ tin Nhặt được liên quan truy cập câu trả lời xác minh. Một tin có tối đa một claim `ACCEPTED`; khi chấp nhận, các claim còn lại bị đóng. `COMPLETED` khi cả `finder_confirmed_at` và `owner_confirmed_at` có giá trị, đồng thời tin chuyển `RETURNED`.
+- **Claim** chỉ là yêu cầu nhận lại đồ gửi đến tin Nhặt được, không phải bằng chứng sở hữu. Chỉ claimant và chủ tin Nhặt được liên quan truy cập câu trả lời xác minh và ảnh minh chứng (`CLAIM_IMAGES`, lưu trong bucket riêng tư, xem qua signed URL ngắn hạn). Một tin có tối đa một claim `ACCEPTED`; khi chấp nhận, các claim còn lại bị đóng. `COMPLETED` khi cả `finder_confirmed_at` và `owner_confirmed_at` có giá trị, đồng thời tin chuyển `RETURNED`.
 - **Match** lưu để gửi gợi ý/thông báo cho cả hai bên và ghi nhận người dùng bấm "Không phải" (`DISMISSED`); score vẫn tính bằng rule deterministic ở mục 11.
 - Không công khai thông tin liên hệ cá nhân trên feed; seed không dùng dữ liệu cá nhân hoặc thông tin xác minh thật.
 
@@ -259,9 +271,9 @@ sequenceDiagram
     W->>DB: Lấy câu hỏi xác minh của tin
     DB-->>W: Câu hỏi xác minh
     W-->>A: Hiển thị câu hỏi và ô trả lời
-    A->>W: Gửi câu trả lời
+    A->>W: Gửi câu trả lời (kèm tối đa 3 ảnh minh chứng nếu có)
 
-    W->>DB: Kiểm tra tin còn mở, không phải tin của A, A chưa gửi yêu cầu
+    W->>DB: Kiểm tra tin còn mở, không phải tin của A, A chưa gửi yêu cầu, ảnh hợp lệ và thuộc thư mục của A
     alt Tin đã đóng hoặc đã trả
         W-->>A: Báo "Tin này không còn nhận yêu cầu"
     else A đã gửi yêu cầu trước đó
@@ -269,7 +281,7 @@ sequenceDiagram
     else Hợp lệ
         W->>DB: Lưu yêu cầu với trạng thái Chờ duyệt
         W-->>B: Thông báo có người muốn nhận đồ
-        B->>W: Mở yêu cầu, xem câu trả lời của A
+        B->>W: Mở yêu cầu, xem câu trả lời và ảnh minh chứng của A
 
         alt Câu trả lời khớp
             B->>W: Chấp nhận, chọn điểm hẹn và giờ gặp
