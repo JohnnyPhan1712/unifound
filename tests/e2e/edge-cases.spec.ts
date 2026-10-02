@@ -3,18 +3,20 @@ import { DEMO, loginAs, postFoundReport } from "./helpers";
 
 test("email ngoài trường bị server từ chối", async ({ page }) => {
   await page.goto("/register");
+  await expect(page).toHaveURL(/\/\?auth=register/);
   await page.waitForLoadState("networkidle");
-  await page.getByLabel("Email sinh viên").fill("someone@gmail.com");
-  await page.getByLabel(/^Mật khẩu/).fill("matkhau123");
-  await page.getByLabel("Nhập lại mật khẩu").fill("matkhau123");
-  await page.getByRole("button", { name: "Tạo tài khoản" }).click();
-  await expect(page.getByText("Chỉ nhận email do trường cấp")).toBeVisible();
-  await expect(page).toHaveURL(/\/register/);
+  const dialog = page.getByRole("dialog", { name: "Tạo tài khoản" });
+  await dialog.getByLabel("Email sinh viên").fill("someone@gmail.com");
+  await dialog.getByLabel(/^Mật khẩu/).fill("matkhau123");
+  await dialog.getByLabel("Nhập lại mật khẩu").fill("matkhau123");
+  await dialog.getByRole("button", { name: "Tạo tài khoản" }).click();
+  await expect(dialog.getByText("Chỉ nhận email do trường cấp")).toBeVisible();
 });
 
 test("khách không vào được trang cần đăng nhập", async ({ page }) => {
   await page.goto("/reports/new");
-  await expect(page).toHaveURL(/\/login\?next=%2Freports%2Fnew/);
+  await expect(page).toHaveURL(/\/\?auth=login&next=%2Freports%2Fnew/);
+  await expect(page.getByRole("dialog", { name: "Đăng nhập" })).toBeVisible();
 });
 
 test("claim sai quyền: tự gửi vào tin mình, người ngoài mở yêu cầu", async ({ browser }) => {

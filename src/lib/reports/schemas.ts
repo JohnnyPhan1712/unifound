@@ -4,6 +4,9 @@ export const MAX_IMAGES = 5;
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 export const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 export const IMAGE_BUCKET = "report-images";
+// Ảnh minh chứng của yêu cầu nhận lại: bucket riêng tư, tối đa 3 ảnh
+export const CLAIM_IMAGE_BUCKET = "claim-images";
+export const MAX_CLAIM_IMAGES = 3;
 
 /** Giá trị <input type="datetime-local"> hiểu theo giờ Việt Nam. */
 export function parseLocalDateTime(value: string): Date | null {
@@ -40,23 +43,22 @@ const eventTime = z
     return d;
   });
 
-const images = z
-  .string()
-  .optional()
-  .transform((v, ctx) => {
-    try {
-      const arr: unknown = JSON.parse(v || "[]");
-      if (Array.isArray(arr) && arr.every((x) => typeof x === "string")) return arr as string[];
-    } catch {}
-    ctx.addIssue({ code: "custom", message: "Danh sách ảnh không hợp lệ." });
-    return z.NEVER;
-  })
-  .pipe(
-    z
-      .array(z.string())
-      .min(1, "Cần ít nhất 1 ảnh.")
-      .max(MAX_IMAGES, `Tối đa ${MAX_IMAGES} ảnh.`)
-  );
+/** Chuỗi JSON từ input ẩn `images` → mảng đường dẫn, kiểm tra số lượng. */
+export const imageList = (min: number, max: number) =>
+  z
+    .string()
+    .optional()
+    .transform((v, ctx) => {
+      try {
+        const arr: unknown = JSON.parse(v || "[]");
+        if (Array.isArray(arr) && arr.every((x) => typeof x === "string")) return arr as string[];
+      } catch {}
+      ctx.addIssue({ code: "custom", message: "Danh sách ảnh không hợp lệ." });
+      return z.NEVER;
+    })
+    .pipe(z.array(z.string()).min(min, "Cần ít nhất 1 ảnh.").max(max, `Tối đa ${max} ảnh.`));
+
+const images = imageList(1, MAX_IMAGES);
 
 const common = {
   title: text(5, 120, "tiêu đề"),

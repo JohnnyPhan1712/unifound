@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { authUrl } from "@/lib/auth/auth-url";
 
 // Trang cần đăng nhập. Trang vẫn tự kiểm tra lại phía server (requireUser).
 const PROTECTED = [
@@ -17,6 +18,8 @@ export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
   const { pathname, search } = request.nextUrl;
   const isProtected = PROTECTED.some((re) => re.test(pathname));
+  // Khách vào trang cần đăng nhập: về bảng tin với popup đăng nhập, đăng nhập xong quay lại đúng trang.
+  const toLogin = () => NextResponse.redirect(new URL(authUrl("login", { next: pathname + search }), request.url));
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
   const key =
@@ -26,10 +29,7 @@ export async function proxy(request: NextRequest) {
 
   if (!url || !key) {
     if (isProtected) {
-      const redirectUrl = request.nextUrl.clone();
-      redirectUrl.pathname = "/login";
-      redirectUrl.search = `?next=${encodeURIComponent(pathname + search)}`;
-      return NextResponse.redirect(redirectUrl);
+      return toLogin();
     }
     return response;
   }
@@ -55,18 +55,12 @@ export async function proxy(request: NextRequest) {
     const { data } = await supabase.auth.getClaims();
 
     if (!data?.claims && isProtected) {
-      const redirectUrl = request.nextUrl.clone();
-      redirectUrl.pathname = "/login";
-      redirectUrl.search = `?next=${encodeURIComponent(pathname + search)}`;
-      return NextResponse.redirect(redirectUrl);
+      return toLogin();
     }
   } catch (err) {
     console.error("[Proxy Middleware Error]:", err);
     if (isProtected) {
-      const redirectUrl = request.nextUrl.clone();
-      redirectUrl.pathname = "/login";
-      redirectUrl.search = `?next=${encodeURIComponent(pathname + search)}`;
-      return NextResponse.redirect(redirectUrl);
+      return toLogin();
     }
   }
 

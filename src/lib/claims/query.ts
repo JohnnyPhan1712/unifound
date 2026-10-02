@@ -1,5 +1,7 @@
-import { and, desc, eq, or, sql } from "drizzle-orm";
-import { claims, db, locations, reportImages, reports, users } from "@/db";
+import { and, asc, desc, eq, or, sql } from "drizzle-orm";
+import { claimImages, claims, db, locations, reportImages, reports, users } from "@/db";
+import { CLAIM_IMAGE_BUCKET } from "@/lib/reports/schemas";
+import { createClient } from "@/utils/supabase/server";
 
 const cover = sql<string | null>`(select ${reportImages.imageUrl} from ${reportImages}
   where ${reportImages.reportId} = ${reports.id} order by ${reportImages.position} limit 1)`;
@@ -111,4 +113,16 @@ export function listClaimsForReport(reportId: string) {
     .innerJoin(users, eq(claims.claimantId, users.id))
     .where(eq(claims.reportId, reportId))
     .orderBy(desc(claims.createdAt));
+}
+
+/** Ảnh minh chứng riêng tư của yêu cầu, dưới dạng URL ký có hạn 1 giờ; nơi gọi phải kiểm tra `canViewClaim` trước. */
+export async function getClaimImageUrls(claimId: string): Promise<string[]> {
+  const rows = await db.select({ path: claimImages.imagePath }).from(claimImages).where(eq(claimImages.claimId, claimId)).orderBy(asc(claimImages.position));
+  if (!rows.length) return [];
+  const supabase = await createClient();
+  const { data } = await supabase.storage.from(CLAIM_IMAGE_BUCKET).createSignedUrls(
+    rows.map((r) => r.path),
+    3600
+  );
+  return data?.flatMap((d) => (d.signedUrl ? [d.signedUrl] : [])) ?? [];
 }

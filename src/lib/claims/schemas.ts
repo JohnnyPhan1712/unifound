@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { imageList, MAX_CLAIM_IMAGES } from "@/lib/reports/schemas";
 
 export const claimSchema = z.object({
   answerText: z
@@ -12,6 +13,8 @@ export const claimSchema = z.object({
     .max(1000, "Mô tả thêm tối đa 1000 ký tự.")
     .optional()
     .transform((v) => v || null),
+  // Ảnh minh chứng không bắt buộc
+  images: imageList(0, MAX_CLAIM_IMAGES),
 });
 
 export const decisionSchema = z.object({

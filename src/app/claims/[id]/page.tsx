@@ -8,7 +8,7 @@ import { DecisionButtons } from "@/components/claims/decision-buttons";
 import { ConfirmHandoverButton, MeetingForm } from "@/components/claims/handover";
 import { ReportVisual } from "@/components/reports/report-card";
 import { requireUser } from "@/lib/auth/session";
-import { canViewClaim, getClaimDetail, getHandoverContacts, type ClaimDetail } from "@/lib/claims/query";
+import { canViewClaim, getClaimDetail, getClaimImageUrls, getHandoverContacts, type ClaimDetail } from "@/lib/claims/query";
 import { canSeeContacts } from "@/lib/claims/handover";
 import { getCatalogOptions } from "@/lib/reports/catalog";
 import { toLocalDateTime } from "@/lib/reports/schemas";
@@ -25,6 +25,7 @@ export default async function ClaimDetailPage({ params, searchParams }: PageProp
   // Người thứ ba nhận 404 để không lộ cả việc yêu cầu tồn tại
   if (!claim || !canViewClaim(claim, user.id)) notFound();
 
+  const imageUrls = await getClaimImageUrls(claim.id);
   const isFinder = claim.report.userId === user.id;
   const status = effectiveClaimStatus(claim);
 
@@ -73,6 +74,23 @@ export default async function ClaimDetailPage({ params, searchParams }: PageProp
             <div>
               <dt className="label text-muted">Mô tả thêm</dt>
               <dd className="whitespace-pre-line">{claim.note}</dd>
+            </div>
+          )}
+          {imageUrls.length > 0 && (
+            <div>
+              <dt className="label text-muted">Ảnh minh chứng</dt>
+              <dd>
+                <ul className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+                  {imageUrls.map((url, i) => (
+                    <li key={url}>
+                      <a href={url} target="_blank" rel="noreferrer" className="block aspect-square overflow-hidden rounded-sm border border-line bg-surface-soft" aria-label={`Xem ảnh minh chứng ${i + 1}`}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={url} alt={`Ảnh minh chứng ${i + 1}`} className="size-full object-cover" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </dd>
             </div>
           )}
           <div>

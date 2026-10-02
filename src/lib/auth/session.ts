@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { db, schools, users, type User } from "@/db";
 import { createClient } from "@/utils/supabase/server";
+import { authUrl } from "./auth-url";
 import { emailDomain } from "./email";
 
 /** Tạo bản ghi users (role USER) cho tài khoản Supabase Auth nếu chưa có; gán trường theo tên miền email. */
@@ -39,8 +40,8 @@ export async function getCurrentUser(): Promise<User | null> {
 
 export async function requireUser(): Promise<User> {
   const user = await getSessionUser();
-  if (!user) redirect("/login");
-  if (user.status === "locked") redirect("/login?error=locked");
+  if (!user) redirect(authUrl("login"));
+  if (user.status === "locked") redirect(authUrl("login", { error: "locked" }));
   return user;
 }
 
