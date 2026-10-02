@@ -51,7 +51,7 @@ export default async function ClaimPage({ params }: PageProps<"/reports/[id]/cla
         </div>
       ) : (
         <div className="panel sm:p-8">
-          <ClaimForm action={submitClaim.bind(null, id)} question={report.verifyQuestion ?? "Mô tả đặc điểm riêng của món đồ."} />
+          <ClaimForm action={submitClaim.bind(null, id)} question={report.verifyQuestion ?? "Mô tả đặc điểm riêng của món đồ."} userId={user.id} />
         </div>
       )}
     </div>

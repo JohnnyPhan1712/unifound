@@ -11,11 +11,12 @@ export function LogoMark({ className = "size-8" }: { className?: string }) {
   );
 }
 
-export function Logo() {
+/** `textClass` cho phép ẩn chữ ở chỗ hẹp (header điện thoại nhỏ) mà vẫn giữ biểu tượng. */
+export function Logo({ textClass = "" }: { textClass?: string }) {
   return (
     <Link href="/" className="inline-flex items-center gap-2 text-primary no-underline" aria-label="UniFound — về bảng tin">
       <LogoMark />
-      <span className="text-[1.375rem] font-bold leading-none tracking-[-0.02em]">UniFound</span>
+      <span className={`text-[1.375rem] font-bold leading-none tracking-[-0.02em] ${textClass}`}>UniFound</span>
     </Link>
   );
 }
