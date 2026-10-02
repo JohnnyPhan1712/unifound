@@ -1,7 +1,7 @@
 # CHG-022: Quản trị danh mục, địa điểm và thống kê
 
 - ID: `CHG-022`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-021` (khu vực /admin và guard)

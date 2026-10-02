@@ -1,8 +1,35 @@
 # UniFound
 
-UniFound là bảng tin đồ thất lạc cho sinh viên UIT: đăng tin **Mất đồ** / **Nhặt được**, nhận gợi ý tin có thể khớp (kèm điểm và lý do), gửi yêu cầu nhận đồ có câu hỏi xác minh riêng tư, hẹn bàn giao và xác nhận **Đã trả**.
+**UniFound — Smart Lost & Found** là bảng tin đồ thất lạc cho sinh viên các trường ĐHQG-HCM khu vực Thủ Đức: đăng tin **Mất đồ** / **Nhặt được**, nhận gợi ý tin có thể khớp (kèm điểm và lý do), gửi yêu cầu nhận đồ có câu hỏi xác minh riêng tư, hẹn bàn giao và xác nhận **Đã trả**.
 
-URL demo: `TBD` (chưa deploy, xem [CHG-023](docs/01_changes/CHG-023_e2e_deploy_readme.md)).
+Mini Project AI-assisted Web Development.
+
+- Live demo: https://unifound-blue.vercel.app/
+- Repository: https://github.com/JohnnyPhan1712/unifound
+
+## Thông tin nhóm
+
+| STT | Họ và tên | MSSV | Vai trò |
+|---|---|---|---|
+| 1 | Phan Ngọc Đức Huy | 24520695 | Trưởng nhóm |
+| 2 | Dương Đăng Khang | 24520731 | Thành viên |
+| 3 | Đỗ Hữu Phát | 24521290 | Thành viên |
+| 4 | Nguyễn Thế Anh | 24520117 | Thành viên |
+| 5 | Trần Minh Chiến | 24520219 | Thành viên |
+| 6 | Lê Anh Quân | 24521430 | Thành viên |
+
+## Tài liệu
+
+| Nội dung | Đường dẫn |
+|---|---|
+| Tổng quan, phạm vi, user story | [`docs/02_reports/01_overview.md`](docs/02_reports/01_overview.md) |
+| Yêu cầu, UI/UX, kiến trúc, ERD, matching rule | [`docs/02_reports/02_requirements_design.md`](docs/02_reports/02_requirements_design.md) |
+| Stack, biến môi trường, quy trình database và triển khai | [`docs/02_reports/03_development.md`](docs/02_reports/03_development.md) |
+| Công cụ AI, AI log, so sánh hai AI | [`docs/02_reports/04_ai_development.md`](docs/02_reports/04_ai_development.md) |
+| Test case, bug, triển khai và demo | [`docs/02_reports/05_testing_deployment.md`](docs/02_reports/05_testing_deployment.md) |
+| Kết quả, đóng góp, bài học | [`docs/02_reports/06_results.md`](docs/02_reports/06_results.md) |
+| Nhận diện thương hiệu | [`docs/02_reports/brand_identity.md`](docs/02_reports/brand_identity.md) |
+| Thiết kế giao diện | [`DESIGN.md`](DESIGN.md) |
 
 ## Tính năng
 
@@ -20,7 +47,7 @@ Next.js 16 (App Router, Server Actions, `proxy.ts`) · React 19 · TypeScript ·
 
 ## Cài đặt và chạy
 
-**Yêu cầu:** Node.js 24.x, npm 11.x, một project Supabase.
+**Yêu cầu:** Node.js LTS (dự án phát triển trên Node.js 24), npm đi kèm Node.js, một project Supabase.
 
 ```bash
 git clone <repo-url>
@@ -46,28 +73,19 @@ Mở bằng `http://localhost:3000` (Next.js 16 chặn tài nguyên dev khi mở
 
 Supabase Auth đang bật "Confirm email": đăng ký thật cần bấm link trong mail. Khi dùng với sinh viên thật nên cấu hình Custom SMTP trong Supabase vì dịch vụ mail mặc định giới hạn rất thấp.
 
-### Tài khoản demo
-
-`npm run db:seed` tạo sẵn các tài khoản **hư cấu, đã xác nhận email** (không gửi mail), mật khẩu là giá trị `SEED_DEMO_PASSWORD`:
-
-| Email | Vai trò |
-|---|---|
-| `unifound.demo1@gm.uit.edu.vn` | Sinh viên (Demo A) |
-| `unifound.demo2@gm.uit.edu.vn` | Sinh viên (Demo B) |
-| `unifound.demo3@gm.uit.edu.vn` | Sinh viên (Demo C) |
-| `unifound.admin@uit.edu.vn` | Quản trị viên |
-
 ## Scripts
 
 | Lệnh | Việc |
 |---|---|
 | `npm run dev` | Chạy dev server |
 | `npm run build` / `npm start` | Build và chạy bản production |
+| `npm run lint` | ESLint |
 | `npm run typecheck` | `next typegen` + `tsc --noEmit` |
 | `npm test` | Unit test (Vitest) |
 | `npm run test:e2e` | E2E Playwright (golden path + edge case); tự bật dev server nếu chưa chạy |
 | `npm run db:generate` | Sinh migration từ `src/db/schema.ts` |
 | `npm run db:migrate` | Áp dụng migration |
+| `npm run db:push` | Đồng bộ schema trực tiếp (chỉ dùng khi cần, ưu tiên migration có phiên bản) |
 | `npm run db:seed` | Nạp dữ liệu demo (chạy lại không trùng) |
 
 E2E cần Chromium của Playwright: `npx playwright install chromium`. Test đăng nhập bằng tài khoản demo nên cần `SEED_DEMO_PASSWORD` trong `.env.local`; mỗi lần chạy tạo thêm vài tin thử trên database đang trỏ tới. Chạy trên bản deploy: `E2E_BASE_URL=https://... npm run test:e2e`.
@@ -85,7 +103,7 @@ unifound/
 │   └── proxy.ts        # Refresh session + chặn trang cần đăng nhập
 ├── drizzle/            # Migration SQL có phiên bản
 ├── tests/e2e/          # Playwright
-├── docs/               # Tài liệu dự án, CHG
+├── docs/               # 00_guides (quy trình), 02_reports (báo cáo)
 └── DESIGN.md           # Design system (token, component)
 ```
 

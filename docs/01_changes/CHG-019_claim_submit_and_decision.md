@@ -1,7 +1,7 @@
 # CHG-019: Gửi yêu cầu nhận đồ và xử lý (chấp nhận/từ chối)
 
 - ID: `CHG-019`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-016`, `CHG-017` (Tin của tôi), `CHG-018` (hạ tầng thông báo)

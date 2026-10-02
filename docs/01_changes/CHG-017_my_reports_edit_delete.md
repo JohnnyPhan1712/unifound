@@ -1,7 +1,7 @@
 # CHG-017: Tin của tôi, sửa/đóng/xóa tin
 
 - ID: `CHG-017`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-016`

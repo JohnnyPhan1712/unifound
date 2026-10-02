@@ -1,7 +1,7 @@
 # CHG-023: E2E golden path, rà soát UI, deploy Vercel và README
 
 - ID: `CHG-023`
-- Trạng thái: `waiting_for_integration`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Dương Đăng Khang`
 - Dependency: `CHG-014` → `CHG-022`
@@ -78,11 +78,17 @@ Luồng chính chạy trọn vẹn và có test tự động: đăng nhập → 
   - Unit test 68/68, typecheck, build pass.
 - E2E đã sửa theo UI mới: ô chọn danh mục dạng ô, form gửi yêu cầu nằm trong trang chi tiết, nút hiện/ẩn mật khẩu trùng nhãn "Mật khẩu".
 
-### Phụ thuộc còn chờ
+### Cập nhật 2026-10-02: đã deploy Vercel
 
-- Đang chờ: chủ dự án đăng nhập Vercel và cho phép deploy (đây là thao tác công khai ra ngoài).
+- Chủ dự án tự deploy lên Vercel: https://unifound-blue.vercel.app/ (AI không thực hiện việc deploy và chưa kiểm tra URL này).
+- Chủ dự án cho biết chưa chắc đã chạy đủ các kiểm thử trên bản deploy nên TC-023-05 và tiêu chí "chạy lại golden path thủ công" vẫn để Pending cho đến khi chủ dự án xác nhận.
+- Đoạn "Deploy Vercel: chưa làm" ở trên là ghi chép lúc đó, giữ nguyên theo nguyên tắc log append-only.
+
+### Phụ thuộc còn chờ (ghi chép trước khi deploy)
+
+- Đang chờ: chủ dự án đăng nhập Vercel và cho phép deploy (đã xong, xem mục trên).
 - Đã hoàn thành: E2E golden path và edge case, rà soát UI, README, kiểm tra NFR.
-- Chưa thể tích hợp: TC-023-05 (golden path trên URL Vercel) và URL demo trong README.
+- Chưa thể tích hợp: TC-023-05 (golden path trên URL Vercel) và URL demo trong README (URL đã có, chờ chủ dự án chạy kiểm thử và cập nhật README).
 - Điều kiện tiếp tục:
   1. Chạy `npx vercel login`.
   2. Đặt các biến `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `DATABASE_URL`, `ALLOWED_EMAIL_DOMAINS` trên Vercel.
@@ -153,7 +159,7 @@ Luồng chính chạy trọn vẹn và có test tự động: đăng nhập → 
 | TC-023-02 | E2E: email ngoài trường / claim sai quyền | Bị từ chối | Cả 3 ca pass (email ngoài trường, khách vào trang cần đăng nhập, claim sai quyền) | Passed | `tests/e2e/edge-cases.spec.ts` |
 | TC-023-03 | Duyệt UI mobile toàn bộ màn hình chính (Playwright MCP) | Không vỡ layout | 17 màn hình (khách/sinh viên/admin) trên iPhone 13: không tràn ngang, đủ nhãn form, không lỗi JS; đã sửa BUG-1/2 | Passed | ảnh `023_m_*.png` (thư viện Playwright, không có Playwright MCP trong phiên) |
 | TC-023-04 | Kiểm tra đáp án/liên hệ không lộ trên feed và chi tiết | Không lộ | Golden path kiểm HTML chi tiết không có đáp án; edge case kiểm người thứ ba không thấy câu trả lời; kết quả tương ứng ở TC-016-06, TC-019-08, TC-020-07 | Passed | E2E + CHG-016/019/020 |
-| TC-023-05 | Chạy golden path trên URL Vercel | Thành công | Chưa deploy (Vercel CLI chưa đăng nhập, cần chủ dự án) | Pending | |
+| TC-023-05 | Chạy golden path trên URL Vercel | Thành công | Đã deploy (2026-10-02, https://unifound-blue.vercel.app/), chưa có kết quả chạy golden path trên URL này | Pending | chờ chủ dự án xác nhận |
 | TC-023-06 | Làm theo README trên máy sạch | Cài và chạy được | Mô phỏng máy sạch (2026-10-02): `git clone` bản commit `1250428` vào thư mục trống, Node 24.20.0 / npm 11.19.0, `npm ci`, chép `.env.local` (thay cho bước điền `.env.example`), `db:migrate` (chỉ có NOTICE "already exists, skipping"), `db:seed` (chạy lại không trùng), `typecheck`, `test` 68/68, `build`, `next start` → `/` và `/login` trả 200. Chưa chạy lại E2E (tránh thêm tin thử); chưa thử trên máy vật lý khác | Passed (mô phỏng) | log lệnh phiên 2026-10-02 |
 | TC-023-07 | NFR: tải feed < 3 giây | < 3 giây | Bản build: 0,56–0,6 s (xem TC-016-07) | Passed | CHG-016 |
 | TC-023-08 | Vitest + typecheck + build | Pass | 66/66 unit test, typecheck pass, build pass (17 route) | Passed | log lệnh |

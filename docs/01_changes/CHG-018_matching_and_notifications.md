@@ -1,7 +1,7 @@
 # CHG-018: Gợi ý tin phù hợp (matching) và thông báo trong web
 
 - ID: `CHG-018`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-015` (tạo tin), `CHG-016` (chi tiết tin)

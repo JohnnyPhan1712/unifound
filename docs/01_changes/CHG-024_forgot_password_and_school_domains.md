@@ -1,13 +1,13 @@
 # CHG-024: Quên mật khẩu và bổ sung tên miền email trường
 
 - ID: `CHG-024`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-10-02`
 - Người phụ trách: `Phan Ngọc Đức Huy`
 - Dependency: `CHG-014` (đăng nhập email trường, `ALLOWED_EMAIL_DOMAINS`, bảng `schools`)
 - File/module dự kiến sửa/tạo: `src/lib/auth/{actions,schemas,email}.ts`, `src/app/forgot-password`, `src/app/reset-password`, route xử lý link trong mail (dưới `src/app/auth/*`), `src/app/login/page.tsx`, `src/proxy.ts` (cho khách vào hai trang mới), `src/db/seed.ts`, `.env.example`, `README.md`, test trong `src/lib/auth/*.test.ts` và `tests/e2e/*`
 - Branch: `chưa tạo` (xem ngoại lệ branch ở `changes_workflow.md` nếu nhóm trưởng cho phép)
-- Commit: chưa commit (thay đổi đang ở working tree, chờ nhóm trưởng yêu cầu)
+- Commit: `83098d2` (trên `main`)
 
 ## Kết quả người dùng
 
@@ -87,7 +87,7 @@ Thêm vào `ALLOWED_EMAIL_DOMAINS` (hiện là `gm.uit.edu.vn,uit.edu.vn`) và g
   - Trang/Component: `forgot-password`, `reset-password`, `forgot-form.tsx`, `reset-form.tsx`; export lại `PasswordField` để dùng chung; liên kết "Quên mật khẩu?" và thông báo "Đã đổi mật khẩu" ở trang đăng nhập.
   - Dữ liệu: `seed.ts` thêm HCMUT, USSH, IU, UEL và cập nhật tên miền HCMUS; `.env.example`, `.env.local` (không commit), `README.md`.
   - Quyết định thiết kế của AI: dùng `redirectTo` về `/auth/callback` (PKCE, `exchangeCodeForSession`) thay vì sửa mail template để khỏi phải chỉnh cấu hình Supabase; đặt xong mật khẩu thì đăng xuất và chuyển về đăng nhập; thông báo giống nhau dù email có tài khoản hay không.
-- Quyết định của nhóm (Human Decision): chờ xác nhận.
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02: nhóm trưởng xác nhận).
 - Kiểm tra / Xác minh (Verification):
   - `lint`, `typecheck`, `test` 72/72 (thêm TC-024-01/02), `build` (3 route mới).
   - Playwright trên dev server (TC-024-03, 04, 06, 07, 11); `db:seed` chạy trên DB dev và SELECT `schools` (TC-024-09).

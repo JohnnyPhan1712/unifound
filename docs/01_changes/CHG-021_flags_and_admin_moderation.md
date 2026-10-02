@@ -1,7 +1,7 @@
 # CHG-021: Báo cáo vi phạm và kiểm duyệt (admin)
 
 - ID: `CHG-021`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-016`, `CHG-018` (thông báo), `CHG-014` (guard/role)

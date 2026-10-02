@@ -1,7 +1,7 @@
 # CHG-020: Bàn giao (điểm hẹn, liên hệ) và xác nhận Đã trả
 
 - ID: `CHG-020`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-019`
