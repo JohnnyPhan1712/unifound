@@ -15,18 +15,20 @@
 | [`CHG-011`](CHG-011_claim_and_return_flow.md) | xây luồng claim và hoàn tất nhận lại đồ | `rejected` |
 | [`CHG-012`](CHG-012_brand_identity_and_ui_mockups.md) | Xác định nhận diện thương hiệu và mockup toàn bộ màn hình | `done` |
 | [`CHG-013`](CHG-013_cleanup_legacy_code.md) | Dọn code cũ của các CHG bị từ chối | `done` |
-| [`CHG-014`](CHG-014_ui_foundation_auth_profile.md) | Nền UI dùng chung, đăng nhập email trường và hồ sơ | `in_review` |
-| [`CHG-015`](CHG-015_seed_and_create_report.md) | Seed dữ liệu và đăng tin Mất đồ / Nhặt được | `in_review` |
-| [`CHG-016`](CHG-016_feed_search_report_detail.md) | Bảng tin, tìm kiếm và chi tiết tin | `in_review` |
-| [`CHG-017`](CHG-017_my_reports_edit_delete.md) | Tin của tôi, sửa/đóng/xóa tin | `in_review` |
-| [`CHG-018`](CHG-018_matching_and_notifications.md) | Gợi ý tin phù hợp (matching) và thông báo trong web | `in_review` |
-| [`CHG-019`](CHG-019_claim_submit_and_decision.md) | Gửi yêu cầu nhận đồ và xử lý chấp nhận/từ chối | `in_review` |
-| [`CHG-020`](CHG-020_handover_and_returned.md) | Bàn giao (điểm hẹn, liên hệ) và xác nhận Đã trả | `in_review` |
-| [`CHG-021`](CHG-021_flags_and_admin_moderation.md) | Báo cáo vi phạm và kiểm duyệt admin | `in_review` |
-| [`CHG-022`](CHG-022_admin_catalog_and_stats.md) | Quản trị danh mục, địa điểm và thống kê | `in_review` |
-| [`CHG-023`](CHG-023_e2e_deploy_readme.md) | E2E golden path, rà soát UI, deploy Vercel và README | `waiting_for_integration` |
-| [`CHG-024`](CHG-024_forgot_password_and_school_domains.md) | Quên mật khẩu và bổ sung tên miền email trường | `in_review` |
+| [`CHG-014`](CHG-014_ui_foundation_auth_profile.md) | Nền UI dùng chung, đăng nhập email trường và hồ sơ | `done` |
+| [`CHG-015`](CHG-015_seed_and_create_report.md) | Seed dữ liệu và đăng tin Mất đồ / Nhặt được | `done` |
+| [`CHG-016`](CHG-016_feed_search_report_detail.md) | Bảng tin, tìm kiếm và chi tiết tin | `done` |
+| [`CHG-017`](CHG-017_my_reports_edit_delete.md) | Tin của tôi, sửa/đóng/xóa tin | `done` |
+| [`CHG-018`](CHG-018_matching_and_notifications.md) | Gợi ý tin phù hợp (matching) và thông báo trong web | `done` |
+| [`CHG-019`](CHG-019_claim_submit_and_decision.md) | Gửi yêu cầu nhận đồ và xử lý chấp nhận/từ chối | `done` |
+| [`CHG-020`](CHG-020_handover_and_returned.md) | Bàn giao (điểm hẹn, liên hệ) và xác nhận Đã trả | `done` |
+| [`CHG-021`](CHG-021_flags_and_admin_moderation.md) | Báo cáo vi phạm và kiểm duyệt admin | `done` |
+| [`CHG-022`](CHG-022_admin_catalog_and_stats.md) | Quản trị danh mục, địa điểm và thống kê | `done` |
+| [`CHG-023`](CHG-023_e2e_deploy_readme.md) | E2E golden path, rà soát UI, deploy Vercel và README | `done` |
+| [`CHG-024`](CHG-024_forgot_password_and_school_domains.md) | Quên mật khẩu và bổ sung tên miền email trường | `done` |
 
 Số CHG tiếp theo: `CHG-025`.
 
+> CHG-014 → CHG-024 đã `done` (2026-10-03). Lưu ý: TC-023-05 (golden path trên URL Vercel) vẫn Pending trong CHG-023, các test case chưa chạy của CHG-024 (TC-024-05/08/10) cũng vậy.
+>
 > CHG-001 → CHG-011 theo quy trình cũ, không còn áp dụng. CHG-008 → CHG-011 đã `rejected`; CHG-013 dọn code cũ của các CHG bị từ chối.

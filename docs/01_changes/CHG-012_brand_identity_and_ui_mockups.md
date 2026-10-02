@@ -65,7 +65,7 @@ Nhóm có một tài liệu nhận diện thương hiệu UniFound (màu, palett
 - Công cụ AI (AI Tool): Claude Code (model Claude Opus 5.5, `claude-opus-5-5`); skill `impeccable` (đọc `reference/craft-floor.md`).
 - Đầu vào / Ngữ cảnh (Input/Context): `AGENTS.md`, `DESIGN.md`, `docs/02_reports/01–03`, `use_case_diagram.puml`, enum trong `src/db/schema.ts`, rule mật khẩu trong `src/lib/auth/schemas.ts`.
 - Kết quả AI (AI Output): `07_brand_identity.md`. Nội dung chính: primary `#2D5BD7` thay Rausch (tránh nhầm với màu lỗi, tách khỏi màu Lost/Found); Lost = cam `#9A3D0B`, Found = xanh lục `#0B6B4A`, luôn đi kèm icon + chữ; font Be Vietnam Pro (hỗ trợ tốt dấu tiếng Việt, OFL) với fallback Inter; logo "chữ U ôm chấm tròn"; điểm trùng khớp là điểm nhấn thay rating display của Airbnb.
-- Quyết định của nhóm (Human Decision): chờ xác nhận.
+- Quyết định của nhóm (Human Decision): **Accepted** (2026-10-02: nhóm trưởng xác nhận).
 - Kiểm tra / Xác minh (Verification): tính tỉ lệ tương phản WCAG bằng script (TC-08); xem logo ở 16/32/64/160px bằng Playwright (TC-09).
 - Ứng viên đưa vào báo cáo: có (quyết định UI/UX quan trọng, có phần giải thích).
 
@@ -75,7 +75,7 @@ Nhóm có một tài liệu nhận diện thương hiệu UniFound (màu, palett
 - Công cụ AI (AI Tool): Claude Code (Claude Opus 5.5); skill `impeccable`; Playwright MCP để kiểm tra.
 - Đầu vào / Ngữ cảnh (Input/Context): như AI-1, cộng `07_brand_identity.md`.
 - Kết quả AI (AI Output): `docs/02_reports/assets/ui_mockups/`: 6 màn hình + `index.html`, `assets/uf.css` (token theo tài liệu 07), `assets/uf.js` (icon SVG, thanh chuyển trạng thái mockup, tab, dialog, bộ đếm ký tự), 3 file logo SVG. HTML được sinh bằng một script Python tạm (không commit) để dùng chung header/footer; file HTML kết quả là tĩnh và sửa trực tiếp được.
-- Quyết định của nhóm (Human Decision): chờ xác nhận.
+- Quyết định của nhóm (Human Decision): **Accepted** (2026-10-02: nhóm trưởng xác nhận).
 - Kiểm tra / Xác minh (Verification): Playwright MCP, desktop + mobile (TC-01 → TC-07). Lần kiểm tra đầu phát hiện BUG-1, BUG-2 và hai lỗi nhỏ (chip bị xuống dòng trên mobile, thiếu vạch ngăn giữa ô email và mật khẩu); đã sửa rồi chụp lại.
 - Ứng viên đưa vào báo cáo: có (có bug do AI tạo ra, được phát hiện qua kiểm tra và sửa).
 

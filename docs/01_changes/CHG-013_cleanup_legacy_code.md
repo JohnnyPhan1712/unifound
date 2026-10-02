@@ -60,7 +60,7 @@ Repo chỉ còn skeleton Next.js sạch và cấu hình nền, không còn code 
 - Công cụ AI (AI Tool): Claude Code (Sonnet 5.5), ponytail
 - Đầu vào / Ngữ cảnh (Input/Context): CHG-013, `git ls-files src tests drizzle`, `code_conventions.md`.
 - Kết quả AI (AI Output): `git rm` theo 7 nhóm (người dùng duyệt từng nhóm), viết lại `layout.tsx`/`page.tsx`/`globals.css`, thêm `src/smoke.test.ts`.
-- Quyết định của nhóm (Human Decision): chờ xác nhận (người dùng đã duyệt từng nhóm xóa trong phiên)
+- Quyết định của nhóm (Human Decision): Accepted (2026-10-02: nhóm trưởng xác nhận; đã duyệt từng nhóm xóa trong phiên)
 - Kiểm tra / Xác minh (Verification): TC-013-01 → 06; `npm run typecheck`, `npm test`, `npm run build` pass.
 - Cập nhật 2026-10-02: file `code_conventions.md` đã được đổi tên thành `conventions.md`; tên cũ ở ô "Đầu vào / Ngữ cảnh" giữ nguyên vì đúng với thời điểm ghi log.
 - Ứng viên đưa vào báo cáo: không

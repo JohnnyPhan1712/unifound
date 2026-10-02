@@ -1,7 +1,7 @@
 # CHG-014: Nền UI dùng chung, đăng nhập email trường và hồ sơ
 
 - ID: `CHG-014`
-- Trạng thái: `in_review`
+- Trạng thái: `done`
 - Ngày tạo: `2026-09-30`
 - Người phụ trách: `Trần Minh Chiến`
 - Dependency: `CHG-013` (repo sạch code cũ)
