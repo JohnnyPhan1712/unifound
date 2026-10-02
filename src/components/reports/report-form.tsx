@@ -11,7 +11,7 @@ import { ActionMessage } from "@/components/ui/notice";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { ImagePicker } from "./image-picker";
 
-export type CatalogOption = { id: string; name: string; group?: string };
+export type CatalogOption = { id: string; name: string; group?: string; schoolId?: string };
 
 type Props = {
   action: (prev: ActionState, formData: FormData) => Promise<ActionState>;

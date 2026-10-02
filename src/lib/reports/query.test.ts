@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { PgDialect } from "drizzle-orm/pg-core";
-import { feedConditions, isPubliclyVisible, parseFeedParams, publicReportColumns } from "./query";
+import { feedConditions, isPubliclyVisible, parseFeedParams, publicReportColumns, removeTones } from "./query";
 
 const dialect = new PgDialect();
 const now = new Date("2026-10-01T05:00:00Z");
@@ -34,6 +34,21 @@ describe("TC-016-01 tham số và điều kiện lọc", () => {
     expect(params).toContain("ví");
     // "đến ngày 30/09" tính hết ngày theo giờ VN → trước 01/10 00:00 +07
     expect(params).toContain(new Date("2026-09-30T17:00:00.000Z").toISOString());
+  });
+});
+
+describe("TC-025-06 tìm không dấu", () => {
+  it("removeTones bỏ dấu, kể cả đ và chữ hoa", () => {
+    expect(removeTones("Ví da, Thẻ, Khóa, Đồ")).toBe("vi da, the, khoa, do");
+  });
+  it("điều kiện thêm translate + ilike với từ khóa đã bỏ dấu và escape %_", () => {
+    const { sql, params } = dialect.sqlToQuery(feedConditions(parseFeedParams({ q: "Ví_100%" }), now));
+    expect(sql).toContain("translate(");
+    expect(sql).toContain("ilike");
+    expect(params).toContain("%vi\\_100\\%%");
+    // bảng thay phải dài bằng nhau, nếu không translate() sẽ xóa ký tự thay vì đổi
+    const [from, to] = params.filter((p) => typeof p === "string" && /^[a-zà-ỹ]{20,}$/i.test(p)) as string[];
+    expect([...from].length).toBe([...to].length);
   });
 });
 
