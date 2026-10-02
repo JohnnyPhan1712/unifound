@@ -8,6 +8,7 @@ actor "Sinh viên" as SV
 actor "Quản trị viên" as AD
 
 SV --|> KH
+AD --|> SV
 
 rectangle "Hệ thống UniFound" {
   usecase "Xem bảng tin" as UC01
