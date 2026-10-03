@@ -30,8 +30,11 @@
 | [`CHG-026`](CHG-026_header_auth_popup_help_footer.md) | Header (avatar + menu), popup xác thực, trợ giúp và footer | `done` |
 | [`CHG-027`](CHG-027_remove_dark_mode_merge_menu.md) | Bỏ dark mode và gom menu tài khoản vào HammerMenu | `done` |
 | [`CHG-028`](CHG-028_claim_evidence_images.md) | Đính kèm ảnh vào yêu cầu nhận lại | `done` |
+| [`CHG-029`](CHG-029_lost_report_photo_optional.md) | Ảnh không bắt buộc khi đăng tin Mất đồ | `in_review` |
+| [`CHG-030`](CHG-030_realtime_chat.md) | Chat thời gian thực giữa người nhặt và người nhận lại | `rejected` |
+| [`CHG-031`](CHG-031_register_full_name.md) | Nhập họ và tên khi đăng ký | `in_review` |
 
-Số CHG tiếp theo: `CHG-029`.
+Số CHG tiếp theo: `CHG-032`.
 
 > CHG-014 → CHG-024 đã `done` (2026-10-03). Lưu ý: TC-023-05 (golden path trên URL Vercel) vẫn Pending trong CHG-023, các test case chưa chạy của CHG-024 (TC-024-05/08/10) cũng vậy.
 >

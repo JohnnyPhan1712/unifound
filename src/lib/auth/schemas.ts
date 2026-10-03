@@ -19,8 +19,12 @@ const optionalText = (max: number, message: string) =>
     .max(max, message)
     .transform((v) => v || null);
 
+const fullName = z.string().trim().min(2, "Họ tên tối thiểu 2 ký tự.").max(120, "Họ tên tối đa 120 ký tự.");
+
+export const registerSchema = credentialsSchema.extend({ fullName });
+
 export const profileSchema = z.object({
-  fullName: z.string().trim().min(2, "Họ tên tối thiểu 2 ký tự.").max(120, "Họ tên tối đa 120 ký tự."),
+  fullName,
   studentCode: z
     .string()
     .trim()

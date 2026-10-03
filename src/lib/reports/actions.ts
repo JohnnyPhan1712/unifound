@@ -42,7 +42,7 @@ export async function createReport(_prev: ActionState, formData: FormData): Prom
         expiresAt: expiresAtFrom(now),
       })
       .returning({ id: reports.id });
-    await tx.insert(reportImages).values(data.images.map((imageUrl, position) => ({ reportId: row.id, imageUrl, position })));
+    if (data.images.length) await tx.insert(reportImages).values(data.images.map((imageUrl, position) => ({ reportId: row.id, imageUrl, position })));
     return row.id;
   });
 

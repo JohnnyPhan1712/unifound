@@ -5,6 +5,7 @@ import { IMAGE_BUCKET, IMAGE_TYPES, isOwnImagePath, MAX_IMAGE_BYTES } from "./sc
 
 /** Kiểm tra lại phía server từng ảnh đã thật sự nằm trong Storage, đúng thư mục, định dạng và dung lượng. */
 export async function checkImages(paths: string[], userId: string, bucket = IMAGE_BUCKET): Promise<string | null> {
+  if (!paths.length) return null;
   if (new Set(paths).size !== paths.length) return "Ảnh bị trùng.";
   if (!paths.every((p) => isOwnImagePath(p, userId))) return "Ảnh không hợp lệ.";
   const rows = await db.execute<{ name: string; size: string | null; mime: string | null }>(sql`

@@ -58,7 +58,9 @@ export const imageList = (min: number, max: number) =>
     })
     .pipe(z.array(z.string()).min(min, "Cần ít nhất 1 ảnh.").max(max, `Tối đa ${max} ảnh.`));
 
+// Tin Mất đồ không bắt buộc ảnh (người mất thường không còn ảnh vừa chụp); tin Nhặt được cần ≥ 1 ảnh.
 const images = imageList(1, MAX_IMAGES);
+const optionalImages = imageList(0, MAX_IMAGES);
 
 const common = {
   title: text(5, 120, "tiêu đề"),
@@ -80,7 +82,7 @@ const foundReport = z.object({ type: z.literal("FOUND"), ...common, ...found });
 
 export const createReportSchema = z.discriminatedUnion(
   "type",
-  [lost.extend({ images }), foundReport.extend({ images })],
+  [lost.extend({ images: optionalImages }), foundReport.extend({ images })],
   typeError
 );
 /** Form sửa tin (CHG-017): ảnh giữ nguyên. */

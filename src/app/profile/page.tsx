@@ -21,7 +21,7 @@ export default async function ProfilePage({ searchParams }: PageProps<"/profile"
       </p>
       {welcome && (
         <div className="mb-4">
-          <Notice tone="success">Tạo tài khoản thành công. Điền họ tên và liên hệ để người nhặt đồ liên lạc được với bạn.</Notice>
+          <Notice tone="success">Tạo tài khoản thành công. Bổ sung MSSV và thông tin liên hệ để người nhặt đồ liên lạc được với bạn.</Notice>
         </div>
       )}
       <div className="panel sm:p-8">

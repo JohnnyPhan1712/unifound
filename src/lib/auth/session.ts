@@ -7,7 +7,7 @@ import { authUrl } from "./auth-url";
 import { emailDomain } from "./email";
 
 /** Tạo bản ghi users (role USER) cho tài khoản Supabase Auth nếu chưa có; gán trường theo tên miền email. */
-export async function ensureUserRow(id: string, email: string): Promise<User> {
+export async function ensureUserRow(id: string, email: string, fullName?: string): Promise<User> {
   const [existing] = await db.select().from(users).where(eq(users.id, id));
   if (existing) return existing;
 
@@ -17,7 +17,7 @@ export async function ensureUserRow(id: string, email: string): Promise<User> {
     .where(eq(schools.emailDomain, emailDomain(email)));
   await db
     .insert(users)
-    .values({ id, email: email.toLowerCase(), schoolId: school?.id ?? null })
+    .values({ id, email: email.toLowerCase(), fullName, schoolId: school?.id ?? null })
     .onConflictDoNothing();
   const [row] = await db.select().from(users).where(eq(users.id, id));
   return row;

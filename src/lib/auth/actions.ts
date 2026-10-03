@@ -9,7 +9,7 @@ import { createClient } from "@/utils/supabase/server";
 import { formValues, invalid, type ActionState } from "@/lib/action-state";
 import { authUrl } from "./auth-url";
 import { allowedDomains, isAllowedEmail } from "./email";
-import { credentialsSchema, emailSchema, newPasswordSchema, profileSchema } from "./schemas";
+import { credentialsSchema, emailSchema, newPasswordSchema, profileSchema, registerSchema } from "./schemas";
 import { ensureUserRow, getSessionUser, requireUser } from "./session";
 
 const domainError = (): ActionState => ({
@@ -53,12 +53,13 @@ export async function login(_prev: ActionState, formData: FormData): Promise<Act
 
 export async function register(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const values = formValues(formData);
-  const parsed = credentialsSchema.safeParse(values);
-  if (!parsed.success) return invalid(parsed.error, { email: values.email ?? "" });
-  const { email, password } = parsed.data;
-  if (!isAllowedEmail(email, allowedDomains())) return { ...domainError(), values: { email } };
+  const kept = { email: values.email ?? "", fullName: values.fullName ?? "" };
+  const parsed = registerSchema.safeParse(values);
+  if (!parsed.success) return invalid(parsed.error, kept);
+  const { email, password, fullName } = parsed.data;
+  if (!isAllowedEmail(email, allowedDomains())) return { ...domainError(), values: { email, fullName } };
   if (values.password !== values.confirmPassword) {
-    return { fieldErrors: { confirmPassword: ["Mật khẩu nhập lại không khớp."] }, values: { email } };
+    return { fieldErrors: { confirmPassword: ["Mật khẩu nhập lại không khớp."] }, values: { email, fullName } };
   }
 
   const supabase = await createClient();
@@ -68,14 +69,14 @@ export async function register(_prev: ActionState, formData: FormData): Promise<
       error?.code === "user_already_exists"
         ? "Email này đã có tài khoản. Hãy đăng nhập."
         : "Không thể đăng ký lúc này, vui lòng thử lại.";
-    return { message, values: { email } };
+    return { message, values: { email, fullName } };
   }
   // Supabase trả user giả (identities rỗng) khi email đã tồn tại mà bật xác nhận email
   if (data.user.identities?.length === 0) {
-    return { message: "Email này đã có tài khoản. Hãy đăng nhập.", values: { email } };
+    return { message: "Email này đã có tài khoản. Hãy đăng nhập.", values: { email, fullName } };
   }
 
-  await ensureUserRow(data.user.id, email);
+  await ensureUserRow(data.user.id, email, fullName);
   if (!data.session) {
     return { ok: true, message: "Đã gửi email xác nhận. Mở hộp thư để kích hoạt tài khoản rồi đăng nhập." };
   }

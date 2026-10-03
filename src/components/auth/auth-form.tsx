@@ -21,6 +21,9 @@ export function AuthForm({ mode, next, domains, hrefFor }: Props) {
     <form action={action} className="grid gap-5" noValidate>
       <ActionMessage state={state} />
       <input type="hidden" name="next" value={next} />
+      {mode === "register" && (
+        <Input label="Họ và tên" name="fullName" autoComplete="name" maxLength={120} defaultValue={state.values?.fullName} error={errors.fullName} required />
+      )}
       <Input
         label="Email sinh viên"
         name="email"

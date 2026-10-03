@@ -30,8 +30,14 @@ describe("TC-015-01 Zod tạo tin", () => {
   it("loại tin sai", () => {
     expect(createReportSchema.safeParse({ ...base, type: "STOLEN" }).success).toBe(false);
   });
-  it("0 ảnh và 6 ảnh", () => {
-    expect(errorsOf({ ...base, images: "[]" })).toHaveProperty("images");
+  it("TC-029: LOST không cần ảnh, FOUND cần ≥ 1 ảnh", () => {
+    expect(errorsOf({ ...base, images: "[]" })).toEqual({});
+    expect(errorsOf({ ...base, images: undefined })).toEqual({});
+    const found = { ...base, type: "FOUND", keepingPlace: "Quầy thủ thư", verifyQuestion: "Có thẻ gì?", verifyAnswer: "Thẻ SV" };
+    expect(errorsOf({ ...found, images: "[]" })).toHaveProperty("images");
+    expect(errorsOf(found)).toEqual({});
+  });
+  it("6 ảnh bị từ chối", () => {
     expect(errorsOf({ ...base, images: JSON.stringify([1, 2, 3, 4, 5, 6].map(img)) })).toHaveProperty("images");
     expect(errorsOf({ ...base, images: JSON.stringify([1, 2, 3, 4, 5].map(img)) })).toEqual({});
   });

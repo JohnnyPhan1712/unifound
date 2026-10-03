@@ -6,6 +6,8 @@ test("email ngoài trường bị server từ chối", async ({ page }) => {
   await expect(page).toHaveURL(/\/\?auth=register/);
   await page.waitForLoadState("networkidle");
   const dialog = page.getByRole("dialog", { name: "Tạo tài khoản" });
+  await expect(dialog.getByLabel("Họ và tên")).toBeVisible();
+  await dialog.getByLabel("Họ và tên").fill("Người Thử E2E");
   await dialog.getByLabel("Email sinh viên").fill("someone@gmail.com");
   await dialog.getByLabel(/^Mật khẩu/).fill("matkhau123");
   await dialog.getByLabel("Nhập lại mật khẩu").fill("matkhau123");

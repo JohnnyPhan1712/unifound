@@ -181,7 +181,16 @@ export function ReportForm({ action, categories, locations, maxDateTime, initial
           required
         />
 
-        {uploadFor && <ImagePicker userId={uploadFor} error={e.images} onBusyChange={setUploading} />}
+        {uploadFor && (
+          <ImagePicker
+            userId={uploadFor}
+            error={e.images}
+            onBusyChange={setUploading}
+            required={found}
+            label={found ? "Ảnh đồ vật" : "Ảnh đồ vật (không bắt buộc)"}
+            hint={found ? "" : " Có thể dùng ảnh cũ của món đồ."}
+          />
+        )}
 
         {found && (
           <div className="grid gap-6 rounded-md border border-line bg-surface-soft p-5">

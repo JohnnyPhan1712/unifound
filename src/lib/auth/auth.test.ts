@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { isAllowedEmail, parseDomains } from "./email";
-import { credentialsSchema, newPasswordSchema, profileSchema } from "./schemas";
+import { credentialsSchema, newPasswordSchema, profileSchema, registerSchema } from "./schemas";
 
 const domains = parseDomains(" gm.uit.edu.vn, UIT.edu.vn ,,");
 
@@ -70,5 +70,19 @@ describe("TC-024-02 Zod mật khẩu mới", () => {
     const r = newPasswordSchema.safeParse({ password: "12345678", confirmPassword: "87654321" });
     expect(r.success).toBe(false);
     if (!r.success) expect(r.error.issues[0].path).toEqual(["confirmPassword"]);
+  });
+});
+
+describe("TC-031 Zod đăng ký có họ tên", () => {
+  const base = { email: "a@gm.uit.edu.vn", password: "12345678" };
+  const nameErr = (fullName?: string) => registerSchema.safeParse({ ...base, fullName }).error?.flatten().fieldErrors.fullName;
+
+  it("trim họ tên hợp lệ", () => {
+    expect(registerSchema.parse({ ...base, fullName: "  Nguyễn Văn A " }).fullName).toBe("Nguyễn Văn A");
+  });
+  it("từ chối thiếu, 1 ký tự và 121 ký tự", () => {
+    expect(nameErr(undefined)).toBeDefined();
+    expect(nameErr(" A ")).toBeDefined();
+    expect(nameErr("x".repeat(121))).toBeDefined();
   });
 });
