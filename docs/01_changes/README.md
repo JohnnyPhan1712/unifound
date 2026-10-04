@@ -33,8 +33,9 @@
 | [`CHG-029`](CHG-029_lost_report_photo_optional.md) | Ảnh không bắt buộc khi đăng tin Mất đồ | `in_review` |
 | [`CHG-030`](CHG-030_realtime_chat.md) | Chat thời gian thực giữa người nhặt và người nhận lại | `rejected` |
 | [`CHG-031`](CHG-031_register_full_name.md) | Nhập họ và tên khi đăng ký | `in_review` |
+| [`CHG-032`](CHG-032_cancel_handover.md) | Hủy bàn giao khi yêu cầu đã chấp nhận | `proposed` |
 
-Số CHG tiếp theo: `CHG-032`.
+Số CHG tiếp theo: `CHG-033`.
 
 > CHG-014 → CHG-024 đã `done` (2026-10-03). Lưu ý: TC-023-05 (golden path trên URL Vercel) vẫn Pending trong CHG-023, các test case chưa chạy của CHG-024 (TC-024-05/08/10) cũng vậy.
 >

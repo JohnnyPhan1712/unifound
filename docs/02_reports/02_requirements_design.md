@@ -94,7 +94,7 @@ Xem sơ đồ luồng từ lúc mở web đến khi tin chuyển sang Đã trả
 | S01 | Bảng tin (trang chủ) | Mọi người | Hai tab *Mất đồ / Nhặt được*; một thanh tìm kiếm 4 phân đoạn (Tìm kiếm / Danh mục / Vị trí gồm Trường → Khu vực / Thời gian), mỗi lần chỉ mở một ô chọn, thanh bám đỉnh khi cuộn; chip bộ lọc đang áp dụng kèm nút xóa từng chip và "Xóa tất cả"; danh sách thẻ tin (ảnh, tiêu đề, địa điểm, thời gian), nút "Đăng tin" |
 | S02 | Đăng nhập / đăng ký / quên mật khẩu | Khách | Một cửa sổ popup ngay trên trang hiện tại với ba chế độ, thông báo lỗi từng trường (giữ lại email khi lỗi) và thông báo khi đã gửi mail; các đường dẫn `/login`, `/register`, `/forgot-password` chỉ chuyển hướng về popup |
 | S03 | Đăng tin | Sinh viên | Chọn loại tin, form nhập thông tin, tải ảnh; tin Nhặt được có thêm ô "Nơi đang giữ" và "Câu hỏi xác minh" |
-| S04 | Chi tiết tin | Mọi người | Ảnh, mô tả, địa điểm, thời gian, trạng thái; nút "Đây là đồ của tôi" (tin Nhặt được) hoặc "Tôi đã thấy đồ này" (tin Mất đồ); nút báo cáo vi phạm; chủ tin/`ADMIN` sửa/xóa |
+| S04 | Chi tiết tin | Mọi người | Ảnh, mô tả, địa điểm, thời gian, trạng thái; nút "Đây là đồ của tôi" (tin Nhặt được); nút báo cáo vi phạm; chủ tin/`ADMIN` sửa/xóa |
 | S05 | Gửi yêu cầu nhận đồ | Sinh viên | Hiển thị câu hỏi xác minh, ô trả lời, ô mô tả thêm, ô **ảnh minh chứng** (không bắt buộc, tối đa 3 ảnh, có xem trước và xóa từng ảnh; ghi chú chỉ người nhặt thấy), nút gửi |
 | S06 | Gợi ý phù hợp | Sinh viên | Danh sách tin có khả năng khớp kèm mức độ phù hợp, nút "Không phải" hoặc "Xem chi tiết" |
 | S07 | Tin của tôi | Sinh viên | Ba tab: tin đã đăng, yêu cầu tôi đã gửi, yêu cầu tôi nhận được; sửa/đóng tin |
@@ -364,3 +364,23 @@ Tin đạt từ 50 điểm (`score >= 50`) thì được lưu vào bảng `MATCH
 - Cùng input phải cho cùng kết quả; không dùng AI, embedding hoặc machine learning.
 - Field tùy chọn bị thiếu không cộng điểm, không gây lỗi và không được tự suy đoán.
 - Matching chỉ là gợi ý để kiểm tra, không phải xác nhận quyền sở hữu.
+
+## 12. Sơ đồ trạng thái
+
+Hai đối tượng có vòng đời nhiều bước và nhiều actor nên cần sơ đồ trạng thái; mọi chuyển trạng thái ngoài sơ đồ bị server từ chối. `MATCHES`, `FLAGS` và `USERS.status` chỉ có 2–3 trạng thái nên mô tả ở mục 9, không vẽ riêng.
+
+**(a) Tin đăng (`REPORTS.status`)** — PlantUML source: [`state_diagram_report.puml`](assets/state_diagram_report.puml).
+
+- Chỉ tin `OPEN` được sửa và đóng; tin `FOUND` chỉ nhận yêu cầu khi `OPEN`.
+- Tin `IN_PROGRESS` và `RETURNED` không xóa được để giữ lịch sử yêu cầu nhận đồ.
+- `ADMIN` ẩn được tin ở mọi trạng thái; `HIDDEN` là trạng thái cuối (không có thao tác bỏ ẩn), chỉ còn xóa.
+- Tin `LOST` không có yêu cầu nhận đồ nên chỉ đi nhánh `OPEN` → `CLOSED` hoặc `HIDDEN`, không thành `RETURNED`.
+- Hết hạn 60 ngày không phải trạng thái lưu: so `expires_at` với thời điểm hiện tại khi truy vấn.
+- Hạn chế hiện tại: tin `IN_PROGRESS` chưa có đường quay lại `OPEN`/`CLOSED` nếu hai bên không gặp nhau.
+
+**(b) Yêu cầu nhận đồ (`CLAIMS.status`)** — PlantUML source: [`state_diagram_claim.puml`](assets/state_diagram_claim.puml).
+
+- `PENDING` → `ACCEPTED` hoặc `REJECTED` do người nhặt quyết định; khi một yêu cầu được chấp nhận, các yêu cầu `PENDING` còn lại tự chuyển `REJECTED`.
+- `ACCEPTED` → `COMPLETED` khi cả hai bên đã xác nhận, đồng thời tin chuyển `RETURNED`.
+- `EXPIRED` là trạng thái suy ra: `PENDING` quá 7 ngày được coi là hết hạn khi đọc.
+- Hạn chế hiện tại: yêu cầu `ACCEPTED` chưa có thao tác hủy.

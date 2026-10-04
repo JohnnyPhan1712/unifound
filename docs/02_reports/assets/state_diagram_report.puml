@@ -1,0 +1,50 @@
+@startuml UniFoundReportState
+skinparam shadowing false
+skinparam defaultFontName Arial
+hide empty description
+
+title Trạng thái tin đăng (reports.status)
+
+[*] --> OPEN : Đăng tin
+
+state "OPEN\n(Đang mở)" as OPEN
+state "IN_PROGRESS\n(Đang bàn giao)" as IN_PROGRESS
+state "RETURNED\n(Đã trả)" as RETURNED
+state "CLOSED\n(Đã đóng)" as CLOSED
+state "HIDDEN\n(Đã ẩn)" as HIDDEN
+
+OPEN --> IN_PROGRESS : Người nhặt chấp nhận\nmột yêu cầu (tin FOUND)
+IN_PROGRESS --> RETURNED : Hai bên đều xác nhận\nđã trả / đã nhận
+OPEN --> CLOSED : Chủ tin đóng tin
+
+OPEN --> HIDDEN : ADMIN ẩn
+IN_PROGRESS --> HIDDEN : ADMIN ẩn
+RETURNED --> HIDDEN : ADMIN ẩn
+CLOSED --> HIDDEN : ADMIN ẩn
+
+OPEN --> [*] : Xóa tin
+CLOSED --> [*] : Xóa tin
+HIDDEN --> [*] : Xóa tin
+
+note right of OPEN
+  Chỉ trạng thái này được sửa và đóng tin.
+  Tin FOUND mới nhận yêu cầu khi OPEN.
+  Tin LOST chỉ đi nhánh OPEN -> CLOSED / HIDDEN.
+end note
+
+note bottom of IN_PROGRESS
+  Không được xóa khi IN_PROGRESS hoặc RETURNED
+  để giữ lịch sử yêu cầu nhận đồ.
+end note
+
+note bottom of HIDDEN
+  Không có thao tác bỏ ẩn.
+  Tin HIDDEN không hiện công khai.
+end note
+
+note left of CLOSED
+  Hết hạn 60 ngày (expires_at) không phải
+  trạng thái lưu: hệ thống so với thời điểm
+  hiện tại khi truy vấn và hiển thị như đã đóng.
+end note
+@enduml

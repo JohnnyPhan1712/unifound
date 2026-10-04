@@ -1,0 +1,37 @@
+@startuml UniFoundClaimState
+skinparam shadowing false
+skinparam defaultFontName Arial
+hide empty description
+
+title Trạng thái yêu cầu nhận đồ (claims.status)
+
+[*] --> PENDING : Người mất gửi yêu cầu\n(tin FOUND còn OPEN, chưa từng gửi)
+
+state "PENDING\n(Chờ duyệt)" as PENDING
+state "ACCEPTED\n(Đã chấp nhận)" as ACCEPTED
+state "REJECTED\n(Bị từ chối)" as REJECTED
+state "COMPLETED\n(Hoàn tất)" as COMPLETED
+state "EXPIRED\n(Hết hạn)" as EXPIRED
+
+PENDING --> ACCEPTED : Người nhặt chấp nhận\n(tin -> IN_PROGRESS)
+PENDING --> REJECTED : Người nhặt từ chối
+PENDING --> REJECTED : Tin đã chọn yêu cầu khác\n(tự động đóng)
+PENDING --> EXPIRED : Quá 7 ngày không phản hồi
+ACCEPTED --> COMPLETED : finder_confirmed_at và\nowner_confirmed_at đều có\n(tin -> RETURNED)
+
+REJECTED --> [*]
+EXPIRED --> [*]
+COMPLETED --> [*]
+
+note right of ACCEPTED
+  Mỗi tin tối đa một yêu cầu ACCEPTED.
+  Hai bên thấy liên hệ của nhau; người nhặt đặt điểm và giờ hẹn.
+  Chưa có thao tác hủy yêu cầu đã chấp nhận.
+end note
+
+note bottom of EXPIRED
+  Không phải trạng thái lưu: không có tác vụ nền,
+  PENDING quá 7 ngày được coi là EXPIRED khi đọc.
+  Chuyển trạng thái ngoài sơ đồ này bị server từ chối.
+end note
+@enduml
