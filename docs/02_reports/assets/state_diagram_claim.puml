@@ -12,21 +12,25 @@ state "ACCEPTED\n(Đã chấp nhận)" as ACCEPTED
 state "REJECTED\n(Bị từ chối)" as REJECTED
 state "COMPLETED\n(Hoàn tất)" as COMPLETED
 state "EXPIRED\n(Hết hạn)" as EXPIRED
+state "CANCELLED\n(Đã hủy)" as CANCELLED
 
 PENDING --> ACCEPTED : Người nhặt chấp nhận\n(tin -> IN_PROGRESS)
 PENDING --> REJECTED : Người nhặt từ chối
 PENDING --> REJECTED : Tin đã chọn yêu cầu khác\n(tự động đóng)
 PENDING --> EXPIRED : Quá 7 ngày không phản hồi
 ACCEPTED --> COMPLETED : finder_confirmed_at và\nowner_confirmed_at đều có\n(tin -> RETURNED)
+ACCEPTED --> CANCELLED : Người nhặt hoặc người nhận\nhủy bàn giao (tin -> OPEN)
 
 REJECTED --> [*]
 EXPIRED --> [*]
+CANCELLED --> [*]
 COMPLETED --> [*]
 
 note right of ACCEPTED
   Mỗi tin tối đa một yêu cầu ACCEPTED.
   Hai bên thấy liên hệ của nhau; người nhặt đặt điểm và giờ hẹn.
-  Chưa có thao tác hủy yêu cầu đã chấp nhận.
+  Hủy bàn giao: liên hệ hai bên ngừng hiển thị, người bị hủy
+  không gửi lại được yêu cầu cho tin này.
 end note
 
 note bottom of EXPIRED

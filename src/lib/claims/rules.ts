@@ -6,10 +6,11 @@ const DAY_MS = 86_400_000;
 /** Chuyển trạng thái hợp lệ của yêu cầu nhận đồ; mọi chuyển khác bị từ chối. */
 const TRANSITIONS: Record<ClaimStatus, ClaimStatus[]> = {
   PENDING: ["ACCEPTED", "REJECTED"],
-  ACCEPTED: ["COMPLETED"],
+  ACCEPTED: ["COMPLETED", "CANCELLED"],
   REJECTED: [],
   COMPLETED: [],
   EXPIRED: [],
+  CANCELLED: [],
 };
 
 export function canTransition(from: ClaimStatus, to: ClaimStatus): boolean {

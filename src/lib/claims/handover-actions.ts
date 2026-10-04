@@ -8,6 +8,7 @@ import { requireUser } from "@/lib/auth/session";
 import { formatDateTime } from "@/lib/labels";
 import { notify, type NewNotification } from "@/lib/notifications";
 import { applyConfirmation, handoverRole, meetingSchema } from "./handover";
+import { canTransition } from "./rules";
 
 /** Người nhặt chọn điểm hẹn + giờ hẹn sau khi đã chấp nhận yêu cầu; người mất được thông báo. */
 export async function setMeeting(_prev: ActionState, formData: FormData): Promise<ActionState> {
@@ -107,6 +108,47 @@ export async function confirmHandover(_prev: ActionState, formData: FormData): P
           type: "MEETING",
           message: `${role === "finder" ? "Người nhặt đã xác nhận trả" : "Người nhận đã xác nhận nhận"} “${row.title}”. Bấm xác nhận phía bạn để hoàn tất.`,
           link,
+        },
+      ],
+    };
+  });
+
+  if (outcome.notifications) await notify(outcome.notifications);
+  revalidatePath("/", "layout");
+  return { ok: outcome.ok, message: outcome.message };
+}
+
+/** Một trong hai bên hủy bàn giao khi không gặp được nhau: claim CANCELLED, tin về OPEN để nhận yêu cầu khác. */
+export async function cancelHandover(_prev: ActionState, formData: FormData): Promise<ActionState> {
+  const user = await requireUser();
+  const id = String(formData.get("id") ?? "");
+  if (!/^[0-9a-f-]{36}$/i.test(id)) return { message: "Yêu cầu không hợp lệ." };
+
+  type Outcome = ActionState & { notifications?: NewNotification[] };
+  const outcome = await db.transaction(async (tx): Promise<Outcome> => {
+    const [row] = await tx
+      .select({ status: claims.status, claimantId: claims.claimantId, reportId: reports.id, finderId: reports.userId, title: reports.title })
+      .from(claims)
+      .innerJoin(reports, eq(claims.reportId, reports.id))
+      .where(eq(claims.id, id))
+      .for("update");
+    if (!row) return { message: "Yêu cầu không tồn tại." };
+    const role = handoverRole(user.id, row);
+    if (!role) return forbidden;
+    if (row.status === "CANCELLED") return { ok: true, message: "Bàn giao đã được hủy trước đó." };
+    if (!canTransition(row.status, "CANCELLED")) return { message: "Chỉ hủy được khi yêu cầu đang ở trạng thái đã chấp nhận." };
+
+    await tx.update(claims).set({ status: "CANCELLED", updatedAt: new Date() }).where(eq(claims.id, id));
+    await tx.update(reports).set({ status: "OPEN", updatedAt: new Date() }).where(and(eq(reports.id, row.reportId), eq(reports.status, "IN_PROGRESS")));
+    return {
+      ok: true,
+      message: "Đã hủy bàn giao. Tin quay về trạng thái Đang mở.",
+      notifications: [
+        {
+          userId: role === "finder" ? row.claimantId : row.finderId,
+          type: "CLAIM_DECISION",
+          message: `${role === "finder" ? "Người nhặt" : "Người nhận"} đã hủy bàn giao “${row.title}”.`,
+          link: `/claims/${id}`,
         },
       ],
     };

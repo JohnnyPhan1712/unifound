@@ -36,6 +36,7 @@ export const claimStatusEnum = pgEnum("claim_status", [
   "REJECTED",
   "COMPLETED",
   "EXPIRED",
+  "CANCELLED",
 ]);
 export const notificationTypeEnum = pgEnum("notification_type", [
   "MATCH",
