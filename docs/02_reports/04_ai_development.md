@@ -80,7 +80,7 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 ### AI-LOG-007 — E2E golden path và edge case
 
 - Nguồn: giai đoạn kiểm thử và triển khai, Dương Đăng Khang.
-- AI Tool: Claude Code (Opus 5.5), thư viện Playwright.
+- AI Tool: Antigravity (Gemini 3.8 Flash, Claude Sonnet), thư viện Playwright.
 - Task: Viết Playwright E2E cho luồng đăng nhập → đăng tin → gửi yêu cầu → chấp nhận → hai bên xác nhận → Đã trả, và các ca sai quyền.
 - Human Decision: **Accepted** (ủy quyền 2026-10-02).
 - Verification: Lần chạy đầu 3/4 pass; ca đăng ký fail vì selector `getByLabel("Mật khẩu", { exact: true })` không khớp nhãn có dấu `*` — lỗi ở test chứ không ở app. Đổi sang regex → 4/4 pass.
@@ -88,7 +88,7 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 ### AI-LOG-008 — Quên mật khẩu (PKCE) và thêm tên miền trường
 
 - Nguồn: giai đoạn bổ sung, Phan Ngọc Đức Huy.
-- AI Tool: Claude Code (Sonnet 5.5), Supabase MCP (`search_docs`, SELECT), Playwright, ponytail.
+- AI Tool: Antigravity (Claude Sonnet), Supabase MCP (`search_docs`, SELECT), Playwright, ponytail.
 - Task: Thêm `/forgot-password`, `/reset-password`, `/auth/callback`; thêm 5 tên miền và 4 trường vào seed.
 - AI Output: Dùng `redirectTo` về `/auth/callback` (PKCE, `exchangeCodeForSession`) thay vì sửa mail template để khỏi đổi cấu hình Supabase; thông báo giống nhau dù email có tài khoản hay không (không lộ email đã đăng ký); chặn tài khoản `locked`.
 - Human Decision: **Accepted** (2026-10-02: nhóm trưởng xác nhận).
@@ -96,23 +96,35 @@ Quy tắc dùng công cụ: không đưa secret hoặc dữ liệu cá nhân th�
 
 ### AI-LOG-009 — Popup xác thực, Trợ giúp và kiểm tra nội dung với code thật
 
-- Nguồn: giai đoạn hoàn thiện giao diện (header, popup, trợ giúp).
-- AI Tool: Claude Code (Sonnet 5.5), ponytail, thư viện Playwright; tham khảo cấu trúc iLost Support Center.
+- Nguồn: giai đoạn hoàn thiện giao diện (header, popup, trợ giúp), Phan Ngọc Đức Huy và Thế Anh.
+- AI Tool: Claude Code (Sonnet 5.5) + Antigravity (Gemini Flash 3.8, Claude Sonnet), ponytail, thư viện Playwright; tham khảo cấu trúc iLost Support Center.
 - Task: Cho đăng nhập/đăng ký/quên mật khẩu và Trợ giúp mở thành popup ngay trên trang hiện tại từ nhiều nơi (avatar, menu, nút "Đăng tin", proxy, server action); viết nội dung trợ giúp.
 - Input / Context: Header cũ, các trang `/login` `/register` `/forgot-password`, server action và proxy hiện có, logic chấm điểm (`score.ts`) và bàn giao (`handover.ts`).
 - AI Output: Trạng thái popup nằm trên URL (`?auth=login|register|forgot`, `?help=1`) thay vì React context, nên server chỉ cần `redirect` về URL tương ứng; popup dùng `<dialog>` gốc (có sẵn focus trap, phím Esc và lớp nền), không thêm thư viện. Menu giữ trong DOM (ẩn bằng `hidden`) để form Đăng xuất không bị gỡ trước khi gửi. Bản nháp nội dung trợ giúp ban đầu sai hai điểm: mô tả gợi ý trùng khớp thiếu điều kiện (cùng danh mục, trong 14 ngày) và nói tin đóng khi một bên bấm "Đã trả"; AI tự đối chiếu mã nguồn rồi sửa thành "cả hai bên cùng xác nhận". Danh sách điểm tiếp nhận chỉ dùng tên địa điểm có trong dữ liệu mẫu, không bịa số điện thoại hay giờ làm việc.
 - Human Decision: **Accepted** (người dùng xác nhận hoàn thành). Danh sách điểm tiếp nhận là nội dung minh họa, cần nhóm xác nhận lại tên và ghi chú nếu dùng thật.
 - Verification: 8 test Playwright (thứ tự nút header, luồng đăng nhập ↔ đăng ký ↔ quên mật khẩu, "Đăng tin" khi chưa đăng nhập, Trợ giúp ẩn/hiện khi cuộn, footer) cùng test edge case cập nhật, 20/20 E2E lúc đó pass; đối chiếu thủ công nội dung trợ giúp với mã nguồn. Chưa dùng Playwright MCP (không có trong phiên), thay bằng ảnh chụp từ script Playwright.
 
-### AI-LOG-010 — Ảnh minh chứng riêng tư cho yêu cầu nhận lại
+### AI-LOG-010 — Ảnh minh chứng riêng tư, Họ và tên khi đăng ký, Hủy bàn giao
 
-- Nguồn: giai đoạn hoàn thiện luồng nhận đồ.
-- AI Tool: Claude Code (Sonnet 5.5), ponytail, Supabase MCP (chỉ đọc), Drizzle migration.
-- Task: Cho người mất đồ đính kèm ảnh minh chứng khi gửi yêu cầu nhận; thiết kế nơi lưu và cách cấp quyền đọc.
-- Input / Context: Form yêu cầu, `ImagePicker`, `checkImages`, migration bucket ảnh tin, truy vấn yêu cầu.
-- AI Output: Ảnh minh chứng có thể lộ chi tiết giúp người khác mạo nhận nên AI đề xuất bucket riêng tư `claim-images` (không dùng bucket công khai của ảnh tin) và bảng `claim_images`. Vì người nhặt không phải chủ thư mục ảnh nên policy Storage gọi hàm `security definer public.can_read_claim_image`; server tạo signed URL 1 giờ bằng session của người xem, không cần service-role key. Tái dùng `ImagePicker` và `checkImages` bằng cách thêm tham số (bucket, số ảnh, nhãn) thay vì sao chép code.
-- Human Decision: **Accepted** (người dùng duyệt kế hoạch gồm bucket riêng tư và xác nhận hoàn thành).
-- Verification: E2E: người nhặt thấy ảnh và ảnh tải được, URL công khai của ảnh không mở được, người thứ ba mở trang yêu cầu nhận 404 và chi tiết tin công khai không chứa đường dẫn `claim-images`; unit test Zod và `checkImages` (ảnh trùng, đường dẫn của người khác, đường dẫn sai dạng bị từ chối); Supabase MCP (chỉ đọc) xác nhận bucket không công khai, có 2 policy và RLS bật. Advisor Supabase cảnh báo hàm này gọi được qua RPC bởi người đã đăng nhập; chấp nhận có chủ ý vì hàm chỉ trả boolean theo `auth.uid()` của người gọi, cùng kiểu với `is_admin()` đã có. Chưa có test tự động cho nhánh "ảnh chưa tải lên Storage" (chỉ xác nhận bằng đọc code).
+- Nguồn: giai đoạn hoàn thiện luồng nhận đồ; gồm ba phần: ảnh minh chứng, họ và tên khi đăng ký, hủy bàn giao.
+- AI Tool: Antigravity (Claude Sonnet), ponytail, Supabase MCP (chỉ đọc), Drizzle migration.
+- Task:
+  1. Cho người mất đồ đính kèm ảnh minh chứng khi gửi yêu cầu nhận; thiết kế nơi lưu và cách cấp quyền đọc.
+  2. Thêm ô **Họ và tên** bắt buộc ở form đăng ký, validate server và lưu vào `users.full_name`.
+  3. Xử lý trường hợp hai bên đã xác nhận bàn giao nhưng đến hẹn không gặp được nhau: thêm thao tác **Hủy bàn giao** để tin không kẹt ở "Đang bàn giao".
+- Input / Context: Form yêu cầu, `ImagePicker`, `checkImages`, migration bucket ảnh tin, truy vấn yêu cầu; `schemas.ts`, `actions.ts`, `session.ts`, `auth-form.tsx`; `rules.ts`, `handover-actions.ts`, `handover.tsx`, `claims/[id]/page.tsx`.
+- AI Output:
+  1. Ảnh minh chứng có thể lộ chi tiết giúp người khác mạo nhận nên AI đề xuất bucket riêng tư `claim-images` (không dùng bucket công khai của ảnh tin) và bảng `claim_images`. Vì người nhặt không phải chủ thư mục ảnh nên policy Storage gọi hàm `security definer public.can_read_claim_image`; server tạo signed URL 1 giờ bằng session của người xem, không cần service-role key. Tái dùng `ImagePicker` và `checkImages` bằng cách thêm tham số (bucket, số ảnh, nhãn) thay vì sao chép code.
+  2. Tách quy tắc `fullName` dùng chung giữa `profileSchema` và `registerSchema` mới (trim, 2–120 ký tự); `ensureUserRow` nhận `fullName` tùy chọn nên đăng nhập/callback không đổi; `register` giữ lại họ tên đã nhập khi báo lỗi. Không đổi schema DB (`users.full_name` đã có), không thêm migration.
+  3. Xác nhận bằng đọc code rằng `IN_PROGRESS` chỉ thoát được sang `RETURNED`/`HIDDEN` nên tin bị kẹt; đề xuất thêm trạng thái claim `CANCELLED` (migration `0007_claim_cancelled.sql`) thay vì dùng lại `REJECTED` để phân biệt "bị từ chối" với "bàn giao thất bại". Action `cancelHandover` theo mẫu `confirmHandover`: một transaction khóa dòng, claim `ACCEPTED` → `CANCELLED`, tin `IN_PROGRESS` → `OPEN`, thông báo bên còn lại; cả người nhặt và người nhận đều hủy được, người ngoài bị từ chối; bấm lặp lại không đổi dữ liệu. Nút "Hủy bàn giao" có `confirm()`, thông tin liên hệ tự ẩn khi không còn `ACCEPTED`. Sửa thêm `ClaimSteps` ở trang tin vì trạng thái mới làm bước "Được chấp nhận" hiển thị sai.
+- Human Decision:
+  1. **Accepted** (người dùng duyệt kế hoạch gồm bucket riêng tư và xác nhận hoàn thành).
+  2. Chờ xác nhận.
+  3. **Accepted** (người dùng chọn phương án `CANCELLED` và test tay thấy ổn, 2026-10-04; bỏ qua Playwright MCP và `/ponytail-review`).
+- Verification:
+  1. E2E: người nhặt thấy ảnh và ảnh tải được, URL công khai của ảnh không mở được, người thứ ba mở trang yêu cầu nhận 404 và chi tiết tin công khai không chứa đường dẫn `claim-images`; unit test Zod và `checkImages` (ảnh trùng, đường dẫn của người khác, đường dẫn sai dạng bị từ chối); Supabase MCP (chỉ đọc) xác nhận bucket không công khai, có 2 policy và RLS bật. Advisor Supabase cảnh báo hàm này gọi được qua RPC bởi người đã đăng nhập; chấp nhận có chủ ý vì hàm chỉ trả boolean theo `auth.uid()` của người gọi, cùng kiểu với `is_admin()` đã có. Chưa có test tự động cho nhánh "ảnh chưa tải lên Storage" (chỉ xác nhận bằng đọc code).
+  2. Unit test `registerSchema` (thiếu, 1 ký tự, 121 ký tự, khoảng trắng đầu/cuối); `lint`, `typecheck`, `test` (81), `build` pass; E2E `edge-cases` và `header-help` pass (11 test). Chưa chạy lại toàn bộ E2E; chưa kiểm tra popup bằng Playwright MCP (desktop và 320px).
+  3. Unit test chuyển trạng thái (`ACCEPTED` → `CANCELLED` được; `COMPLETED`/`CANCELLED`/`REJECTED`/`PENDING` bị từ chối); `lint`, `typecheck`, `test` (82), `build` pass; migration đã `db:migrate` trên DB dev; người dùng test tay hủy từ cả hai phía. Chưa có E2E cho hủy bàn giao.
 
 ## 3. Quyết định quan trọng có AI hỗ trợ
 
