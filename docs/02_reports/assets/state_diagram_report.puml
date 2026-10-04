@@ -15,6 +15,7 @@ state "HIDDEN\n(Đã ẩn)" as HIDDEN
 
 OPEN --> IN_PROGRESS : Người nhặt chấp nhận\nmột yêu cầu (tin FOUND)
 IN_PROGRESS --> RETURNED : Hai bên đều xác nhận\nđã trả / đã nhận
+IN_PROGRESS --> OPEN : Một trong hai bên\nhủy bàn giao
 OPEN --> CLOSED : Chủ tin đóng tin
 
 OPEN --> HIDDEN : ADMIN ẩn

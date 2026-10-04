@@ -1,8 +1,8 @@
 "use client";
 
 import { useActionState } from "react";
-import { CalendarCheck, PackageCheck } from "lucide-react";
-import { confirmHandover, setMeeting } from "@/lib/claims/handover-actions";
+import { CalendarCheck, PackageCheck, XCircle } from "lucide-react";
+import { cancelHandover, confirmHandover, setMeeting } from "@/lib/claims/handover-actions";
 import { Input, Select } from "@/components/ui/field";
 import { ActionMessage } from "@/components/ui/notice";
 import { SubmitButton } from "@/components/ui/submit-button";
@@ -43,6 +43,26 @@ export function MeetingForm({
         <SubmitButton className="btn btn-secondary" pendingText="Đang lưu…">
           <CalendarCheck className="size-4" aria-hidden />
           {initial.meetLocationId ? "Đổi lịch hẹn" : "Lưu lịch hẹn"}
+        </SubmitButton>
+      </div>
+    </form>
+  );
+}
+
+export function CancelHandoverButton({ id }: { id: string }) {
+  const [state, action] = useActionState(cancelHandover, {});
+  return (
+    <form
+      action={action}
+      className="flex flex-col gap-2"
+      onSubmit={(e) => !confirm("Hủy bàn giao? Yêu cầu sẽ bị đóng, tin quay về Đang mở và bạn không thể gửi lại yêu cầu cho tin này.") && e.preventDefault()}
+    >
+      <ActionMessage state={state} />
+      <input type="hidden" name="id" value={id} />
+      <div>
+        <SubmitButton className="btn btn-secondary" pendingText="Đang hủy…">
+          <XCircle className="size-4" aria-hidden />
+          Hủy bàn giao
         </SubmitButton>
       </div>
     </form>

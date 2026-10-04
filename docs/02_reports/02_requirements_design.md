@@ -223,7 +223,7 @@ erDiagram
         int report_id FK "Tin Nhặt được được yêu cầu"
         int claimant_id FK "Người gửi yêu cầu"
         text answer_text "Câu trả lời xác minh"
-        string status "PENDING, ACCEPTED, REJECTED, COMPLETED, EXPIRED"
+        string status "PENDING, ACCEPTED, REJECTED, COMPLETED, EXPIRED, CANCELLED"
         int meet_location_id FK "Điểm hẹn"
         datetime meet_time "Giờ hẹn"
         datetime finder_confirmed_at
@@ -251,7 +251,7 @@ erDiagram
 **Ghi chú về dữ liệu**
 
 - **Category/Location** do quản trị viên quản lý (FR15); Location không dùng GPS hoặc tọa độ chính xác.
-- **Claim** chỉ là yêu cầu nhận lại đồ gửi đến tin Nhặt được, không phải bằng chứng sở hữu. Chỉ claimant và chủ tin Nhặt được liên quan truy cập câu trả lời xác minh và ảnh minh chứng (`CLAIM_IMAGES`, lưu trong bucket riêng tư, xem qua signed URL ngắn hạn). Một tin có tối đa một claim `ACCEPTED`; khi chấp nhận, các claim còn lại bị đóng. `COMPLETED` khi cả `finder_confirmed_at` và `owner_confirmed_at` có giá trị, đồng thời tin chuyển `RETURNED`.
+- **Claim** chỉ là yêu cầu nhận lại đồ gửi đến tin Nhặt được, không phải bằng chứng sở hữu. Chỉ claimant và chủ tin Nhặt được liên quan truy cập câu trả lời xác minh và ảnh minh chứng (`CLAIM_IMAGES`, lưu trong bucket riêng tư, xem qua signed URL ngắn hạn). Một tin có tối đa một claim `ACCEPTED`; khi chấp nhận, các claim còn lại bị đóng. `COMPLETED` khi cả `finder_confirmed_at` và `owner_confirmed_at` có giá trị, đồng thời tin chuyển `RETURNED`. Bàn giao thất bại thì một trong hai bên hủy: claim `CANCELLED`, tin về `OPEN`.
 - **Match** lưu để gửi gợi ý/thông báo cho cả hai bên và ghi nhận người dùng bấm "Không phải" (`DISMISSED`); score vẫn tính bằng rule deterministic ở mục 11.
 - Không công khai thông tin liên hệ cá nhân trên feed; seed không dùng dữ liệu cá nhân hoặc thông tin xác minh thật.
 
@@ -376,11 +376,11 @@ Hai đối tượng có vòng đời nhiều bước và nhiều actor nên cầ
 - `ADMIN` ẩn được tin ở mọi trạng thái; `HIDDEN` là trạng thái cuối (không có thao tác bỏ ẩn), chỉ còn xóa.
 - Tin `LOST` không có yêu cầu nhận đồ nên chỉ đi nhánh `OPEN` → `CLOSED` hoặc `HIDDEN`, không thành `RETURNED`.
 - Hết hạn 60 ngày không phải trạng thái lưu: so `expires_at` với thời điểm hiện tại khi truy vấn.
-- Hạn chế hiện tại: tin `IN_PROGRESS` chưa có đường quay lại `OPEN`/`CLOSED` nếu hai bên không gặp nhau.
+- Tin `IN_PROGRESS` quay về `OPEN` khi một trong hai bên hủy bàn giao (CHG-032) để người nhặt nhận yêu cầu khác.
 
 **(b) Yêu cầu nhận đồ (`CLAIMS.status`)** — PlantUML source: [`state_diagram_claim.puml`](assets/state_diagram_claim.puml).
 
 - `PENDING` → `ACCEPTED` hoặc `REJECTED` do người nhặt quyết định; khi một yêu cầu được chấp nhận, các yêu cầu `PENDING` còn lại tự chuyển `REJECTED`.
 - `ACCEPTED` → `COMPLETED` khi cả hai bên đã xác nhận, đồng thời tin chuyển `RETURNED`.
+- `ACCEPTED` → `CANCELLED` khi người nhặt hoặc người nhận hủy bàn giao; tin quay về `OPEN`, liên hệ hai bên ngừng hiển thị. Người bị hủy không gửi lại được yêu cầu cho tin đó (mỗi người một yêu cầu cho mỗi tin).
 - `EXPIRED` là trạng thái suy ra: `PENDING` quá 7 ngày được coi là hết hạn khi đọc.
-- Hạn chế hiện tại: yêu cầu `ACCEPTED` chưa có thao tác hủy.

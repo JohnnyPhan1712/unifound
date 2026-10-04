@@ -12,7 +12,11 @@ const day = 86_400_000;
 describe("TC-019-01 state machine", () => {
   it("chỉ cho các chuyển hợp lệ", () => {
     const allowed = CLAIM_STATUSES.flatMap((from) => CLAIM_STATUSES.filter((to) => canTransition(from, to)).map((to) => `${from}->${to}`));
-    expect(allowed.sort()).toEqual(["ACCEPTED->COMPLETED", "PENDING->ACCEPTED", "PENDING->REJECTED"]);
+    expect(allowed.sort()).toEqual(["ACCEPTED->CANCELLED", "ACCEPTED->COMPLETED", "PENDING->ACCEPTED", "PENDING->REJECTED"]);
+  });
+  it("TC-032-01 chỉ ACCEPTED mới hủy được", () => {
+    for (const from of CLAIM_STATUSES.filter((s) => s !== "ACCEPTED")) expect(canTransition(from, "CANCELLED")).toBe(false);
+    expect(canTransition("CANCELLED", "ACCEPTED")).toBe(false);
   });
   it("không quay lại từ trạng thái kết thúc", () => {
     expect(canTransition("REJECTED", "ACCEPTED")).toBe(false);

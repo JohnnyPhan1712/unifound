@@ -354,8 +354,9 @@ function MobileBar({ children }: { children: React.ReactNode }) {
 }
 
 function ClaimSteps({ status, sentAt }: { status: ReturnType<typeof effectiveClaimStatus>; sentAt: Date }) {
-  if (status === "REJECTED" || status === "EXPIRED") {
-    return <Notice tone="warn">{status === "REJECTED" ? "Yêu cầu không được chấp nhận hoặc tin đã chọn người khác." : "Yêu cầu quá 7 ngày không được phản hồi nên đã hết hạn."}</Notice>;
+  if (status === "REJECTED" || status === "EXPIRED" || status === "CANCELLED") {
+    const text = { REJECTED: "Yêu cầu không được chấp nhận hoặc tin đã chọn người khác.", EXPIRED: "Yêu cầu quá 7 ngày không được phản hồi nên đã hết hạn.", CANCELLED: "Bàn giao đã bị hủy." };
+    return <Notice tone="warn">{text[status]}</Notice>;
   }
   const accepted = status === "ACCEPTED" || status === "COMPLETED";
   const steps = [
