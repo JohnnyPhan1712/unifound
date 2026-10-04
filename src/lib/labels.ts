@@ -16,6 +16,7 @@ export const CLAIM_STATUS_LABEL: Record<ClaimStatus, string> = {
   REJECTED: "Bị từ chối",
   COMPLETED: "Hoàn tất",
   EXPIRED: "Hết hạn",
+  CANCELLED: "Đã hủy",
 };
 
 const TZ = "Asia/Ho_Chi_Minh";

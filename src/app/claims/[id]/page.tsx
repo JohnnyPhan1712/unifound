@@ -5,7 +5,7 @@ import { CircleCheck, Clock, LockKeyhole, MapPin, Phone } from "lucide-react";
 import { ClaimBadge, TypeBadge } from "@/components/ui/badges";
 import { Notice } from "@/components/ui/notice";
 import { DecisionButtons } from "@/components/claims/decision-buttons";
-import { ConfirmHandoverButton, MeetingForm } from "@/components/claims/handover";
+import { CancelHandoverButton, ConfirmHandoverButton, MeetingForm } from "@/components/claims/handover";
 import { ReportVisual } from "@/components/reports/report-card";
 import { requireUser } from "@/lib/auth/session";
 import { canViewClaim, getClaimDetail, getClaimImageUrls, getHandoverContacts, type ClaimDetail } from "@/lib/claims/query";
@@ -122,6 +122,7 @@ function NextStep({ claim, status, isFinder }: { claim: ClaimDetail; status: Ret
     return <Notice tone="warn">{isFinder ? "Bạn đã từ chối yêu cầu này." : "Yêu cầu không được chấp nhận hoặc tin đã chọn người khác."}</Notice>;
   }
   if (status === "EXPIRED") return <Notice tone="warn">Yêu cầu đã quá {CLAIM_TTL_DAYS} ngày không được phản hồi nên đã hết hạn.</Notice>;
+  if (status === "CANCELLED") return <Notice tone="warn">Bàn giao đã bị hủy. Thông tin liên hệ không còn hiển thị.</Notice>;
   if (status === "COMPLETED") return <Notice tone="success">Đã bàn giao xong. Tin đã chuyển sang Đã trả.</Notice>;
   return <HandoverSection claim={claim} isFinder={isFinder} />;
 }
@@ -199,6 +200,12 @@ async function HandoverSection({ claim, isFinder }: { claim: ClaimDetail; isFind
         ) : (
           <ConfirmHandoverButton id={claim.id} label={isFinder ? "Đã trả đồ" : "Đã nhận đồ"} />
         )}
+      </div>
+
+      <div className="flex flex-col gap-2 border-t border-line pt-4">
+        <h3>Không gặp được nhau?</h3>
+        <p className="text-[0.88rem] text-muted">Hủy bàn giao để tin quay về Đang mở và nhận yêu cầu khác.</p>
+        <CancelHandoverButton id={claim.id} />
       </div>
     </section>
   );

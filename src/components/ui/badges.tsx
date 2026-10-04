@@ -45,6 +45,7 @@ const claimTone: Record<ClaimStatus, Tone> = {
   REJECTED: "rejected",
   COMPLETED: "returned",
   EXPIRED: "closed",
+  CANCELLED: "closed",
 };
 
 export function ClaimBadge({ status }: { status: ClaimStatus }) {
