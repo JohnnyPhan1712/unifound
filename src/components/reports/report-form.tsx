@@ -82,7 +82,7 @@ export function ReportForm({ action, categories, locations, maxDateTime, initial
               const Icon = t === "LOST" ? Search : Package;
               return (
                 <label key={t} className={`choice ${t === "LOST" ? "lost" : "found"} ${lockType && type !== t ? "hidden" : ""}`}>
-                  <input type="radio" name={lockType ? undefined : "type"} value={t} checked={type === t} onChange={() => setType(t)} disabled={lockType} />
+                  <input type="radio" name={lockType ? undefined : "type"} value={t} defaultChecked={v.type === t} onChange={() => setType(t)} disabled={lockType} />
                   <span className="tile">
                     <Icon className="icon-lead size-8" strokeWidth={1.5} aria-hidden />
                     <span className="text-[1rem] font-semibold leading-tight">{t === "LOST" ? "Tôi bị mất đồ" : "Tôi nhặt được đồ"}</span>
