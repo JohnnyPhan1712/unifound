@@ -1,13 +1,28 @@
+# Dependencies
 node_modules/
+
+# Build output (Next.js)
 .next/
 out/
+*.tsbuildinfo
+
+# Test output (Vitest coverage, Playwright)
 coverage/
 playwright-report/
 test-results/
+
+# Deploy
 .vercel/
+
+# Secrets: không commit, chỉ giữ file mẫu
 .env*
 !.env.example
-*.tsbuildinfo
 
+# Cấu hình công cụ AI / editor cá nhân
 .mcp.json
+.claude/
 .vscode/
+
+# Tài liệu cũ không dùng (xem AGENTS.md: chỉ dùng use_case_diagram.puml và claude_ui_mockups/)
+docs/02_reports/assets/stitch_ui_mockups/
+docs/02_reports/assets/codex_ui/
